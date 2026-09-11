@@ -1,0 +1,516 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { translateStata, EXAMPLES, COVERAGE_ROADMAP } from '../translator.js';
+import { highlightCode, highlightCodeLines, lineAtOffset, lineStartOffset, mapLine, mapVisualPosition } from '../editor-utils.js';
+
+const workflow = translateStata(EXAMPLES.workflow, { dataName: 'dt' });
+assert.match(workflow.code, /haven::read_dta/);
+assert.match(workflow.code, /mean\(sales, na\.rm = TRUE\)/);
+assert.match(workflow.code, /fixest::feols/);
+assert.match(workflow.code, /fwrite/);
+assert.ok(workflow.coverage >= 90, `workflow coverage ${workflow.coverage}`);
+
+const basic = translateStata(`gen z = ln(x) if x < .\nkeep if z > 0\ncollapse (mean) z, by(g)`);
+assert.match(basic.code, /log\(x\)/);
+assert.match(basic.code, /stata_missing_compare\(x,\s*"<",\s*""\)/);
+assert.match(basic.code, /mean\(z, na\.rm = TRUE\)/);
+
+const expressionSemantics = translateStata(`gen a = round(x, .1)\ngen b = mod(x, 3)\ngen c = cond(flag, 1, 0, 9)\ngen d = max(x, y)\ngen e = min(x, y)\ngen u = runiform(2, 5)\ngen z = rnormal(10, 2)\ngen lead = F.x\ngen ri = runiformint(1, 4)`);
+assert.equal(expressionSemantics.counts.review, 0);
+assert.match(expressionSemantics.code, /stata_round\(x,\s*\.1\)/);
+assert.match(expressionSemantics.code, /stata_mod\(x,\s*3\)/);
+assert.match(expressionSemantics.code, /stata_cond\(flag,\s*1,\s*0,\s*9\)/);
+assert.match(expressionSemantics.code, /stata_pmax\(x,\s*y\)/);
+assert.match(expressionSemantics.code, /stata_pmin\(x,\s*y\)/);
+assert.match(expressionSemantics.code, /stats::runif\(\.N,\s*min = 2,\s*max = 5\)/);
+assert.match(expressionSemantics.code, /stats::rnorm\(\.N,\s*mean = 10,\s*sd = 2\)/);
+assert.match(expressionSemantics.code, /collapse::flag\(x,\s*n = -1L/);
+assert.match(expressionSemantics.code, /sample\.int\(\(4\) - \(1\) \+ 1L,\s*\.N,\s*replace = TRUE\)/);
+assert.doesNotMatch(expressionSemantics.code, /type ==|replace ==|mean ==|min ==|max ==/);
+assert.match(expressionSemantics.code, /floor\(x \/ u \+ 0\.5\)/);
+assert.match(expressionSemantics.code, /x - y \* floor\(x \/ y\)/);
+
+const abbreviations = translateStata(`g x = 1
+ge y = 2
+gen z = 3
+loc a 1
+gl B 2
+descr`, { addHeader: false });
+assert.equal(abbreviations.counts.review, 0);
+assert.match(abbreviations.code, /x := 1/);
+assert.match(abbreviations.code, /y := 2/);
+assert.match(abbreviations.code, /z := 3/);
+assert.match(abbreviations.code, /stata_local_set\(\.do2r_local, "a"/);
+assert.match(abbreviations.code, /stata_global_set\("B", "2"\)/);
+assert.match(abbreviations.code, /str\(dt\)/);
+const nonAbbrevReplace = translateStata(`rep x = 2`, { addHeader: false });
+assert.equal(nonAbbrevReplace.counts.review, 1);
+
+const macroNamespaces = translateStata(EXAMPLES.macros);
+assert.equal(macroNamespaces.counts.review, 0);
+assert.match(macroNamespaces.code, /assign\(as\.character\(name\), value, envir = \.GlobalEnv\)/);
+assert.match(macroNamespaces.code, /stata_local_get\(local_env, name\)/);
+assert.match(macroNamespaces.code, /stata_global_set\("ROOT", "project-data"\)/);
+assert.match(macroNamespaces.code, /stata_macro_expand\("`v`i''"/);
+assert.match(macroNamespaces.code, /stata_macro_expand\("\$\{x`i'\}"/);
+assert.ok(macroNamespaces.code.includes('regexec("^([res])\\\\(([^)]+)\\\\)$"'));
+
+const syntaxContract = translateStata(EXAMPLES.syntax);
+assert.equal(syntaxContract.counts.review, 0);
+assert.match(syntaxContract.code, /stopifnot\(!is\.null\(varlist\)\)/);
+assert.match(syntaxContract.code, /length\(varlist\) >= 1L/);
+assert.match(syntaxContract.code, /length\(varlist\) <= 3L/);
+assert.match(syntaxContract.code, /all\(vapply\(dt\[, \.SD, \.SDcols = varlist\], is\.numeric/);
+assert.match(syntaxContract.code, /level <- stata_option_get\([^\n]+default = stata_c\("level", dt\)/);
+assert.match(syntaxContract.code, /generate <- stata_option_get\([^\n]+"gen"/);
+assert.match(syntaxContract.code, /replace <- stata_option_get\([^\n]+"rep"/);
+
+const resultClasses = translateStata(EXAMPLES.results);
+assert.equal(resultClasses.counts.review, 0);
+assert.match(resultClasses.code, /\.do2r_r\[\["p50"\]\]/);
+assert.match(resultClasses.code, /\.do2r_e\[\["N"\]\]/);
+assert.match(resultClasses.code, /\.do2r_e\[\["b"\]\]/);
+assert.match(resultClasses.code, /stata_c\("N",\s*dt\)/);
+assert.match(resultClasses.code, /stata_c\("pwd",\s*dt\)/);
+
+const pythonFfi = translateStata(EXAMPLES.python);
+assert.equal(pythonFfi.counts.review, 0);
+assert.match(pythonFfi.code, /reticulate::py_run_string/);
+assert.match(pythonFfi.code, /reticulate::py_run_file/);
+assert.match(pythonFfi.code, /Packages used: data.table, reticulate/);
+const pythonSfi = translateStata(`python:\nfrom sfi import Data\nprint(Data.get(\"price\"))\nend`);
+assert.equal(pythonSfi.counts.review, 1);
+assert.ok(pythonSfi.diagnostics.some(d => /sfi/i.test(d.message)));
+
+const plots = translateStata(EXAMPLES.plotting);
+assert.equal(plots.counts.review, 0);
+assert.match(plots.code, /ggplot2::geom_point/);
+assert.match(plots.code, /ggplot2::geom_histogram/);
+assert.match(plots.code, /ggplot2::geom_density/);
+assert.match(plots.code, /ggplot2::geom_boxplot/);
+assert.match(plots.code, /ggplot2::geom_col/);
+assert.ok(Object.keys(EXAMPLES).length >= 12);
+
+const missingOrder = translateStata(`gen a = x < .\ngen b = x >= .a\ngen c = .z\ngen d = . > 3`);
+assert.equal(missingOrder.counts.review, 0);
+assert.match(missingOrder.code, /stata_missing_compare\(x,\s*"<",\s*""\)/);
+assert.match(missingOrder.code, /stata_missing_compare\(x,\s*">=",\s*"a"\)/);
+assert.match(missingOrder.code, /haven::tagged_na\("z"\)/);
+assert.match(missingOrder.code, /d := TRUE/);
+
+const ttestDefaults = translateStata(`ttest y, by(g)\nttest y, by(g) unequal\nttest y = 0`, { addHeader: false });
+assert.match(ttestDefaults.code, /var\.equal = TRUE, conf\.level = 0\.95/);
+assert.match(ttestDefaults.code, /var\.equal = FALSE, conf\.level = 0\.95/);
+assert.match(ttestDefaults.code, /mu = 0, conf\.level = 0\.95/);
+
+const comments = translateStata(`glo ln_sales = ln(sales) // my comment
+/* my block comment */
+gen x = 1`, { addHeader: false });
+assert.equal(comments.counts.review, 0);
+assert.match(comments.code, /stata_global_set\("ln_sales", log\(sales\)\) # my comment/);
+assert.match(comments.code, /# my block comment/);
+assert.doesNotMatch(comments.code, /log\(sales\) # my comment\)/);
+
+const blockCommentContinuation = translateStata(`corrgram /*
+*/ inflation, lags(12)`, { addHeader: false });
+assert.equal(blockCommentContinuation.counts.review, 0);
+assert.match(blockCommentContinuation.code, /acf\(dt\[\["inflation"\]\]/);
+assert.deepEqual(blockCommentContinuation.sourceMap.map(x => [x.sourceStart, x.sourceEnd]), [[1, 2]]);
+const blockCommentContinuationIndented = translateStata(`corrgram /*
+    */ inflation, lags(12)`, { addHeader: false });
+assert.equal(blockCommentContinuationIndented.counts.review, 0);
+assert.match(blockCommentContinuationIndented.code, /pacf\(dt\[\["inflation"\]\]/);
+
+const dynamicMacroName = translateStata("local eeo foo\nlocal `eeo' 123\ndisplay `foo'", { addHeader: false });
+assert.equal(dynamicMacroName.counts.review, 0);
+assert.match(dynamicMacroName.code, /stata_local_set\(\.do2r_local, as\.character\(stata_macro_expand\("`eeo'"/);
+
+const macroTokens = translateStata(EXAMPLES.macro_tokens);
+assert.equal(macroTokens.counts.review, 0);
+assert.match(macroTokens.code, /stata_tokenize/);
+assert.match(macroTokens.code, /stata_set_positional/);
+assert.match(macroTokens.code, /stata_macro_shift/);
+assert.match(macroTokens.code, /stata_gettoken/);
+assert.match(macroTokens.code, /assign\("\*", paste\(tokens, collapse = " "\), envir = env\)/);
+assert.match(macroTokens.code, /grepl\("\\\\s", c, perl = TRUE\)/);
+assert.doesNotMatch(dynamicMacroName.code, /TODO/);
+
+const literalMissingComparison = translateStata(`display . > 3\ngen high = x > 3`, { addHeader: true });
+assert.match(literalMissingComparison.code, /cat\(TRUE/);
+assert.match(literalMissingComparison.code, /stata_compare\(x,\s*">",\s*3\)/);
+
+const frameLinks = translateStata(`frame create lookup
+frame change lookup
+input id str8 label
+1 "one"
+2 "two"
+end
+frame change default
+input id x
+1 10
+2 20
+end
+frlink m:1 id, frame(lookup)
+frget label, from(lookup)`);
+assert.equal(frameLinks.counts.review, 0);
+assert.match(frameLinks.code, /stata_frlink/);
+assert.match(frameLinks.code, /stata_frget/);
+assert.match(frameLinks.code, /link_name/);
+
+const excel = translateStata(EXAMPLES.excel);
+assert.equal(excel.counts.review, 0);
+assert.match(excel.code, /readxl::read_excel/);
+assert.match(excel.code, /openxlsx::writeData/);
+assert.match(excel.code, /stata_putexcel_set/);
+assert.match(excel.code, /stata_putexcel_formula/);
+
+const panelModels = translateStata(EXAMPLES.panel);
+assert.equal(panelModels.counts.review, 0);
+assert.match(panelModels.code, /lme4::glmer/);
+assert.match(panelModels.code, /survival::clogit/);
+assert.match(panelModels.code, /fixest::fepois/);
+assert.match(panelModels.code, /geepack::geeglm/);
+
+const mata = translateStata(EXAMPLES.mata);
+assert.match(mata.code, /rbind\(c\(1, 2\), c\(3, 4\)\)/);
+assert.match(mata.code, /crossprod\(X, X\)/);
+assert.match(mata.code, /solve/);
+assert.ok(mata.diagnostics.some(d => /live view/i.test(d.message)));
+assert.match(mata.code, /solve\(XtX\) %\*% crossprod\(X, y\)/);
+
+const mataJoins = translateStata(String.raw`mata
+A=(1,2\3,4)
+B=(5,6\7,8)
+C=A,B
+D=A\B
+z=mean(A)
+t=A'
+S=A[|2,1 \ 2,2|]
+end`);
+assert.match(mataJoins.code, /C <- cbind\(A, B\)/);
+assert.match(mataJoins.code, /D <- rbind\(A, B\)/);
+assert.match(mataJoins.code, /z <- mata_mean\(A\)/);
+assert.match(mataJoins.code, /t <- t\(A\)/);
+assert.match(mataJoins.code, /S <- A\[seq\.int\(2, 2\), seq\.int\(1, 2\)\]/);
+
+const inputBlock = translateStata(`clear
+input byte id str5 code double x
+1 "a" 1.5
+2 "bb" 2.25
+end`);
+assert.equal(inputBlock.counts.review, 0);
+assert.match(inputBlock.code, /\.__do2r_input_rows/);
+assert.match(inputBlock.code, /list\(id = 1L, code = "a", x = 1\.5\)/);
+assert.match(inputBlock.code, /data\.table::rbindlist/);
+
+const dataUtilities = translateStata(`fillin id t
+split code, parse(,) generate(part) limit(2)
+separate y, by(g) generate(y_)
+stack a b c d, into(x y)
+xpose, clear varname
+range z 0 _pi 10
+insobs 2, after(3)
+ipolate y x, gen(yi) epolate
+mvencode x y, mv(-99)
+mvdecode x y, mv(-99 -98)
+assertnested county state
+ds, has(type numeric)
+lookfor revenue profit
+compare x y
+recast double x
+compress`);
+assert.equal(dataUtilities.counts.review, 0);
+assert.match(dataUtilities.code, /stata_fillin/);
+assert.match(dataUtilities.code, /stata_split/);
+assert.match(dataUtilities.code, /stata_separate/);
+assert.match(dataUtilities.code, /stata_stack/);
+assert.match(dataUtilities.code, /stata_xpose/);
+assert.match(dataUtilities.code, /seq\(0, pi, length\.out = 10\)/);
+assert.match(dataUtilities.code, /stata_insobs/);
+assert.match(dataUtilities.code, /stata_ipolate/);
+assert.match(dataUtilities.code, /lapply\(\.SD, function\(\.x\)/);
+assert.match(dataUtilities.code, /stata_assertnested/);
+assert.match(dataUtilities.code, /grepl/);
+assert.match(dataUtilities.code, /first_missing = sum/);
+assert.match(dataUtilities.code, /:= lapply\(\.SD, as\.numeric\)/);
+
+const joins = translateStata(`cross using "u.dta"
+joinby id using "u.dta", unmatched(both) update replace _merge(src)`);
+assert.equal(joins.counts.review, 0);
+assert.match(joins.code, /allow\.cartesian = TRUE/);
+assert.match(joins.code, /invisible\(lapply\(\.__overlap/);
+assert.match(joins.code, /src := data\.table::fcase/);
+assert.doesNotMatch(joins.code, /rm\([^\n]*\.__v/);
+
+const percentiles = translateStata(`pctile q=x, nquantiles(4) genp(p)
+xtile q4=x, nq(4)
+_pctile x, percentiles(10 90)`);
+assert.equal(percentiles.counts.review, 0);
+assert.match(percentiles.code, /type = if \(altdef\) 6L else 2L/);
+assert.match(percentiles.code, /findInterval\(x, cutpoints, left\.open = TRUE\) \+ 1L/);
+assert.match(percentiles.code, /\.do2r_r <- as\.list\(\.__pct\)/);
+
+const weightedPercentile = translateStata(`pctile q=x [aw=w], nq(4)`);
+assert.equal(weightedPercentile.counts.review, 1);
+assert.match(weightedPercentile.code, /TODO/);
+
+const programming = translateStata(`levelsof g, local(gs) missing
+unab xs: x*
+numlist "1/3 5(2)9"
+confirm variable id numeric
+continue
+continue, break`);
+assert.equal(programming.counts.review, 0);
+assert.match(programming.code, /gs <- paste\(\.__levels/);
+assert.match(programming.code, /xs <- stata_vars\(dt, "x\*"\)/);
+assert.match(programming.code, /stata_numlist\("1\/3 5\(2\)9"\)/);
+assert.match(programming.code, /stopifnot\("id" %in% names\(dt\), is\.numeric/);
+assert.match(programming.code, /next/);
+assert.match(programming.code, /break/);
+
+const statsby = translateStata(`statsby mean=r(mean) p50=r(p50), by(g): summarize x, detail`);
+assert.equal(statsby.counts.review, 0);
+assert.match(statsby.code, /stata_summarize\(x, detail = TRUE\)/);
+assert.match(statsby.code, /by = c\("g"\)/);
+assert.match(statsby.code, /mean = \.do2r_r\[\["mean"\]\]/);
+
+const statsbyModel = translateStata(`statsby _b _se, by(g): regress y x`);
+assert.equal(statsbyModel.counts.review, 1);
+assert.match(statsbyModel.code, /TODO/);
+
+const setObs = translateStata(`clear
+set obs 5
+gen id = _n
+set seed 1234`);
+assert.equal(setObs.counts.review, 0);
+assert.match(setObs.code, /stata_set_obs\(dt, 5\)/);
+assert.match(setObs.code, /id := \.I/);
+assert.match(setObs.code, /set\.seed\(1234\)/);
+
+const unsupportedMvRules = translateStata(`mvencode x, mv(.a=99 \\ .b=98)`);
+assert.equal(unsupportedMvRules.counts.review, 1);
+
+const unsupported = translateStata(`foobar x y, mysterious`);
+assert.equal(unsupported.counts.review, 1);
+assert.match(unsupported.code, /TODO \[Stata line 1\]/);
+
+const dateTime = translateStata(`gen d = mdy(month, day, year)
+gen dtm = clock(stamp, "YMDhms")
+gen q = qofd(d)
+gen yy = year(d)`);
+assert.equal(dateTime.counts.review, 0);
+assert.match(dateTime.code, /stata_mdy\(month, day, year\)/);
+assert.match(dateTime.code, /stata_clock\(stamp, "YMDhms"\)/);
+assert.match(dateTime.code, /stata_qofd\(d\)/);
+assert.match(dateTime.code, /stata_year\(d\)/);
+assert.match(dateTime.code, /1960-01-01/);
+
+const timeSeries = translateStata(`tsset t
+gen ld = LD.x
+gen d2 = D2.x
+gen l1explicit = L1.x
+regress y L(0/2).(x z)
+tsfill
+tsappend, add(2)
+tssmooth ma sm = x, window(2 1 2)`);
+assert.equal(timeSeries.counts.review, 0);
+assert.match(timeSeries.code, /collapse::flag\(collapse::fdiff\(x, n = 1L, diff = 1L[^\n]*fill = NA\), n = 1L[^\n]*fill = NA\)/);
+assert.match(timeSeries.code, /collapse::fdiff\(x, n = 1L, diff = 2L[^\n]*fill = NA\)/);
+assert.match(timeSeries.code, /l1explicit := collapse::flag\(x, n = 1L[^\n]*fill = NA\)/);
+assert.match(timeSeries.code, /stata_tsfill\(dt, panel = NULL, time = "t"/);
+assert.match(timeSeries.code, /stata_tsappend\(dt, panel = NULL, time = "t"/);
+assert.match(timeSeries.code, /stata_tssmooth_ma\([\s\S]*x,[\s\S]*offsets = c\(-2L, -1L, 0L, 1L, 2L\),[\s\S]*weights = c\(1, 1, 1, 1, 1\)/);
+assert.match(timeSeries.code, /x\s*\+\s*collapse::flag\(x,\s*n = 1L/);
+
+const weightedSmooth = translateStata(`tsset t
+tssmooth ma sm = x, weights(1/2 <3> 2/1)`);
+assert.equal(weightedSmooth.counts.review, 0);
+assert.match(weightedSmooth.code, /weights = c\(1, 2, 3, 2, 1\)/);
+
+const unsupportedTsappend = translateStata(`tsset t
+tsappend, last(2020m12) tsfmt(tm)`);
+assert.equal(unsupportedTsappend.counts.review, 1);
+assert.match(unsupportedTsappend.code, /TODO/);
+
+const survey = translateStata(`svyset psu [pweight=w], strata(stratum) fpc(fpc)
+svy, subpop(if adult==1): mean income
+svy: regress y x i.g`);
+assert.equal(survey.counts.review, 0);
+assert.match(survey.code, /survey::svydesign\([\s\S]*ids = ~ psu,[\s\S]*strata = ~ stratum,[\s\S]*weights = ~ w,[\s\S]*fpc = ~ fpc/);
+assert.match(survey.code, /survey::svymean\(~ income, subset\(\.do2r_svy, stata_compare\(adult, "==", 1\)\)/);
+assert.match(survey.code, /survey::svyglm\(y ~ x \+ factor\(g\), design = \.do2r_svy\)/);
+
+const advancedSurvey = translateStata(`svyset psu [pweight=w], brrweight(rw1-rw80)`);
+assert.equal(advancedSurvey.counts.review, 1);
+assert.match(advancedSurvey.code, /TODO/);
+
+const mixedModels = translateStata(`mixed y x || school: || classroom: x
+melogit y x || school:
+mecloglog y x || school:
+meologit grade x || school:
+meprobit y x || school:
+meglm y x || school:, family(binomial) link(probit)
+meglm cases x || clinic:, family(binomial trials) link(logit)
+meglm score x || school:, family(gaussian) link(identity)`);
+assert.equal(mixedModels.counts.review, 0);
+assert.match(mixedModels.code, /lme4::lmer\(y ~ x \+ \(1 \| school\) \+ \(1 \+ x \| classroom\)/);
+assert.match(mixedModels.code, /lme4::glmer\(y ~ x \+ \(1 \| school\).*binomial/);
+assert.match(mixedModels.code, /binomial\(link = "cloglog"\)/);
+assert.match(mixedModels.code, /ordinal::clmm\(ordered\(grade\).*link = "logit"/);
+assert.match(mixedModels.code, /binomial\(link = "probit"\)/);
+assert.match(mixedModels.code, /cbind\(cases, \(trials\) - cases\)/);
+assert.match(mixedModels.code, /lme4::lmer\(score ~ x \+ \(1 \| school\).*REML = FALSE/);
+assert.match(mixedModels.code, /Packages used: data.table, lme4, ordinal/);
+
+const unsupportedMeGlm = translateStata(`meglm y x || id:, family(gamma) link(probit)`);
+assert.equal(unsupportedMeGlm.counts.review, 1);
+assert.match(unsupportedMeGlm.code, /TODO/);
+
+const tsModels = translateStata(`arima y x, arima(1 1 1)
+dfuller y, lags(2) trend
+corrgram y, lags(12)`);
+assert.equal(tsModels.counts.review, 0);
+assert.match(tsModels.code, /stats::arima/);
+assert.match(tsModels.code, /urca::ur.df/);
+assert.match(tsModels.code, /stats::acf/);
+
+const varModels = translateStata(`tsset t
+var inflation unemployment, lags(1/2)
+vargranger`);
+assert.equal(varModels.counts.review, 0);
+assert.match(varModels.code, /vars::VAR\(/);
+assert.match(varModels.code, /p = 2L/);
+assert.match(varModels.code, /stata_vargranger\(var_model_/);
+assert.match(varModels.code, /paste0\("\^", v, "\\\\\.l\[0-9\]\+\$"\)/);
+const varDefaults = translateStata(`tsset t
+var y1 y2`, { addHeader: false });
+assert.equal(varDefaults.counts.review, 0);
+assert.match(varDefaults.code, /p = 2L/);
+assert.match(varDefaults.code, /type = "const"/);
+const sparseVarLags = translateStata(`tsset t
+var y1 y2, lags(2 3)`, { addHeader: false });
+assert.equal(sparseVarLags.counts.review, 1);
+assert.match(sparseVarLags.code, /TODO/);
+
+const factorGrammar = translateStata(`fvset base last g
+reg y i.g##(i.h c.x) c.x#c.x ib(freq).region
+fvrevar i.g##i.h, stub(fv_)
+fvrevar i.g L.x, list`);
+assert.equal(factorGrammar.counts.review, 0);
+assert.match(factorGrammar.code, /stata_factor\(g, base = "last"\)/);
+assert.match(factorGrammar.code, /I\(x\^2\)/);
+assert.match(factorGrammar.code, /stata_factor\(region, base = "frequent"\)/);
+assert.match(factorGrammar.code, /stats::model.matrix/);
+assert.match(factorGrammar.code, /\.do2r_r <- list\(varlist = "g x"\)/);
+
+const repeatedEstimation = translateStata(`bootstrap bx=_b[x], reps(20) seed(1): regress y x
+jackknife m=r(mean): summarize x
+permute y b=_b[x], reps(10): regress y x
+simulate mean=r(mean), reps(10) seed(2): summarize x
+tsset t
+rolling b=_b[x], window(5): regress y x`);
+assert.equal(repeatedEstimation.counts.review, 0);
+assert.match(repeatedEstimation.code, /stata_bootstrap\(/);
+assert.match(repeatedEstimation.code, /reps = 20/);
+assert.match(repeatedEstimation.code, /stata_jackknife\(/);
+assert.match(repeatedEstimation.code, /stata_permute\(/);
+assert.match(repeatedEstimation.code, /stata_simulate\(/);
+assert.match(repeatedEstimation.code, /stata_rolling\(/);
+assert.match(repeatedEstimation.code, /strsplit\(trimws\(cluster\), "\\\\s\+"\)/);
+assert.doesNotMatch(repeatedEstimation.code, /strsplit\([^\n]+, "\\s\+"\)/);
+
+const mapped = translateStata(`gen x = 1 ///
+ + 2
+summarize x`, { addHeader: false });
+assert.deepEqual(mapped.sourceMap.map(x => [x.sourceStart, x.sourceEnd, x.rStart, x.rEnd]), [[1, 2, 1, 1], [3, 3, 2, 5]]);
+assert.equal(mapLine(mapped.sourceMap, 'source', 2)?.line, 1);
+assert.equal(mapLine(mapped.sourceMap, 'r', 4)?.line, 3);
+assert.equal(mapLine(mapped.sourceMap, 'r', 99, true)?.line, 3);
+const visualForward = mapVisualPosition([{ sourceStart: 1, sourceEnd: 1, rStart: 10, rEnd: 14 }], 'source', 1.5);
+assert.equal(visualForward?.position, 12.5);
+const visualBack = mapVisualPosition([{ sourceStart: 1, sourceEnd: 1, rStart: 10, rEnd: 14 }], 'r', 12.5);
+assert.equal(visualBack?.position, 1.5);
+assert.equal(lineAtOffset('a\nb\nc', 3), 2);
+assert.equal(lineStartOffset('a\nb\nc', 3), 4);
+
+const stataHtml = highlightCode('quietly gen x = "abc" // note\nlocal v = `x\'','stata');
+assert.match(stataHtml, /tok-keyword/);
+assert.match(stataHtml, /tok-string/);
+assert.match(stataHtml, /tok-comment/);
+assert.match(stataHtml, /tok-macro/);
+const rHtml = highlightCode('dt[, x := data.table::shift(y, 1L)] # note', 'r');
+assert.match(rHtml, /tok-namespace/);
+assert.match(rHtml, /tok-function/);
+assert.match(rHtml, /tok-number/);
+assert.match(rHtml, /tok-comment/);
+
+const appJs = readFileSync(new URL('../app.js', import.meta.url), 'utf8');
+const stylesCss = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
+const indexHtml = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+assert.doesNotMatch(appJs, /function editorMetrics\(editor\)/);
+assert.match(appJs, /function visualPositionFromScroll\(layer, scrollTop\)/);
+assert.match(appJs, /row\.offsetTop/);
+assert.match(appJs, /getBoundingClientRect\(\)\.height/);
+assert.match(appJs, /addEventListener\('dblclick'/);
+assert.match(appJs, /e\.detail >= 2/);
+assert.match(stylesCss, /height: clamp\(540px, 70vh, 760px\)/);
+assert.match(indexHtml, /id="rOutput"[^>]*wrap="off"/);
+assert.doesNotMatch(stylesCss, /\.output-editor[^}]*white-space:\s*pre-wrap/);
+assert.match(stylesCss, /\.output-editor[^}]*white-space:\s*pre/);
+assert.match(indexHtml, /Turn your Stata code into R code/);
+assert.match(indexHtml, /<h2 id="coverage-title">Broad coverage<\/h2>/);
+assert.match(indexHtml, /What just landed, and what may come next\./);
+assert.match(indexHtml, /Contributions and corrections are welcome\./);
+assert.match(appJs, /jump: true/);
+assert.match(appJs, /setRangeText\('\\t'/);
+assert.match(appJs, /document\.fonts\.ready/);
+assert.match(stylesCss, /\.syntax-line/);
+assert.match(appJs, /is-active-row/);
+assert.match(stylesCss, /\.syntax-line\.is-active-row/);
+assert.match(stylesCss, /\.active-code-line \{ display: none; \}/);
+assert.match(stylesCss, /--runtime-line-height/);
+assert.match(indexHtml, /id="optionsPanel"(?![^>]*hidden)/);
+assert.match(indexHtml, /Double-click either editor/);
+assert.match(indexHtml, /v0\.7\.0/);
+assert.match(appJs, /editor-utils\.js\?v=0\.7\.0/);
+const highlightedRows = highlightCodeLines('gen x=1\n/* block\ncomment */\ngen y=2', 'stata');
+assert.equal(highlightedRows.length, 4);
+assert.match(highlightedRows[1], /tok-comment/);
+assert.match(highlightedRows[2], /tok-comment/);
+
+assert.ok(Object.keys(EXAMPLES).length >= 21);
+for (const [exampleName, exampleCode] of Object.entries(EXAMPLES)) {
+  const exampleResult = translateStata(exampleCode);
+  assert.equal(
+    exampleResult.counts.review,
+    0,
+    `Built-in example ${exampleName} should not contain TODO/review translations`
+  );
+}
+const multilinePlot = translateStata(EXAMPLES.plotting);
+assert.match(multilinePlot.code, /\+\n\s+ggplot2::/);
+const multilineTs = translateStata(EXAMPLES.timeseries);
+assert.match(multilineTs.code, /stats::arima\(\n/);
+const sectioned = translateStata(EXAMPLES.macros);
+assert.match(sectioned.code, /# Compatibility helpers \(generated support code; not direct Stata translation\)/);
+assert.match(sectioned.code, /# Translated Stata code/);
+assert.ok(COVERAGE_ROADMAP.added.some(x => /svyset/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /tsfill/.test(x.commands) && /vargranger/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /meglm/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /python/i.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /macro/i.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /tokenize/.test(x.commands) && /gettoken/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.next.some(x => /Macro\/parser/.test(x.family) && !/gettoken\/tokenize\/macro shift/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.next.some(x => /sfi/i.test(x.family + ' ' + x.commands)));
+assert.ok(COVERAGE_ROADMAP.next.some(x => x.family === 'Remaining multilevel outcomes'));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Excel/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Frame links/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /nonlinear panel/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Factor-variable grammar/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Repeated estimation/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.next.some(x => /Advanced resampling semantics/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.next.some(x => /Factor-variable edge/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.next.some(x => x.family === 'Advanced survey designs' && x.priority === 'P1'));
+assert.ok(COVERAGE_ROADMAP.next.some(x => /Advanced date\/time/.test(x.family)));
+
+console.log('translator tests passed');

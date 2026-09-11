@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Translate Stata do-files, ado-files, and Mata into readable, performant R code in your browser.">
+  <meta name="theme-color" id="themeColorMeta" content="#f8f5ee">
+  <title>do2R · Stata to R translator</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('do2r-theme');
+        const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      } catch { document.documentElement.dataset.theme = 'light'; }
+    })();
+  </script>
+  <link rel="stylesheet" href="./styles.css?v=0.7.0">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="do2R home">
+        <span class="brand-mark" aria-hidden="true">d<span>→</span>R</span>
+        <span class="brand-copy">
+          <strong>do2R</strong>
+          <small>Stata → R translator · v0.7.0</small>
+        </span>
+      </a>
+      <nav class="header-actions" aria-label="Page actions">
+        <button class="button button-quiet theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch color theme">
+          <svg class="theme-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="theme-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.3A8 8 0 0 1 9.7 3.5 8.5 8.5 0 1 0 20.5 14.3Z"/></svg>
+          <span id="themeLabel">Dark</span>
+        </button>
+        <button class="button button-quiet" id="aboutBtn" type="button">
+          <span aria-hidden="true">?</span> How it works
+        </button>
+        <a class="button button-quiet" href="#coverage-title">Coverage</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <div class="eyebrow"><span class="status-dot"></span> Runs entirely in your browser</div>
+          <h1 id="page-title">Turn your Stata code into R code</h1>
+          <p>Paste a do-file, ado-file, or Mata block. do2R favors readable <code>data.table</code> code, translates common models and data workflows, and keeps Stata and R linked with syntax highlighting and source-aware navigation. Double-click either pane to jump to the corresponding line.</p>
+        </div>
+        <div class="intro-note" role="note">
+          <span class="intro-note-icon" aria-hidden="true">⌁</span>
+          <div><strong>Private by design.</strong><br>Your code never leaves this page. No server, account, or API key is required.</div>
+        </div>
+      </section>
+
+      <section class="workbench" aria-label="Translator workbench">
+        <div class="workbench-toolbar">
+          <div class="toolbar-group">
+            <label class="file-button" for="fileInput">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+              Open .do / .ado
+            </label>
+            <input id="fileInput" type="file" accept=".do,.ado,.mata,.txt,text/plain" hidden>
+            <label class="select-wrap" for="exampleSelect">
+              <span class="sr-only">Load example</span>
+              <select id="exampleSelect">
+                <option value="">Try an example…</option>
+                <option value="workflow">Data + regression</option>
+                <option value="plotting">Plots + graphics</option>
+                <option value="macros">Nested local/global macros</option>
+                <option value="ado">Ado program</option>
+                <option value="syntax">syntax + argument validation</option>
+                <option value="results">r()/e()/s()/c() results</option>
+                <option value="missing">Numeric missing values</option>
+                <option value="survey">Survey estimation</option>
+                <option value="timeseries">Time series</option>
+                <option value="mixed">Multilevel models</option>
+                <option value="python">Python integration</option>
+                <option value="frames">Frames + reshape</option>
+                <option value="excel">Excel import/export + putexcel</option>
+                <option value="panel">Panel GLM / GEE models</option>
+                <option value="factorvars">Factor variables + fvset/fvrevar</option>
+                <option value="resampling">Bootstrap / jackknife / permute / rolling</option>
+                <option value="strings_dates">Strings + dates</option>
+                <option value="joins_reshape">Joins + reshape</option>
+                <option value="testing">Descriptives + tests</option>
+                <option value="macro_tokens">Macro token parsing</option>
+                <option value="mata">Mata matrices</option>
+              </select>
+            </label>
+          </div>
+          <div class="toolbar-group toolbar-options">
+            <label class="compact-field">Dataset <input id="dataName" value="dt" maxlength="30" spellcheck="false" aria-label="R data.table object name"></label>
+            <button class="button button-quiet" id="optionsBtn" type="button" aria-expanded="true" aria-controls="optionsPanel">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2m4 0h10M14 5v4M8 15v4"/></svg>
+              Options
+            </button>
+            <button class="button button-primary" id="translateBtn" type="button">
+              Translate <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="options-panel" id="optionsPanel">
+          <label class="toggle-row">
+            <input type="checkbox" id="addHeader" checked>
+            <span><strong>Add setup header</strong><small>Emit package notes and helper functions only when needed.</small></span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="sourceComments">
+            <span><strong>Keep source beside translations</strong><small>Add the original Stata statement as a comment above translated R.</small></span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="strictMode" checked>
+            <span><strong>Safety-first translation</strong><small>Leave ambiguous constructs as TODOs instead of guessing.</small></span>
+          </label>
+          <label class="toggle-row">
+            <input type="checkbox" id="autoTranslate" checked>
+            <span><strong>Translate while typing</strong><small>Refresh the R output after a short pause.</small></span>
+          </label>
+        </div>
+
+        <div class="editor-grid" id="dropZone">
+          <article class="editor-card input-card">
+            <header class="editor-header">
+              <div>
+                <span class="language-chip stata-chip">STATA</span>
+                <strong id="sourceFilename">untitled.do</strong>
+              </div>
+              <div class="editor-actions">
+                <span id="sourceLines" class="muted-stat">0 lines</span>
+                <button class="icon-button" id="clearBtn" type="button" title="Clear source" aria-label="Clear source">×</button>
+              </div>
+            </header>
+            <div class="editor-body">
+              <div class="line-numbers" id="sourceLineNumbers" aria-hidden="true">1</div>
+              <div class="code-stack">
+                <pre id="stataHighlight" class="syntax-layer" aria-hidden="true"></pre>
+                <div id="stataActiveLine" class="active-code-line" aria-hidden="true"></div>
+                <textarea id="stataInput" class="code-editor" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Stata source code" placeholder="Paste Stata code here…"></textarea>
+              </div>
+              <div class="drop-overlay" aria-hidden="true">
+                <div><strong>Drop your Stata file here</strong><span>.do, .ado, .mata, or .txt</span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="editor-card output-card">
+            <header class="editor-header">
+              <div>
+                <span class="language-chip r-chip">R</span>
+                <strong>translation.R</strong>
+              </div>
+              <div class="editor-actions">
+                <span id="lineLinkStatus" class="line-link-status" title="Double-click either editor to jump to the corresponding translated/source line">Linked lines</span>
+                <button class="button button-mini" id="copyBtn" type="button">Copy</button>
+                <button class="button button-mini" id="downloadBtn" type="button">Download</button>
+              </div>
+            </header>
+            <div class="editor-body output-body">
+              <div class="line-numbers" id="outputLineNumbers" aria-hidden="true">1</div>
+              <div class="code-stack">
+                <pre id="rHighlight" class="syntax-layer" aria-hidden="true"></pre>
+                <div id="rActiveLine" class="active-code-line" aria-hidden="true"></div>
+                <textarea id="rOutput" class="code-editor output-editor" wrap="off" spellcheck="false" readonly aria-label="Translated R code" placeholder="Your R translation will appear here."></textarea>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="translation-summary" id="summaryPanel" aria-live="polite">
+          <div class="summary-main">
+            <div class="coverage-ring" id="coverageRing" style="--coverage: 0deg"><span id="coveragePct">–</span></div>
+            <div>
+              <strong id="summaryTitle">Ready when you are</strong>
+              <p id="summaryText">Paste Stata code or open a file to see translation coverage and review notes.</p>
+            </div>
+          </div>
+          <div class="summary-stats" id="summaryStats">
+            <span><i class="dot exact"></i><b id="exactCount">0</b> direct</span>
+            <span><i class="dot heuristic"></i><b id="heuristicCount">0</b> heuristic</span>
+            <span><i class="dot review"></i><b id="reviewCount">0</b> review</span>
+          </div>
+        </div>
+
+        <section class="diagnostics" id="diagnosticsSection" hidden aria-labelledby="diagnosticsTitle">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">Review queue</span>
+              <h2 id="diagnosticsTitle">Translation notes</h2>
+            </div>
+            <button class="button button-quiet button-small" id="collapseDiagnostics" type="button">Collapse</button>
+          </div>
+          <div id="diagnosticsList" class="diagnostics-list"></div>
+        </section>
+      </section>
+
+      <section class="coverage-section" aria-labelledby="coverage-title">
+        <div class="section-heading coverage-heading">
+          <div>
+            <span class="section-kicker">Built for real-world scripts</span>
+            <h2 id="coverage-title">Broad coverage</h2>
+          </div>
+          <p>do2R translates what it recognizes and marks what it cannot faithfully infer. The result is a migration draft, not a black box.</p>
+        </div>
+        <div class="feature-grid">
+          <article><span class="feature-icon">↔</span><h3>Data management</h3><p><code>generate</code>, <code>egen</code>, <code>merge</code>/<code>joinby</code>, <code>fillin</code>, <code>split</code>/<code>separate</code>, <code>reshape</code>, percentiles, imports, labels, sorting, and more.</p></article>
+          <article><span class="feature-icon">β</span><h3>Models & postestimation</h3><p>OLS, GLMs, fixed effects, IV, survey models, mixed-effects GLMs, selected time-series models, predictions, tests, and margins-oriented output.</p></article>
+          <article><span class="feature-icon">{ }</span><h3>Ado programming</h3><p>Locals/globals, <code>program</code>, <code>syntax</code>, loops, result macros, varlists, temporary objects, and selected repeated-result workflows.</p></article>
+          <article><span class="feature-icon">⌁</span><h3>Linked editors</h3><p>Syntax-highlighted Stata and R, source-mapped scrolling and click navigation, clickable diagnostics, plus a persistent light/dark theme.</p></article>
+          <article><span class="feature-icon">▦</span><h3>Mata</h3><p>Matrix literals, transpose, products, element-wise operators, linear algebra, ranges, common functions, and Stata-data access.</p></article>
+        </div>
+
+        <div class="roadmap-panel" aria-labelledby="roadmap-title">
+          <div class="roadmap-header">
+            <div>
+              <span class="section-kicker">Living coverage map</span>
+              <h3 id="roadmap-title">What just landed, and what may come next.</h3>
+              <small class="roadmap-contributions">Contributions and corrections are welcome.</small>
+            </div>
+            <p>The backlog is ordered by leverage: cross-cutting parser/runtime work first, then estimator families and specialized Stata subsystems.</p>
+          </div>
+          <div class="roadmap-grid">
+            <section class="roadmap-column" aria-labelledby="added-title">
+              <div class="roadmap-column-heading">
+                <span class="roadmap-status added">Added</span>
+                <h4 id="added-title">This coverage pass</h4>
+              </div>
+              <div id="coverageAdded" class="roadmap-list"></div>
+            </section>
+            <section class="roadmap-column roadmap-column-next" aria-labelledby="next-title">
+              <div class="roadmap-column-heading">
+                <span class="roadmap-status next">Next</span>
+                <h4 id="next-title">Prioritized gaps</h4>
+              </div>
+              <div id="coverageNext" class="roadmap-list roadmap-list-next"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div><strong>do2R</strong> is an independent translation aid and is not affiliated with StataCorp.</div>
+      <div class="footer-links">
+        <a href="https://www.stata.com/features/documentation/" target="_blank" rel="noreferrer">Stata documentation</a>
+        <a href="https://rdatatable.gitlab.io/data.table/" target="_blank" rel="noreferrer">data.table</a>
+      </div>
+    </footer>
+  </div>
+
+  <dialog id="aboutDialog" class="about-dialog">
+    <form method="dialog">
+      <button class="dialog-close" value="close" aria-label="Close">×</button>
+      <span class="section-kicker">How it works</span>
+      <h2>A conservative source-to-source translator.</h2>
+      <p>do2R tokenizes Stata statements, applies command-specific translators, rewrites common expressions, and uses a separate Mata pass. The output favors <code>data.table</code> for data work and established R packages for models that have no close base-R equivalent.</p>
+      <div class="dialog-callout"><strong>Important:</strong> Stata and R differ in missing-value rules, factor-variable semantics, estimation defaults, weights, survey machinery, time-series settings, and package implementations. Review model results and every item in the review queue before relying on a migration.</div>
+      <p class="dialog-small">For unsupported community-contributed commands or highly dynamic ado code, do2R keeps the original line in a TODO comment so the intent is not lost.</p>
+      <button class="button button-primary dialog-done" value="close">Got it</button>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js?v=0.7.0"></script>
+</body>
+</html>

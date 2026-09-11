@@ -1,0 +1,21 @@
+{
+  "name": "do2r-stata-to-r-translator",
+  "version": "0.7.0",
+  "private": true,
+  "type": "module",
+  "description": "Static in-browser Stata and Mata to R translator for GitHub Pages",
+  "scripts": {
+    "test": "node tests/translator.test.mjs",
+    "check": "node --check translator.js && node --check app.js && node --check editor-utils.js && npm test"
+  },
+  "keywords": [
+    "stata",
+    "r",
+    "translator",
+    "data.table",
+    "mata",
+    "github-pages"
+  ],
+  "license": "MIT",
+  "author": "Alek Rutkowski <alek.rutkowski@gmail.com>"
+}
