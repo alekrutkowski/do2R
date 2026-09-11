@@ -6,6 +6,8 @@ https://alekrutkowski.github.io/do2R/
 
 The translator favors readable and performant R, especially `data.table`, while using established R packages when they provide a closer semantic match than base R. Unsupported or ambiguous Stata constructs remain visible as review diagnostics or `TODO` comments rather than being silently guessed.
 
+<img width="2453" height="2111" alt="image" src="https://github.com/user-attachments/assets/e883cdc3-9806-4316-bcdd-71c5192a3406" />
+
 ## Features
 
 ### Linked editors
