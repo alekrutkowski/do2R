@@ -1,10 +1,12 @@
 # do2R v0.7.0
 
-**do2R** is a static, browser-only Stata/Mata → R translator intended for migration work on `.do`, `.ado`, and Mata code. It has no server component and can be hosted directly on GitHub Pages.
+**do2R** is a static, browser-only Stata/Mata → R translator intended for migration work on `.do`, `.ado`, and Mata code. It has no server component and can be hosted directly on GitHub Pages:
+
+https://alekrutkowski.github.io/do2R/
 
 The translator favors readable and performant R, especially `data.table`, while using established R packages when they provide a closer semantic match than base R. Unsupported or ambiguous Stata constructs remain visible as review diagnostics or `TODO` comments rather than being silently guessed.
 
-## What changed in v0.7.0
+## Features
 
 ### Linked editors
 
