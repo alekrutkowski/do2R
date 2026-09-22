@@ -240,27 +240,30 @@ export const COVERAGE_ROADMAP = {
     { family: 'Python integration', commands: 'python: ... end, python script, python query -> reticulate' },
     { family: 'Date/time core', commands: 'date()/daily(), clock(), mdy()/dmy()/ymd(), year/month/day/dow/doy, monthly/quarterly/half-year/year conversions' },
     { family: 'Time-series operators', commands: 'L./F./D./S., repeated and combined operators, L(0/2).x, L(0/2).(x y) -> collapse::flag()/fdiff(); tsset/xtset metadata' },
-    { family: 'Time-series data & estimation', commands: 'tsfill, tsappend add(#), tssmooth ma, arima, dfuller, corrgram, var, vargranger' },
+    { family: 'Time-series data & estimation', commands: 'tsfill, tsappend add(#)/last()+tsfmt(), tssmooth ma/exponential, tsfilter hp, arima, dfuller, corrgram, var, varsoc, vargranger, varlmar, varnorm, varstable, vecrank, vec, irf create/graph/table' },
     { family: 'Frame links', commands: 'frlink 1:1/m:1, frget, simple frval() via integer link metadata' },
     { family: 'Excel I/O & reporting basics', commands: 'import excel, export excel, putexcel set/cell/matrix/formula/image using readxl/openxlsx' },
     { family: 'Survey basics', commands: 'svyset; svy: mean/total/proportion/tabulate/regress/logit/probit/poisson; subpop()' },
     { family: 'Multilevel & mixed GLMs', commands: 'mixed, melogit, meprobit, mecloglog, meologit, meoprobit, mepoisson, menbreg, plus common meglm family()/link() combinations' },
-    { family: 'Common nonlinear panel models', commands: 'xtlogit, xtprobit, xtpoisson (RE/FE/PA where meaningful) and xtgee common families/correlation structures' },
+    { family: 'Common nonlinear panel models', commands: 'xtlogit, xtprobit, xtpoisson (RE/FE/PA where meaningful), xtologit/xtoprobit random-effects ordered models, and xtgee common families/correlation structures' },
     { family: 'Factor-variable grammar', commands: 'i./c., #/##, parenthesized interactions, ib(first/last/frequent/#), bn./ibn., fvset base/design/clear/report, fvrevar/list/stub()' },
-    { family: 'Repeated estimation', commands: 'bootstrap:, jackknife:/jknife:, permute:, simulate, rolling: with common r()/e()/_b/_se statistics, reps/seed/cluster/strata/window options' }
+    { family: 'Repeated estimation', commands: 'bootstrap:, jackknife:/jknife:, permute:, simulate, rolling: with common r()/e()/_b/_se statistics, reps/seed/cluster/strata/window options' },
+    { family: 'Reporting & collections', commands: 'table, dtable, etable, collect clear/preview/export with common statistic()/by() workflows and CSV/TSV/XLSX output' },
+    { family: 'Marginal analysis & coefficient combinations', commands: 'margins dydx()/at()/atmeans/over(), marginsplot, lincom, nlcom with common exponentiation/level options' },
+    { family: 'Survival analysis', commands: 'stset failure()/time0()/scale(), stcox + strata(), streg common parametric distributions, sts graph/list, stsum, stcurve survival/failure/hazard/cumhaz' }
   ],
   next: [
-    { priority: 'P1', family: 'Macro/parser edge cases', commands: 'extended macro functions, positional `0`/call-line fidelity, compound-quote edge cases, gettoken Unicode/bind corner cases, delayed expansion across multiple parser passes', note: 'Macros are central to ado programming; finish parser-level textual substitution edge cases before broadening rare estimators.' },
+    { priority: 'P1', family: 'Macro/parser edge cases', commands: 'remaining extended macro functions, positional `0`/call-line fidelity, compound-quote edge cases, gettoken Unicode/bind corner cases, delayed expansion across multiple parser passes', note: 'Common parsing functions such as word/count, strlen/length, copy, and subinstr are mapped; finish the remaining parser-level textual substitution edge cases before broadening rare estimators.' },
     { priority: 'P1', family: 'Python/sfi bridge depth', commands: 'sfi.Data, Frame, Macro, Scalar, Matrix, ValueLabel and callbacks', note: 'Map common Stata Function Interface operations to data.table objects and reticulate data exchange rather than only preserving Python source.' },
     { priority: 'P1', family: 'Frame-link depth', commands: 'fralias, frlink dir/describe/rebuild, metadata/label fidelity and multi-step link invalidation checks', note: 'Current frlink/frget mappings cover ordinary 1:1 and m:1 lookup workflows; live alias semantics and link lifecycle management need a deeper runtime model.' },
     { priority: 'P1', family: 'Advanced survey designs', commands: 'multistage svyset, brrweight(), bsrweight(), jkrweight(), sdrweight(), poststrata, calibrate/rake', note: 'Map replicate-weight and multistage designs to survey::svrepdesign()/svydesign() without losing variance-method semantics.' },
-    { priority: 'P1', family: 'Time-series data mechanics & remaining models', commands: 'tsappend last()/tsfmt(), tssmooth exponential/Holt-Winters, tsfilter, arch, vec, varsoc, varlmar/varnorm/varstable, irf, forecast', note: 'VAR and pairwise Granger testing are now covered for ordinary consecutive-lag specifications; continue with VEC, diagnostics, filters, forecasting, and date-frequency-aware mechanics.' },
+    { priority: 'P1', family: 'Time-series data mechanics & remaining models', commands: 'tssmooth double-exponential/Holt-Winters, additional tsfilter methods, arch/GARCH, SVAR, richer VAR/VEC diagnostics, forecast', note: 'HP filtering, Johansen rank/VEC models, IRFs, tsappend endpoint dates, single-exponential smoothing, lag selection, and core VAR diagnostics are now covered; continue with volatility models, structural systems, richer diagnostics, and forecasting.' },
     { priority: 'P1', family: 'Advanced resampling semantics', commands: 'bootstrap BC/BCa/reject()/weights/idcluster, jackknife mse/pseudovalues/reject(), exact permute enumeration, rolling start()/end()/keep()/saving()', note: 'The reusable repeated-command layer now exists; finish Stata-specific replication, interval, rejection, and saved-result details.' },
     { priority: 'P1', family: 'Factor-variable edge/design semantics', commands: 'full o./b./bn. omission rules, empty cells, factor variables inside every varlist/option, coefficient-name fidelity, fvset design effects in margins/contrast', note: 'The core grammar and base-level machinery are implemented; the remaining work is Stata-specific omitted-column/design-matrix fidelity across commands.' },
-    { priority: 'P1', family: 'Panel estimator depth', commands: 'xtnbreg, xtregar, xttobit, xtologit/xtoprobit, xtmlogit, xtabond/xtdpd/xtdpdsys and richer xtgee structures', note: 'Extend beyond the common xtlogit/xtprobit/xtpoisson/xtgee mappings while preserving estimator-specific likelihood, incidental-parameter, correlation, and VCE semantics.' },
+    { priority: 'P1', family: 'Panel estimator depth', commands: 'xtnbreg, xtregar, xttobit, xtmlogit, xtabond/xtdpd/xtdpdsys and richer xtgee structures', note: 'Random-effects ordered logit/probit are now mapped; extend the remaining xt families while preserving estimator-specific likelihood, incidental-parameter, correlation, and VCE semantics.' },
     { priority: 'P1', family: 'Advanced date/time & calendars', commands: 'full datetime masks/top-year rules, weekly dates, %t display formats, bcal create/load, bofd()/dofb()', note: 'Finish Stata parsing/display semantics and business-calendar mappings beyond the common constructors now covered.' },
-    { priority: 'P2', family: 'Reporting & collections', commands: 'table, dtable, etable, collect, advanced putexcel formatting/etable/collect export, putdocx, putpdf', note: 'Target R tables/document outputs without conflating presentation state with estimation state.' },
-    { priority: 'P2', family: 'Multiple imputation & deeper survival', commands: 'mi, streg, stcrreg, sts, stcurve, stsplit/stjoin', note: 'Needs stateful declaration, repeated-estimation, pooling, and survival-data transformation semantics.' },
+    { priority: 'P2', family: 'Advanced reporting & collections', commands: 'collect dimensions/layout/style/labels, advanced table/dtable/etable statistics/tests, putexcel formatting, putdocx, putpdf', note: 'Core tables, estimation tables, basic collection state, and CSV/TSV/XLSX export are mapped; finish Stata-specific presentation state and document outputs.' },
+    { priority: 'P2', family: 'Multiple imputation & deeper survival', commands: 'mi, stcrreg, stsplit/stjoin, richer stcurve at()/CI/range(), recurrent/multiple-failure workflows', note: 'Core stset, Cox, parametric streg, Kaplan–Meier, and curve output are mapped; MI pooling, competing risks, survival-data transformation, and advanced risk-set semantics remain.' },
     { priority: 'P2', family: 'Remaining multilevel outcomes', commands: 'meintreg, metobit, mestreg, menl, multilevel postestimation and richer covariance()/integration structures', note: 'Extend the shared random-effects parser while preserving censoring, survival, nonlinear, covariance, and quadrature semantics.' },
     { priority: 'P2', family: 'Advanced estimators', commands: 'gmm, heckman, heckprobit, frontier, intreg, fracreg, zero-inflated and hurdle models', note: 'Requires explicit package selection and warnings for likelihood, parameterization, and default differences.' },
     { priority: 'P3', family: 'Deep Mata/runtime language', commands: 'structs/classes/pointers, optimize(), associative arrays, file I/O, callbacks', note: 'Needs a more complete parser and runtime-model emulation rather than command-by-command regexes.' },
@@ -565,6 +568,47 @@ function optionValue(options, name) {
   const re = new RegExp(`(?:^|\\s)${name}(?:\\(([^)]*)\\))?(?=\\s|$)`, 'i');
   const m = options.match(re);
   return m ? (m[1] === undefined ? true : m[1].trim()) : null;
+}
+
+function optionValues(options, name) {
+  const src = String(options || '');
+  const wanted = String(name || '').toLowerCase();
+  const out = [];
+  let i = 0;
+  while (i < src.length) {
+    if (src[i] === '"') {
+      i += 1;
+      while (i < src.length && src[i] !== '"') i += src[i] === '\\' ? 2 : 1;
+      i += 1;
+      continue;
+    }
+    const prevOk = i === 0 || /\s|,/.test(src[i - 1]);
+    const hit = src.slice(i, i + wanted.length).toLowerCase() === wanted;
+    const next = src[i + wanted.length] || '';
+    if (!prevOk || !hit || (next && !/[\s(,]/.test(next))) { i += 1; continue; }
+    let j = i + wanted.length;
+    while (/\s/.test(src[j] || '')) j += 1;
+    if (src[j] !== '(') {
+      out.push(true);
+      i = j;
+      continue;
+    }
+    let depth = 1, quote = false, k = j + 1;
+    for (; k < src.length; k += 1) {
+      const c = src[k];
+      if (c === '"') { quote = !quote; continue; }
+      if (quote) continue;
+      if (c === '(') depth += 1;
+      else if (c === ')') {
+        depth -= 1;
+        if (depth === 0) break;
+      }
+    }
+    if (depth !== 0) break;
+    out.push(src.slice(j + 1, k).trim());
+    i = k + 1;
+  }
+  return out;
 }
 
 function hasOption(options, name) {
@@ -1655,7 +1699,83 @@ function parseWeights(text, ctx) {
 function nextModel(ctx, prefix = 'model') {
   ctx.modelCounter += 1;
   ctx.lastModel = `${prefix}_${ctx.modelCounter}`;
+  ctx.lastModelKind = '';
   return ctx.lastModel;
+}
+
+function nextTable(ctx, prefix = 'table') {
+  ctx.tableCounter += 1;
+  ctx.lastTable = `.do2r_${prefix}_${ctx.tableCounter}`;
+  return ctx.lastTable;
+}
+
+function plainStataVariable(token) {
+  let x = String(token || '').trim().replace(/^\(+|\)+$/g, '');
+  x = x.replace(/^(?:[LFDS]\d*\.)+/i, '');
+  x = x.replace(/^(?:(?:i?b(?:\([^)]*\)|[+-]?\d+(?:\.\d+)?)|i|c|bn|ibn|o(?:[+-]?\d+(?:\.\d+)?)?)\.)/i, '');
+  return /^[A-Za-z_]\w*$/.test(x) ? x : '';
+}
+
+function parseAtAssignments(raw, ctx) {
+  const src = String(raw || '').trim();
+  const out = [];
+  let i = 0;
+  while (i < src.length) {
+    while (i < src.length && /[\s,]/.test(src[i])) i += 1;
+    const m = src.slice(i).match(/^([A-Za-z_]\w*)\s*=/);
+    if (!m) break;
+    const name = m[1];
+    i += m[0].length;
+    while (/\s/.test(src[i] || '')) i += 1;
+    let rawValue = '';
+    if (src[i] === '(') {
+      let depth = 1, quote = false, j = i + 1;
+      for (; j < src.length; j += 1) {
+        const c = src[j];
+        if (c === '"') { quote = !quote; continue; }
+        if (quote) continue;
+        if (c === '(') depth += 1;
+        else if (c === ')') {
+          depth -= 1;
+          if (depth === 0) break;
+        }
+      }
+      rawValue = src.slice(i + 1, j).trim();
+      i = j + 1;
+    } else {
+      let j = i;
+      while (j < src.length && !/[\s,]/.test(src[j])) j += 1;
+      rawValue = src.slice(i, j).trim();
+      i = j;
+    }
+    if (!rawValue) continue;
+    let value;
+    if (/^[+-]?[0-9.]+(?:\s+[+-]?[0-9.]+|\s+[+-]?[0-9.]+\/[+-]?[0-9.]+|\s+[+-]?[0-9.]+\([+-]?[0-9.]+\)[+-]?[0-9.]+)*$/.test(rawValue) || /^[+-]?[0-9.]+(?:\/[+-]?[0-9.]+|\([+-]?[0-9.]+\)[+-]?[0-9.]+)$/.test(rawValue)) {
+      ctx.features.add('numlist');
+      value = `stata_numlist("${escapeRString(rawValue)}")`;
+    } else if (/^(?:"[^"]*"\s*)+$/.test(rawValue)) {
+      value = `c(${splitWords(rawValue).map(x => rString(x, ctx)).join(', ')})`;
+    } else value = translateExpression(rawValue, ctx);
+    out.push({ name, value });
+  }
+  return out;
+}
+
+function coefficientExpression(raw) {
+  let x = String(raw || '').trim();
+  const labelled = x.match(/^\(([^:()]+):\s*([\s\S]+)\)$/);
+  if (labelled) x = labelled[2].trim();
+  x = x.replace(/_b\[([^\]]+)\]/g, (_, term) => `\`${term === '_cons' ? '(Intercept)' : term}\``);
+  return x;
+}
+
+function survivalResponse(ctx) {
+  const s = ctx.survival || {};
+  const scale = s.scale || '1';
+  const stop = s.time ? `((${s.time}) / (${scale}))` : 'time';
+  const event = s.event || `rep(TRUE, nrow(${ctx.currentData}))`;
+  if (s.start) return `survival::Surv(((${s.start}) / (${scale})), ${stop}, ${event})`;
+  return `survival::Surv(${stop}, ${event})`;
 }
 
 function parseModelCore(rest, ctx) {
@@ -2406,19 +2526,90 @@ function translateTimeSeriesUtility(cmd, rest, options, ctx, rec) {
   if (cmd === 'tsappend') {
     const add = optionValue(options, 'add');
     const last = optionValue(options, 'last');
-    if (!add || add === true || last) {
-      return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tsappend currently translates add(#). last()/tsfmt() needs date-frequency-aware endpoint parsing and remains queued.', rec.text)]);
+    const tsfmt = optionValue(options, 'tsfmt');
+    if ((!add || add === true) && (!last || last === true)) {
+      return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tsappend needs either add(#) or last(date/clock).', rec.text)]);
+    }
+    if (last && last !== true && (!tsfmt || tsfmt === true) && !/^[+-]?\d+(?:\.\d+)?$/.test(String(last).trim())) {
+      return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tsappend last() needs tsfmt() unless the endpoint is already numeric (for example a yearly time variable).', rec.text)]);
     }
     ctx.features.add('tsfill');
     ctx.features.add('tsappend');
     const panelValue = optionValue(options, 'panel');
     const panelArg = panelValue && panelValue !== true ? `, panel_value = ${translateExpression(String(panelValue), ctx)}` : '';
+    if (last && last !== true) {
+      const fmtArg = tsfmt && tsfmt !== true ? `, tsfmt = "${escapeRString(String(tsfmt))}"` : '';
+      return result(`${dt} <- stata_tsappend(${dt}, panel = ${panel}, time = ${time}, delta = ${delta}, last = ${rString(String(last), ctx)}${fmtArg}${panelArg})`, 'heuristic', [diag(rec.line, 'warning', 'tsappend last()/tsfmt() was mapped to Stata-style integer time endpoints after filling internal gaps. Verify weekly/date-time literals, nonunit deltas, and panel-ID typing against Stata.', rec.text)]);
+    }
     return result(`${dt} <- stata_tsappend(${dt}, panel = ${panel}, time = ${time}, delta = ${delta}, add = ${translateExpression(String(add), ctx)}${panelArg})`, 'heuristic', [diag(rec.line, 'warning', 'tsappend, add(#) was mapped to gap-filling followed by appended time points. Verify time scale/delta and panel-ID typing.', rec.text)]);
   }
 
+  if (cmd === 'tsfilter') {
+    const m = rest.match(/^hp\s+(?:(?:byte|int|long|float|double)\s+)?(.+?)\s*=\s*(.+)$/i);
+    if (!m) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tsfilter currently maps the common Hodrick-Prescott form: tsfilter hp newvar = varname [, smooth(#) trend(newvar)].', rec.text)]);
+    const cycleNames = splitWords(m[1]).filter(Boolean);
+    const q = extractQualifiers(m[2]);
+    const sourceNames = splitWords(q.core).filter(Boolean);
+    if (q.ifExpr || q.inExpr) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tsfilter hp if/in restrictions need explicit sample-segment handling and are not translated yet.', rec.text)]);
+    if (!sourceNames.length || sourceNames.some(v => !/^[A-Za-z_]\w*$/.test(v)) || cycleNames.some(v => !/^[A-Za-z_]\w*$/.test(v)) || cycleNames.length !== sourceNames.length) {
+      return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tsfilter hp currently requires matching lists of plain source and generated cycle variable names; stub* and time-series operators remain for a later pass.', rec.text)]);
+    }
+    const trendRaw = optionValue(options, 'trend');
+    const trendNames = trendRaw && trendRaw !== true ? splitWords(String(trendRaw)).filter(Boolean) : [];
+    if (trendNames.length && (trendNames.length !== sourceNames.length || trendNames.some(v => !/^[A-Za-z_]\w*$/.test(v)))) {
+      return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tsfilter hp trend() currently requires one plain output name per filtered variable.', rec.text)]);
+    }
+    if (optionValue(options, 'gain')) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tsfilter hp gain() is not yet mapped because mFilter does not expose Stata’s gain/angular-frequency table directly.', rec.text)]);
+    const smoothRaw = optionValue(options, 'smooth');
+    const lambda = smoothRaw && smoothRaw !== true ? translateExpression(String(smoothRaw), ctx) : '1600';
+    const panelArg = ctx.panel.id ? `${dt}[["${escapeRString(ctx.panel.id)}"]]` : 'NULL';
+    ctx.features.add('mFilter');
+    ctx.features.add('tsfilter_hp');
+    const lines = [];
+    for (let i = 0; i < sourceNames.length; i++) {
+      lines.push(`.__do2r_hp <- stata_tsfilter_hp(${dt}[["${escapeRString(sourceNames[i])}"]], lambda = ${lambda}, panel = ${panelArg})`);
+      lines.push(`${dt}[, ${rTargetName(cycleNames[i], ctx)} := .__do2r_hp$cycle]`);
+      if (trendNames.length) lines.push(`${dt}[, ${rTargetName(trendNames[i], ctx)} := .__do2r_hp$trend]`);
+    }
+    lines.push('rm(.__do2r_hp)');
+    const ds = [diag(rec.line, 'warning', 'tsfilter hp was mapped to mFilter::hpfilter(). Verify endpoint treatment, missing/gapped series, and panel segmentation against Stata.', rec.text)];
+    if (!(smoothRaw && smoothRaw !== true)) ds.push(diag(rec.line, 'warning', 'Stata can choose the default HP smoothing parameter from the declared time unit; do2R uses 1600 when smooth() is omitted because display-format periodicity is not yet tracked reliably.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
+
   if (cmd === 'tssmooth') {
+    const expm = rest.match(/^exponential\s+(?:(?:byte|int|long|float|double)\s+)?([A-Za-z_]\w*)\s*=\s*(.+)$/i);
+    if (expm) {
+      const target = cleanIdentifier(expm[1], expm[1]);
+      const q = extractQualifiers(expm[2]);
+      let expr = translateExpression(q.core, ctx, { context: 'generate' });
+      const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
+      if (filter) expr = `ifelse(${filter}, ${expr}, NA)`;
+      const parms = optionValue(options, 'parms');
+      const samp0 = optionValue(options, 'samp0');
+      const s0 = optionValue(options, 's0');
+      const forecast = optionValue(options, 'forecast');
+      if (samp0 && samp0 !== true && s0 && s0 !== true) {
+        return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tssmooth exponential does not allow samp0() and s0() together.', rec.text)]);
+      }
+      const alphaArg = parms && parms !== true ? `alpha = ${translateExpression(String(parms), ctx)}` : 'alpha = NULL';
+      const s0Arg = s0 && s0 !== true ? `s0 = ${translateExpression(String(s0), ctx)}` : 's0 = NULL';
+      const sampArg = samp0 && samp0 !== true ? `samp0 = ${translateExpression(String(samp0), ctx)}` : 'samp0 = NULL';
+      const fcArg = forecast && forecast !== true ? `forecast = ${translateExpression(String(forecast), ctx)}` : 'forecast = 0L';
+      const panelArg = ctx.panel.id ? `, panel = ${dt}[["${escapeRString(ctx.panel.id)}"]]` : '';
+      ctx.features.add('tssmooth_exp');
+      ctx.features.add('results');
+      const lines = [
+        `.__do2r_smooth <- stata_tssmooth_exponential(${dt}[, ${expr}], ${alphaArg}, ${s0Arg}, ${sampArg}, ${fcArg}${panelArg})`,
+        `${dt}[, ${target} := .__do2r_smooth$value]`,
+        '.do2r_r <- .__do2r_smooth$results',
+        'rm(.__do2r_smooth)'
+      ];
+      return result(lines, 'heuristic', [diag(rec.line, 'warning', 'tssmooth exponential was mapped to the Stata one-step-ahead recursion, including panel-specific optimization when parms() is omitted and Stata-like treatment of leading/interior/trailing missing values. Numeric optimization and floating-point details can still differ.', rec.text)]);
+    }
+
     const m = rest.match(/^ma\s+(?:(?:byte|int|long|float|double)\s+)?([A-Za-z_]\w*)\s*=\s*(.+)$/i);
-    if (!m) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'Only tssmooth ma is translated in this pass; exponential, Holt–Winters, nonlinear, and seasonal smoothers remain queued.', rec.text)]);
+    if (!m) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'This tssmooth method is not yet translated; double-exponential, Holt–Winters, nonlinear, and seasonal smoothers remain queued.', rec.text)]);
     const target = cleanIdentifier(m[1], m[1]);
     const q = extractQualifiers(m[2]);
     let expr = translateExpression(q.core, ctx, { context: 'generate' });
@@ -2459,6 +2650,85 @@ function translateTimeSeriesUtility(cmd, rest, options, ctx, rec) {
 
 function translateTimeSeriesModel(cmd, rest, options, ctx, rec) {
   const dt = ctx.currentData;
+  if (cmd === 'irf') {
+    const words = splitWords(rest);
+    const sub = (words.shift() || '').toLowerCase();
+    if (sub === 'set') {
+      return result(`# irf set ${words.join(' ')}  # do2R keeps IRF results in R objects rather than a persistent .irf file`, 'heuristic', [diag(rec.line, 'info', 'irf set file state is not persisted; subsequent translated irf create commands use in-memory R objects.', rec.text)]);
+    }
+    if (sub === 'create') {
+      const irfName = cleanIdentifier(words.shift() || '', 'irf_result');
+      if (!ctx.lastModel || !['var','vec'].includes(ctx.lastModelKind)) {
+        return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'irf create is currently mapped after translated var or vec models. ARIMA/SVAR/local-projection IRFs need separate response-function machinery.', rec.text)]);
+      }
+      const order = optionValue(options, 'order');
+      if (order && order !== true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'irf create order() changes the Cholesky ordering; do2R will not silently reorder an already fitted vars model.', rec.text)]);
+      const step = optionValue(options, 'step');
+      const reps = optionValue(options, 'reps');
+      const level = optionValue(options, 'level');
+      const seed = optionValue(options, 'seed');
+      const doBoot = hasOption(options, 'bs') || hasOption(options, 'bsp');
+      const target = `.do2r_irf_${irfName}`;
+      ctx.lastIrf = target;
+      ctx.features.add('vars');
+      ctx.features.add('irf');
+      const lines = [`${target} <- stata_irf_create(${ctx.lastModel}, n.ahead = ${step && step !== true ? translateExpression(String(step), ctx) : '8L'}, boot = ${doBoot ? 'TRUE' : 'FALSE'}, runs = ${reps && reps !== true ? translateExpression(String(reps), ctx) : '200L'}, ci = ${(level && level !== true) ? `(${translateExpression(String(level), ctx)}) / 100` : '0.95'}, seed = ${seed && seed !== true ? translateExpression(String(seed), ctx) : 'NULL'})`];
+      const ds = [diag(rec.line, 'warning', 'irf create was mapped to vars::irf()/fevd() objects for ordinary and orthogonalized, cumulative, and FEVD results. Stata IRF-file metadata and exact standard-error conventions are not reproduced.', rec.text)];
+      if (!doBoot && ctx.lastModelKind === 'var') ds.push(diag(rec.line, 'warning', 'Stata uses asymptotic IRF standard errors by default after var; vars::irf() has bootstrap bands or point estimates, so this translation returns point estimates unless bs/bsp is requested.', rec.text));
+      if (hasOption(options, 'bsp')) ds.push(diag(rec.line, 'warning', 'Stata bsp requests a parametric bootstrap; vars::irf() uses its own bootstrap procedure, so interval estimates are only an approximation.', rec.text));
+      return result(lines, 'heuristic', ds);
+    }
+    if (sub === 'graph' || sub === 'table') {
+      if (!ctx.lastIrf) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `irf ${sub} requires a preceding translated irf create in the same translation context.`, rec.text)]);
+      const statistic = (words.shift() || 'oirf').toLowerCase();
+      const allowed = new Set(['irf','oirf','cirf','coirf','fevd']);
+      if (!allowed.has(statistic)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `irf ${sub} statistic ${statistic} is not mapped yet.`, rec.text)]);
+      const impulse = optionValue(options, 'impulse');
+      const response = optionValue(options, 'response');
+      if (sub === 'table') {
+        ctx.features.add('irf');
+        return result(`stata_irf_table(${ctx.lastIrf}, statistic = "${statistic}"${impulse && impulse !== true ? `, impulse = c(${splitWords(String(impulse)).map(x => `"${escapeRString(x)}"`).join(', ')})` : ''}${response && response !== true ? `, response = c(${splitWords(String(response)).map(x => `"${escapeRString(x)}"`).join(', ')})` : ''})`, 'heuristic', [diag(rec.line, 'warning', 'irf table was flattened to a tidy R data frame; Stata-specific table layout, significance annotations, and IRF-file selection are not reproduced.', rec.text)]);
+      }
+      if (statistic === 'fevd') return result(`plot(${ctx.lastIrf}$fevd)`, 'heuristic', [diag(rec.line, 'warning', 'irf graph fevd was mapped to vars::fevd plotting. Stata graph styling/options are not reproduced.', rec.text)]);
+      const plotArgs = [impulse && impulse !== true ? `impulse = c(${splitWords(String(impulse)).map(x => `"${escapeRString(x)}"`).join(', ')})` : '', response && response !== true ? `response = c(${splitWords(String(response)).map(x => `"${escapeRString(x)}"`).join(', ')})` : ''].filter(Boolean).join(', ');
+      return result(`plot(${ctx.lastIrf}$${statistic}${plotArgs ? `, ${plotArgs}` : ''})`, 'heuristic', [diag(rec.line, 'warning', `irf graph ${statistic} was mapped to vars plotting; Stata graph formatting and by()/individual combination semantics are not reproduced.`, rec.text)]);
+    }
+    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'This irf subcommand is not yet mapped; create, set, graph, and table are supported in common forms.', rec.text)]);
+  }
+  if (cmd === 'vec' || cmd === 'vecrank') {
+    const q = extractQualifiers(rest);
+    const depvars = splitWords(q.core).filter(Boolean);
+    if (depvars.length < 2 || depvars.some(v => !/^[A-Za-z_]\w*$/.test(v))) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} currently requires at least two plain endogenous variable names.`, rec.text)]);
+    const lagsRaw = optionValue(options, 'lags');
+    const lags = lagsRaw && lagsRaw !== true ? translateExpression(String(lagsRaw), ctx) : '2L';
+    const trend = String(optionValue(options, 'trend') || 'constant').trim().toLowerCase();
+    const trendMap = { constant: 'none', rconstant: 'const', rtrend: 'trend' };
+    if (!(trend in trendMap)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} trend(${trend}) has no sufficiently faithful one-call mapping in urca::ca.jo(); do2R currently maps trend(constant), trend(rconstant), and trend(rtrend).`, rec.text)]);
+    if (optionValue(options, 'aconstraints') || optionValue(options, 'bconstraints')) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} coefficient constraints are not silently dropped; urca needs an explicit constrained-cointegration translation.`, rec.text)]);
+    const sindRaw = optionValue(options, 'sindicators');
+    const sind = sindRaw && sindRaw !== true ? splitWords(String(sindRaw)).filter(Boolean) : [];
+    if (sind.some(v => !/^[A-Za-z_]\w*$/.test(v))) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} sindicators() currently supports plain variable names only.`, rec.text)]);
+    const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
+    const source = filter ? `${dt}[${filter}]` : dt;
+    const cols = [...depvars, ...sind].filter((v,i,a) => a.indexOf(v) === i);
+    ctx.features.add('urca'); ctx.features.add('vars'); ctx.features.add('results');
+    const dataLine = `.__do2r_vec_data <- as.data.frame(${source}[, .SD, .SDcols = c(${cols.map(v => `"${escapeRString(v)}"`).join(', ')})])`;
+    const caCall = `urca::ca.jo(as.matrix(.__do2r_vec_data[, c(${depvars.map(v => `"${escapeRString(v)}"`).join(', ')}), drop = FALSE]), type = "trace", ecdet = "${trendMap[trend]}", K = ${lags}, spec = "transitory"${sind.length ? `, dumvar = as.matrix(.__do2r_vec_data[, c(${sind.map(v => `"${escapeRString(v)}"`).join(', ')}), drop = FALSE])` : ''})`;
+    const ds = [diag(rec.line, 'warning', `${cmd} was mapped to Johansen machinery in urca. Verify deterministic-term normalization, critical values, collinearity reduction, sample gaps, and Stata-specific finite-sample details.`, rec.text)];
+    if (trend !== 'constant') ds.push(diag(rec.line, 'warning', `Stata trend(${trend}) and urca ecdet="${trendMap[trend]}" are close Johansen specifications, but parameter naming/normalization and reported trend coefficients differ.`, rec.text));
+    if (cmd === 'vecrank') {
+      const lines = [dataLine, `.__do2r_vecrank <- ${caCall}`, '.do2r_r <- list(trace = .__do2r_vecrank@teststat, critical = .__do2r_vecrank@cval)', 'summary(.__do2r_vecrank)', 'rm(.__do2r_vec_data)'];
+      if (hasOption(options, 'max')) lines.splice(2, 0, `.__do2r_vecrank_max <- urca::ca.jo(as.matrix(.__do2r_vec_data[, c(${depvars.map(v => `"${escapeRString(v)}"`).join(', ')}), drop = FALSE]), type = "eigen", ecdet = "${trendMap[trend]}", K = ${lags}, spec = "transitory"${sind.length ? `, dumvar = as.matrix(.__do2r_vec_data[, c(${sind.map(v => `"${escapeRString(v)}"`).join(', ')}), drop = FALSE])` : ''})`);
+      if (hasOption(options, 'ic')) ds.push(diag(rec.line, 'warning', 'vecrank, ic information-criterion output is not reproduced by ca.jo(); the Johansen rank statistics are returned.', rec.text));
+      return result(lines, 'heuristic', ds);
+    }
+    const rankRaw = optionValue(options, 'rank');
+    const rank = rankRaw && rankRaw !== true ? translateExpression(String(rankRaw), ctx) : '1L';
+    const model = nextModel(ctx, 'vec_model');
+    ctx.lastModelKind = 'vec';
+    const lines = [dataLine, `.__do2r_cajo <- ${caCall}`, `${model} <- vars::vec2var(.__do2r_cajo, r = ${rank})`, `.do2r_e <- list(N = ${model}$obs, k_eq = ${model}$K, rank = ${rank}, cmd = "vec")`, 'rm(.__do2r_vec_data, .__do2r_cajo)'];
+    return result(lines, 'heuristic', ds);
+  }
   if (cmd === 'var') {
     const q = extractQualifiers(rest);
     const depvars = splitWords(q.core).filter(Boolean);
@@ -2484,6 +2754,7 @@ function translateTimeSeriesModel(cmd, rest, options, ctx, rec) {
     const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
     const source = filter ? `${dt}[${filter}]` : dt;
     const model = nextModel(ctx, 'var_model');
+    ctx.lastModelKind = 'var';
     ctx.features.add('vars');
     ctx.features.add('results');
     const cols = [...depvars, ...exog].filter((v, i, a) => a.indexOf(v) === i);
@@ -2508,6 +2779,84 @@ function translateTimeSeriesModel(cmd, rest, options, ctx, rec) {
     ];
     return result(lines, 'heuristic', [diag(rec.line, 'warning', 'vargranger is reproduced as equation-by-equation Wald tests over lag coefficients in vars::VAR equation lm objects. Compare Stata dfk/small/robust-VCE conventions if those were used in estimation.', rec.text)]);
   }
+  if (cmd === 'varsoc') {
+    const q = extractQualifiers(rest);
+    const depvars = splitWords(q.core).filter(Boolean);
+    const maxlagRaw = optionValue(options, 'maxlag');
+    const maxlag = maxlagRaw && maxlagRaw !== true ? translateExpression(String(maxlagRaw), ctx) : '4L';
+    const exogRaw = optionValue(options, 'exog');
+    const exog = exogRaw && exogRaw !== true ? splitWords(String(exogRaw)).filter(Boolean) : [];
+    const type = hasOption(options, 'noconstant') ? 'none' : 'const';
+    ctx.features.add('vars');
+    ctx.features.add('results');
+    if (!depvars.length) {
+      if (!ctx.lastModel) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'Postestimation varsoc needs a preceding translated VAR model.', rec.text)]);
+      const lines = [
+        `.__do2r_varsoc <- vars::VARselect(${ctx.lastModel}$y, lag.max = ${maxlag}, type = "${type}")`,
+        '.do2r_r <- list(selection = .__do2r_varsoc$selection, criteria = .__do2r_varsoc$criteria)',
+        '.__do2r_varsoc'
+      ];
+      return result(lines, 'heuristic', [diag(rec.line, 'warning', 'Postestimation varsoc was mapped to vars::VARselect() using the endogenous data retained by the previous VAR. Stata also reports LR/FPE details and may use different finite-sample information-criterion formulas.', rec.text)]);
+    }
+    if (depvars.length < 2 || [...depvars, ...exog].some(v => !/^[A-Za-z_]\w*$/.test(v))) {
+      return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'varsoc currently supports at least two plain endogenous variable names and plain variables in exog().', rec.text)]);
+    }
+    const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
+    const source = filter ? `${dt}[${filter}]` : dt;
+    const cols = [...depvars, ...exog].filter((v, i, a) => a.indexOf(v) === i);
+    const lines = [
+      `.__do2r_varsoc_data <- as.data.frame(${source}[, .SD, .SDcols = c(${cols.map(v => `"${escapeRString(v)}"`).join(', ')})])`,
+      `.__do2r_varsoc <- vars::VARselect(.__do2r_varsoc_data[, c(${depvars.map(v => `"${escapeRString(v)}"`).join(', ')}), drop = FALSE], lag.max = ${maxlag}, type = "${type}"${exog.length ? `, exogen = as.matrix(.__do2r_varsoc_data[, c(${exog.map(v => `"${escapeRString(v)}"`).join(', ')}), drop = FALSE])` : ''})`,
+      '.do2r_r <- list(selection = .__do2r_varsoc$selection, criteria = .__do2r_varsoc$criteria)',
+      '.__do2r_varsoc',
+      'rm(.__do2r_varsoc_data)'
+    ];
+    const ds = [diag(rec.line, 'warning', 'varsoc was mapped to vars::VARselect(). Information-criterion and final-prediction-error formulas are close analogues, but Stata LR tests, lutstats, constraints, and finite-sample details are not reproduced.', rec.text)];
+    if (hasOption(options, 'lutstats') || optionValue(options, 'constraints')) ds.push(diag(rec.line, 'warning', 'varsoc lutstats/constraints were not applied by vars::VARselect(); validate lag selection directly in Stata when those options matter.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
+  if (cmd === 'varlmar') {
+    if (!ctx.lastModel) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'varlmar requires a preceding translated var model in the same translation context.', rec.text)]);
+    const mlagRaw = optionValue(options, 'mlag');
+    const mlag = mlagRaw && mlagRaw !== true ? translateExpression(String(mlagRaw), ctx) : '2L';
+    ctx.features.add('vars');
+    ctx.features.add('vardiagnostics');
+    ctx.features.add('results');
+    const lines = [
+      `.__do2r_varlmar <- stata_varlmar(${ctx.lastModel}, mlag = ${mlag})`,
+      '.do2r_r <- list(lm = .__do2r_varlmar)',
+      '.__do2r_varlmar'
+    ];
+    return result(lines, 'heuristic', [diag(rec.line, 'warning', 'varlmar was approximated with the vars package Breusch-Godfrey system test evaluated at lag orders 1 through mlag(). Stata uses its own Johansen LM implementation for each lag, so test statistics can differ.', rec.text)]);
+  }
+  if (cmd === 'varnorm') {
+    if (!ctx.lastModel) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'varnorm requires a preceding translated var model in the same translation context.', rec.text)]);
+    ctx.features.add('vars');
+    ctx.features.add('results');
+    const lines = [
+      `.__do2r_varnorm <- vars::normality.test(${ctx.lastModel}, multivariate.only = FALSE)`,
+      '.do2r_r <- list(normality = .__do2r_varnorm)',
+      '.__do2r_varnorm'
+    ];
+    const ds = [diag(rec.line, 'warning', 'varnorm was mapped to vars::normality.test(), which provides univariate and multivariate Jarque-Bera/skewness/kurtosis diagnostics. Ordering and residual-standardization conventions should be checked against Stata.', rec.text)];
+    if (options.trim()) ds.push(diag(rec.line, 'warning', 'varnorm reporting/standardization options are not selectively reproduced; the full vars::normality.test() result is returned for inspection.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
+  if (cmd === 'varstable') {
+    if (!ctx.lastModel) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'varstable requires a preceding translated var model in the same translation context.', rec.text)]);
+    ctx.features.add('vars');
+    ctx.features.add('vardiagnostics');
+    ctx.features.add('results');
+    const graph = hasOption(options, 'graph');
+    const lines = [
+      `.__do2r_varstable <- stata_varstable(${ctx.lastModel}, graph = ${graph ? 'TRUE' : 'FALSE'})`,
+      '.do2r_r <- .__do2r_varstable',
+      '.__do2r_varstable$roots'
+    ];
+    const ds = [diag(rec.line, 'warning', 'varstable was mapped to companion-matrix eigenvalues from vars::roots(); stability is reported as all moduli being below one.', rec.text)];
+    if (optionValue(options, 'amat') || /\b(?:dlabel|modlabel|nogrid|pgrid|addplot)\b/i.test(options)) ds.push(diag(rec.line, 'warning', 'Some varstable matrix/graph-formatting options are not reproduced; the translated result retains the eigenvalues and stability flag.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
   if (cmd === 'dfuller') {
     const q = extractQualifiers(rest); const v = splitWords(q.core)[0]; if (!v) return null;
     ctx.features.add('urca');
@@ -2527,6 +2876,7 @@ function translateTimeSeriesModel(cmd, rest, options, ctx, rec) {
     if (ord.length < 3) return null;
     const data = modelDataExpr(ctx, core.subset);
     const model = nextModel(ctx, 'arima_model');
+    ctx.lastModelKind = 'arima';
     const rhs = formulaTerms(core.rhs, ctx);
     const xreg = core.rhs.trim() ? `, xreg = stats::model.matrix(~ ${rhs}, data = ${data})[, -1L, drop = FALSE]` : '';
     const sar = optionValue(options, 'sarima');
@@ -2670,6 +3020,23 @@ function translatePanelModel(cmd, rest, options, ctx, rec) {
       [diag(rec.line, 'warning', 'Default/RE xtprobit is mapped to a probit random-intercept GLMM. Compare Stata quadrature and random-effect conventions.', rec.text), ...ds]);
   }
 
+  if (cmd === 'xtologit' || cmd === 'xtoprobit') {
+    ctx.features.add('ordinal');
+    const link = cmd === 'xtologit' ? 'logit' : 'probit';
+    const intpointsRaw = optionValue(options, 'intpoints');
+    const intpointsNum = intpointsRaw && intpointsRaw !== true ? Number(intpointsRaw) : 12;
+    const intpoints = Number.isInteger(intpointsNum) && intpointsNum > 0 ? intpointsNum : 12;
+    const intmethod = String(optionValue(options, 'intmethod') || 'mvaghermite').toLowerCase();
+    const nAGQ = intmethod === 'ghermite' ? `-${intpoints}L` : `${intpoints}L`;
+    const offsetRaw = optionValue(options, 'offset');
+    const offset = offsetRaw && offsetRaw !== true ? ` + offset(${cleanIdentifier(offsetRaw, offsetRaw)})` : '';
+    const call = `${model} <- ordinal::clmm(ordered(${core.dep}) ~ ${rhs}${offset} + (1 | ${panelId}), data = ${data}, link = "${link}", nAGQ = ${nAGQ}${weightArg})`;
+    const ods = [diag(rec.line, 'warning', `${cmd} was mapped to ordinal::clmm() with a panel random intercept and ${intmethod === 'ghermite' ? 'non-adaptive' : 'adaptive'} Gauss-Hermite quadrature. Verify threshold parameterization, likelihood normalization, quadrature behavior, weights, and VCE against Stata.`, rec.text), ...ds];
+    if (intpointsRaw && intpointsRaw !== true && intpointsNum !== intpoints) ods.push(diag(rec.line, 'warning', `intpoints(${intpointsRaw}) could not be parsed as a positive integer, so the translated model uses 12 quadrature points.`, rec.text));
+    if (optionValue(options, 'constraints') || optionValue(options, 'vce') || hasOption(options, 'or') || hasOption(options, 'lrmodel') || hasOption(options, 'noskip')) ods.push(diag(rec.line, 'warning', 'One or more xtologit/xtoprobit inference/reporting options have no direct clmm() equivalent and were not applied to estimation.', rec.text));
+    return result(call, 'heuristic', ods);
+  }
+
   if (cmd === 'xtpoisson') {
     const exposure = optionValue(options, 'exposure');
     const offset = optionValue(options, 'offset');
@@ -2732,6 +3099,211 @@ function translateIv(rest, options, ctx, rec) {
   const q = extractQualifiers(m[5] || '');
   const data = modelDataExpr(ctx, q.ifExpr ? translateExpression(q.ifExpr, ctx) : '');
   return result(`${model} <- fixest::feols(${dep} ~ ${exog} | ${endog} ~ ${inst}, data = ${data}${vcovArgs(options, ctx)})`, 'heuristic', [diag(rec.line, 'warning', 'ivregress 2sls was mapped to fixest IV syntax; verify excluded/exogenous instruments, VCE, first-stage diagnostics, and finite-sample conventions.', rec.text)]);
+}
+
+function translateSurvival(cmd, rest, options, ctx, rec) {
+  const dt = ctx.currentData;
+  if (cmd === 'stset') {
+    const words = splitWords(rest);
+    const time = cleanIdentifier(words[0] || 'time', words[0] || 'time');
+    const positionalFailure = words.length > 1 ? cleanIdentifier(words[1], words[1]) : '';
+    const failureRaw = optionValues(options, 'failure').find(x => x !== true) || optionValues(options, 'fail').find(x => x !== true);
+    let event;
+    if (failureRaw) {
+      const f = String(failureRaw).trim();
+      const eq = f.match(/^([A-Za-z_]\w*)\s*==\s*(.+)$/);
+      if (eq) {
+        const vals = expandSimpleNumlist(eq[2]);
+        if (vals && vals.length) event = `${cleanIdentifier(eq[1], eq[1])} %in% c(${vals.join(', ')})`;
+        else event = translateExpression(f, ctx, { context: 'generate' });
+      } else if (/^[A-Za-z_]\w*$/.test(f)) event = `!is.na(${f}) & ${f} != 0`;
+      else event = translateExpression(f, ctx, { context: 'generate' });
+    } else if (positionalFailure) event = `!is.na(${positionalFailure}) & ${positionalFailure} != 0`;
+    else event = `rep(TRUE, nrow(${dt}))`;
+
+    const time0Raw = optionValues(options, 'time0').find(x => x !== true);
+    const enterRaw = optionValues(options, 'enter').find(x => x !== true);
+    let start = '';
+    if (time0Raw) start = translateExpression(String(time0Raw), ctx, { context: 'generate' });
+    else if (enterRaw) {
+      const e = String(enterRaw).trim().replace(/^time\s+/i, '');
+      if (/^[A-Za-z_]\w*$/.test(e)) start = cleanIdentifier(e, e);
+    }
+    const scaleRaw = optionValues(options, 'scale').find(x => x !== true);
+    const scale = scaleRaw ? translateExpression(String(scaleRaw), ctx) : '1';
+    const idRaw = optionValues(options, 'id').find(x => x !== true);
+    const id = idRaw ? cleanIdentifier(String(idRaw), String(idRaw)) : '';
+    ctx.survival = { time, event, start, scale, id, dist: ctx.survival?.dist || '' };
+    const ds = [diag(rec.line, 'info', 'stset metadata is carried into translated Cox, parametric, Kaplan-Meier, and curve commands.', rec.text)];
+    if (optionValue(options, 'origin') || optionValue(options, 'exit') || optionValue(options, 'if') || optionValue(options, 'ever') || optionValue(options, 'never') || optionValue(options, 'after') || optionValue(options, 'before')) ds.push(diag(rec.line, 'warning', 'Advanced stset origin/exit/record-selection semantics are not fully reconstructed; verify risk intervals and exclusions before relying on survival estimates.', rec.text));
+    return result(`# stset recorded: time = ${time}, event = ${event}${start ? `, entry = ${start}` : ''}, scale = ${scale}`, 'heuristic', ds);
+  }
+
+  if (!ctx.survival && ['stcox','streg','sts','stsum'].includes(cmd)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} needs a preceding translatable stset declaration.`, rec.text)]);
+
+  if (cmd === 'stcox') {
+    const q = extractQualifiers(rest);
+    const model = nextModel(ctx, 'cox_model');
+    const data = q.ifExpr || q.inExpr ? `${dt}[${rowFilter(q.ifExpr, q.inExpr, ctx)}]` : dt;
+    let rhs = formulaTerms(q.core, ctx);
+    const strataRaw = optionValues(options, 'strata').find(x => x !== true);
+    if (strataRaw) rhs += ` + survival::strata(${formulaTerms(String(strataRaw), ctx)})`;
+    const ties = hasOption(options, 'efron') ? 'efron' : hasOption(options, 'exactm') || hasOption(options, 'exactp') ? 'exact' : hasOption(options, 'breslow') ? 'breslow' : '';
+    ctx.features.add('survival');
+    ctx.lastModelKind = 'stcox';
+    const ds = [diag(rec.line, 'warning', 'stcox is mapped to survival::coxph() using translated stset risk intervals. Verify multiple-failure/id semantics, time-varying covariates, weights, robust clustering, and Stata tie conventions.', rec.text)];
+    if (optionValue(options, 'vce') || hasOption(options, 'robust')) ds.push(diag(rec.line, 'warning', 'stcox robust/cluster VCE options are not yet propagated to coxph() in this mapping.', rec.text));
+    return result(`${model} <- survival::coxph(${survivalResponse(ctx)} ~ ${rhs}, data = ${data}${ties ? `, ties = "${ties}"` : ''})`, 'heuristic', ds);
+  }
+
+  if (cmd === 'streg') {
+    if (optionValue(options, 'frailty') || optionValue(options, 'shared') || optionValue(options, 'strata')) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'streg frailty/shared()/strata() needs a dedicated likelihood mapping; do2R does not silently drop those terms.', rec.text)]);
+    const q = extractQualifiers(rest);
+    const data = q.ifExpr || q.inExpr ? `${dt}[${rowFilter(q.ifExpr, q.inExpr, ctx)}]` : dt;
+    const distRaw = optionValues(options, 'distribution').find(x => x !== true) || optionValues(options, 'dist').find(x => x !== true) || ctx.survival.dist || 'weibull';
+    const dist = String(distRaw).toLowerCase().replace(/[\s_-]+/g, '');
+    ctx.survival.dist = dist;
+    const aft = hasOption(options, 'time');
+    const distMap = {
+      weibull: aft ? 'weibull' : 'weibullPH',
+      exponential: 'exp', exp: 'exp',
+      gompertz: 'gompertz',
+      lognormal: 'lnorm', lnormal: 'lnorm',
+      loglogistic: 'llogis', logistic: 'llogis',
+      gamma: 'gengamma', ggamma: 'gengamma', generalizedgamma: 'gengamma'
+    };
+    const rdist = distMap[dist];
+    if (!rdist) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `streg distribution(${distRaw}) is not mapped safely yet.`, rec.text)]);
+    const model = nextModel(ctx, 'streg_model');
+    ctx.features.add('survival');
+    ctx.features.add('flexsurv');
+    ctx.lastModelKind = 'streg';
+    const rhs = formulaTerms(q.core, ctx);
+    const ds = [diag(rec.line, 'warning', `streg distribution(${distRaw}) is mapped to flexsurv::flexsurvreg(dist = "${rdist}"). Compare coefficient parameterization, ancillary parameters, and likelihood conventions with Stata.`, rec.text)];
+    if (aft && ['exp','gompertz'].includes(rdist)) ds.push(diag(rec.line, 'warning', 'Stata time/AFT reporting for this PH-parameterized flexsurv distribution may require sign/scale transformation of coefficients.', rec.text));
+    if (optionValue(options, 'vce') || hasOption(options, 'robust')) ds.push(diag(rec.line, 'warning', 'streg robust/cluster VCE options require explicit flexsurv variance handling and are not automatically reproduced.', rec.text));
+    return result(`${model} <- flexsurv::flexsurvreg(${survivalResponse(ctx)} ~ ${rhs}, data = ${data}, dist = "${rdist}")`, 'heuristic', ds);
+  }
+
+  if (cmd === 'sts' || cmd === 'stsum') {
+    const words = splitWords(rest);
+    const sub = cmd === 'stsum' ? 'list' : (words.shift() || 'list').toLowerCase();
+    const byRaw = optionValues(options, 'by').find(x => x !== true);
+    const by = byRaw ? factorUnderlyingVariables(String(byRaw)) : [];
+    const form = `${survivalResponse(ctx)} ~ ${by.length ? by.join(' + ') : '1'}`;
+    ctx.features.add('survival');
+    if (sub === 'graph') {
+      const fun = hasOption(options, 'failure') ? ', fun = "event"' : hasOption(options, 'cumhaz') ? ', fun = "cumhaz"' : '';
+      return result(`plot(survival::survfit(${form}, data = ${dt})${fun}, conf.int = ${hasOption(options, 'noci') ? 'FALSE' : 'TRUE'})`, 'heuristic', [diag(rec.line, 'warning', 'sts graph is mapped to plot.survfit(); Stata risk tables, graph styling, adjusted curves, and some failure/cumulative-hazard options require manual tuning.', rec.text)]);
+    }
+    if (sub === 'list' || cmd === 'stsum') return result(`summary(survival::survfit(${form}, data = ${dt}))`, 'heuristic', [diag(rec.line, 'info', 'Kaplan-Meier summaries are returned as survival::survfit output rather than Stata-formatted sts/stsum tables.', rec.text)]);
+    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `sts ${sub} is not mapped yet; sts list and sts graph are supported.`, rec.text)]);
+  }
+
+  if (cmd === 'stcurve') {
+    if (!ctx.lastModel || !['stcox','streg'].includes(ctx.lastModelKind)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'stcurve needs a preceding translated stcox or streg model.', rec.text)]);
+    ctx.features.add('stcurve');
+    const type = hasOption(options, 'hazard') ? 'hazard' : hasOption(options, 'cumhaz') ? 'cumhaz' : hasOption(options, 'failure') ? 'failure' : 'survival';
+    const ds = [diag(rec.line, 'warning', 'stcurve is mapped to the available R model curve method. at()/at1()/at2(), range(), CI, and graph formatting options are not yet fully reproduced.', rec.text)];
+    if (optionValues(options, 'at').length || optionValues(options, 'at1').length || optionValues(options, 'at2').length) ds.push(diag(rec.line, 'warning', 'stcurve at()/at#() covariate scenarios need manual newdata construction in the current mapping.', rec.text));
+    return result(`stata_stcurve(${ctx.lastModel}, type = "${type}")`, 'heuristic', ds);
+  }
+  return null;
+}
+
+function translateReporting(cmd, rest, options, ctx, rec) {
+  const dt = ctx.currentData;
+  if (cmd === 'collect') {
+    const words = splitWords(rest);
+    const sub = (words.shift() || 'preview').toLowerCase();
+    if (sub === 'clear') {
+      ctx.lastTable = '';
+      return result('.do2r_collection <- NULL', 'heuristic', [diag(rec.line, 'info', 'collect clear resets do2R reporting state; Stata collection styles and named collections are not persisted.', rec.text)]);
+    }
+    if (sub === 'preview') {
+      if (!ctx.lastTable) return result('# No translated collection is active', 'heuristic', [diag(rec.line, 'info', 'collect preview was encountered before a translated table/dtable/etable result.', rec.text)]);
+      return result(ctx.lastTable, 'heuristic');
+    }
+    if (sub === 'export') {
+      if (!ctx.lastTable) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'collect export needs a preceding translated table, dtable, or etable result.', rec.text)]);
+      const path = words.join(' ').trim();
+      if (!path) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'collect export needs an output filename.', rec.text)]);
+      ctx.features.add('reportexport');
+      ctx.features.add('openxlsx');
+      return result(`stata_collect_export(${ctx.lastTable}, ${rString(path, ctx)}, replace = ${hasOption(options, 'replace') ? 'TRUE' : 'FALSE'})`, 'heuristic', [diag(rec.line, 'warning', 'collect export is mapped for CSV/TSV/XLSX outputs. Stata collection layouts, styles, notes, and rich Word/PDF formatting are not reproduced automatically.', rec.text)]);
+    }
+    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'collect layout/style/label/composite operations require a fuller collection-state model. Basic preview, clear, and export are translated.', rec.text)]);
+  }
+
+  const q = extractQualifiers(rest);
+  const data = q.ifExpr || q.inExpr ? `${dt}[${rowFilter(q.ifExpr, q.inExpr, ctx)}]` : dt;
+
+  if (cmd === 'table') {
+    let dims = factorUnderlyingVariables(q.core);
+    if (!dims.length) dims = splitWords(q.core.replace(/[()]/g, ' ')).map(plainStataVariable).filter(Boolean);
+    dims = [...new Set(dims)];
+    if (!dims.length) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'table needs at least one translatable grouping variable in the currently supported mapping.', rec.text)]);
+    let stats = optionValues(options, 'statistic').filter(x => x !== true).map(String);
+    const contents = optionValues(options, 'contents').find(x => x !== true);
+    if (!stats.length && contents) {
+      const bits = splitWords(String(contents));
+      const known = new Set(['mean','sd','sum','count','n','min','max','median','p50','semean','variance','percent','frequency','freq']);
+      for (let i = 0; i < bits.length;) {
+        const stat = bits[i++].toLowerCase();
+        if (!known.has(stat)) break;
+        if (['percent','frequency','freq'].includes(stat)) stats.push(stat);
+        else if (i < bits.length) stats.push(`${stat} ${plainStataVariable(bits[i++]) || bits[i - 1]}`);
+      }
+    }
+    ctx.features.add('reporting');
+    const name = nextTable(ctx, 'table');
+    const statExpr = stats.length ? `c(${stats.map(x => `"${escapeRString(x)}"`).join(', ')})` : 'character()';
+    const lines = [
+      `${name} <- stata_table(${data}, dimensions = c(${dims.map(v => `"${escapeRString(v)}"`).join(', ')}), statistics = ${statExpr}, totals = ${hasOption(options, 'nototals') ? 'FALSE' : 'TRUE'})`,
+      `${name}`
+    ];
+    return result(lines, 'heuristic', [diag(rec.line, 'warning', 'table is translated to a tidy data.table summary. Core frequencies and common statistics are mapped, but Stata collect dimensions, marginal totals, formatting, labels, and advanced statistic() syntax can differ.', rec.text)]);
+  }
+
+  if (cmd === 'dtable') {
+    let variables = factorUnderlyingVariables(q.core);
+    if (!variables.length) variables = splitWords(q.core).map(plainStataVariable).filter(Boolean);
+    const categorical = splitWords(q.core).filter(x => /^(?:i|ib|ibn|bn|o)\./i.test(x)).map(plainStataVariable).filter(Boolean);
+    const factorOpt = optionValues(options, 'factor').find(x => x !== true);
+    if (factorOpt) categorical.push(...factorUnderlyingVariables(String(factorOpt).split(',')[0]));
+    const continuousOpt = optionValues(options, 'continuous').find(x => x !== true);
+    if (continuousOpt) variables.push(...factorUnderlyingVariables(String(continuousOpt).split(',')[0]));
+    variables = [...new Set(variables)];
+    const cats = [...new Set(categorical)];
+    if (!variables.length) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'dtable needs a translatable variable list.', rec.text)]);
+    const byRaw = optionValues(options, 'by').find(x => x !== true);
+    const by = byRaw ? plainStataVariable(String(byRaw).split(',')[0].trim()) : '';
+    let contStats = ['mean', 'sd'];
+    const cstat = continuousOpt && String(continuousOpt).match(/statistics\(([^)]*)\)/i);
+    if (cstat) contStats = splitWords(cstat[1]).map(x => x.toLowerCase());
+    ctx.features.add('reporting');
+    const name = nextTable(ctx, 'dtable');
+    const lines = [
+      `${name} <- stata_dtable(${data}, variables = c(${variables.map(v => `"${escapeRString(v)}"`).join(', ')}), categorical = c(${cats.map(v => `"${escapeRString(v)}"`).join(', ')})${by ? `, by = "${escapeRString(by)}"` : ''}, continuous_stats = c(${contStats.map(v => `"${escapeRString(v)}"`).join(', ')}))`,
+      `${name}`
+    ];
+    return result(lines, 'heuristic', [diag(rec.line, 'warning', 'dtable is mapped to a tidy Table-1-style data.table with continuous summaries and categorical counts/percentages. Tests, survey adjustments, formatting, labels, notes, and the full collect-backed presentation layer remain approximate.', rec.text)]);
+  }
+
+  if (cmd === 'etable') {
+    const estRaw = optionValues(options, 'estimates').find(x => x !== true);
+    const models = estRaw ? splitWords(String(estRaw)).map(x => cleanIdentifier(x, x)).filter(Boolean) : (ctx.lastModel ? [ctx.lastModel] : []);
+    if (!models.length) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'etable needs at least one translated estimation result. Use estimates() or place etable after an estimation command.', rec.text)]);
+    ctx.features.add('modelsummary');
+    const name = nextTable(ctx, 'etable');
+    const modelList = `list(${models.map(m => `${m} = ${m}`).join(', ')})`;
+    const lines = [
+      `${name} <- modelsummary::modelsummary(${modelList}, output = "data.frame", stars = ${hasOption(options, 'showstars') || hasOption(options, 'stars') ? 'TRUE' : 'FALSE'})`,
+      `${name}`
+    ];
+    return result(lines, 'heuristic', [diag(rec.line, 'warning', 'etable is mapped to modelsummary. Coefficient naming, stars, confidence-interval/statistic layout, margins integration, and Stata collect styling may require manual adjustment.', rec.text)]);
+  }
+  return null;
 }
 
 function translateSummaries(cmd, rest, options, ctx, rec) {
@@ -2808,7 +3380,13 @@ function translateTests(cmd, rest, options, ctx, rec) {
 }
 
 function translatePostestimation(cmd, rest, options, ctx, rec) {
-  if (!ctx.lastModel && ['predict', 'margins', 'test', 'testnl', 'estat'].includes(cmd)) {
+  if (cmd === 'marginsplot') {
+    if (!ctx.lastMargins) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'marginsplot needs a preceding translated margins command.', rec.text)]);
+    ctx.features.add('ggplot2');
+    ctx.features.add('marginsplot');
+    return result(`stata_marginsplot(${ctx.lastMargins})`, 'heuristic', [diag(rec.line, 'warning', 'marginsplot is mapped to a generic ggplot of the translated marginaleffects result. Stata plotdimension(), recast(), legend, and graph styling options require manual adjustment.', rec.text)]);
+  }
+  if (!ctx.lastModel && ['predict', 'margins', 'lincom', 'nlcom', 'test', 'testnl', 'estat'].includes(cmd)) {
     return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} needs a preceding translated estimation command.`, rec.text)]);
   }
   if (cmd === 'predict') {
@@ -2823,9 +3401,55 @@ function translatePostestimation(cmd, rest, options, ctx, rec) {
   }
   if (cmd === 'margins') {
     ctx.features.add('marginaleffects');
-    const dydx = optionValue(options, 'dydx');
-    if (dydx && dydx !== true) return result(`marginaleffects::avg_slopes(${ctx.lastModel}, variables = ${varListExpr(dydx, ctx)})`, 'heuristic', [diag(rec.line, 'warning', 'margins, dydx() was mapped to marginaleffects::avg_slopes(); verify at()/over(), discrete changes, weights, and VCE.', rec.text)]);
-    return result(`marginaleffects::avg_predictions(${ctx.lastModel})`, 'heuristic', [diag(rec.line, 'warning', 'margins was mapped to average predictions; add variables/by/newdata arguments to reproduce Stata at()/over() specifications.', rec.text)]);
+    const focal = [...new Set(factorUnderlyingVariables(rest).filter(Boolean))];
+    const dydxRaw = optionValues(options, 'dydx').find(x => x !== true);
+    const dydx = dydxRaw ? factorUnderlyingVariables(String(dydxRaw)) : [];
+    const overRaw = optionValues(options, 'over').find(x => x !== true);
+    const over = overRaw ? factorUnderlyingVariables(String(overRaw)) : [];
+    const atSpecs = optionValues(options, 'at').filter(x => x !== true).map(String);
+    const at = atSpecs.length ? parseAtAssignments(atSpecs[0], ctx) : [];
+    const atmeans = hasOption(options, 'atmeans');
+    const levelRaw = optionValue(options, 'level');
+    const confArg = levelRaw && levelRaw !== true ? `, conf_level = ${Number(levelRaw) / 100}` : '';
+    const name = nextTable(ctx, 'margins');
+    ctx.lastMargins = name;
+    let call;
+    if (dydx.length) {
+      const args = [`${ctx.lastModel}`, `variables = c(${dydx.map(v => `"${escapeRString(v)}"`).join(', ')})`];
+      if (atmeans) args.push('newdata = "mean"');
+      else if (at.length) args.push(`newdata = marginaleffects::datagrid(model = ${ctx.lastModel}, grid_type = "counterfactual", ${at.map(x => `${x.name} = ${x.value}`).join(', ')})`);
+      const by = [...new Set([...focal, ...over])];
+      if (by.length) args.push(`by = c(${by.map(v => `"${escapeRString(v)}"`).join(', ')})`);
+      call = `marginaleffects::avg_slopes(${args.join(', ')}${confArg})`;
+    } else if (atmeans) {
+      const gridArgs = [...focal.map(v => `${v} = unique`), ...at.map(x => `${x.name} = ${x.value}`)];
+      call = gridArgs.length
+        ? `marginaleffects::predictions(${ctx.lastModel}, newdata = marginaleffects::datagrid(model = ${ctx.lastModel}, grid_type = "mean_or_mode", ${gridArgs.join(', ')})${over.length ? `, by = c(${over.map(v => `"${escapeRString(v)}"`).join(', ')})` : ''}${confArg})`
+        : `marginaleffects::predictions(${ctx.lastModel}, newdata = "mean"${confArg})`;
+    } else {
+      const args = [`${ctx.lastModel}`];
+      if (focal.length || at.length) {
+        if (at.length) {
+          const entries = [...focal.map(v => `${v} = unique`), ...at.map(x => `${x.name} = ${x.value}`)];
+          args.push(`variables = list(${entries.join(', ')})`);
+        } else args.push(`variables = c(${focal.map(v => `"${escapeRString(v)}"`).join(', ')})`);
+      }
+      if (over.length) args.push(`by = c(${over.map(v => `"${escapeRString(v)}"`).join(', ')})`);
+      call = `marginaleffects::avg_predictions(${args.join(', ')}${confArg})`;
+    }
+    const ds = [diag(rec.line, 'warning', 'margins is mapped to marginaleffects counterfactual predictions/slopes. Verify Stata-specific predict() defaults, factor contrasts, survey/weights, estimability, VCE, and nonlinear transformations.', rec.text)];
+    if (atSpecs.length > 1) ds.push(diag(rec.line, 'warning', 'Only the first repeated at() specification is currently translated; separate Stata at() scenarios should be expanded manually in R.', rec.text));
+    return result([`${name} <- ${call}`, `${name}`], 'heuristic', ds);
+  }
+  if (cmd === 'lincom' || cmd === 'nlcom') {
+    ctx.features.add('car');
+    let expr = coefficientExpression(rest);
+    if (hasOption(options, 'eform') || hasOption(options, 'or') || hasOption(options, 'irr') || hasOption(options, 'hr')) expr = `exp(${expr})`;
+    const levelRaw = optionValue(options, 'level');
+    const level = levelRaw && levelRaw !== true && Number.isFinite(Number(levelRaw)) ? Number(levelRaw) / 100 : 0.95;
+    const ds = [diag(rec.line, 'warning', `${cmd} is mapped to car::deltaMethod(). Coefficient names for factor variables/interactions may differ from Stata, so inspect the translated expression.`, rec.text)];
+    if (hasOption(options, 'post')) ds.push(diag(rec.line, 'warning', `${cmd}, post is not propagated into Stata-style e() estimation state; the transformed estimate is returned directly.`, rec.text));
+    return result(`car::deltaMethod(${ctx.lastModel}, "${escapeRString(expr)}", level = ${level})`, 'heuristic', ds);
   }
   if (cmd === 'test' || cmd === 'testnl') {
     ctx.features.add('fixest');
@@ -3350,14 +3974,46 @@ function translateProgramming(cmd, rest, options, ctx, rec) {
 
     const colon = rest.match(/^([A-Za-z_]\w*)\s*:\s*(.+)$/);
     if (colon) {
-      const name = cleanIdentifier(colon[1]); const f = colon[2];
-      if (!isGlobal) ctx.macros.set(name, 'scalar');
-      let rhs; let confidence = 'heuristic';
+      const name = cleanIdentifier(colon[1]); const f = colon[2].trim();
+      let rhs; let confidence = 'heuristic'; let valueType = 'text';
       if (/^word\s+\d+\s+of\s+/i.test(f)) {
         ctx.features.add('words'); const m = f.match(/^word\s+(\d+)\s+of\s+(.+)$/i); rhs = `stata_word(${translateExpression(m[2], ctx)}, ${m[1]})`;
-      } else if (/^word count\s+/i.test(f)) { ctx.features.add('words'); rhs = `stata_wordcount(${translateExpression(f.replace(/^word count\s+/i, ''), ctx)})`; }
-      else if (/^list\s+/i.test(f)) rhs = rString(f.replace(/^list\s+/i, ''), ctx);
+      } else if (/^word count\s+/i.test(f)) {
+        ctx.features.add('words'); valueType = 'scalar'; rhs = `stata_wordcount(${translateExpression(f.replace(/^word count\s+/i, ''), ctx)})`;
+      } else if (/^(?:strlen|length|ustrlen|udstrlen)\s+(?:local|global)\s+[A-Za-z_]\w*$/i.test(f)) {
+        const m = f.match(/^(strlen|length|ustrlen|udstrlen)\s+(local|global)\s+([A-Za-z_]\w*)$/i);
+        const kind = m[1].toLowerCase(); const scope = m[2].toLowerCase(); const src = m[3];
+        const getter = scope === 'global' ? `stata_global_get("${escapeRString(src)}")` : `stata_local_get(.do2r_local, "${escapeRString(src)}")`;
+        const ntype = kind === 'strlen' ? 'bytes' : kind === 'udstrlen' ? 'width' : 'chars';
+        valueType = 'scalar'; rhs = `nchar(as.character(${getter}), type = "${ntype}")`;
+      } else if (/^copy\s+(?:local|global)\s+[A-Za-z_]\w*$/i.test(f)) {
+        const m = f.match(/^copy\s+(local|global)\s+([A-Za-z_]\w*)$/i); const scope = m[1].toLowerCase(); const src = m[2];
+        rhs = scope === 'global' ? `stata_global_get("${escapeRString(src)}")` : `stata_local_get(.do2r_local, "${escapeRString(src)}")`;
+      } else if (/^subinstr\s+(?:local|global)\s+/i.test(f)) {
+        const bits = splitWords(f);
+        if (bits.length < 5 || !/^(?:local|global)$/i.test(bits[1]) || !/^[A-Za-z_]\w*$/.test(bits[2])) {
+          return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'subinstr extended macro syntax could not be parsed safely.', rec.text)]);
+        }
+        ctx.features.add('macro_subinstr');
+        const scope = bits[1].toLowerCase(); const src = bits[2];
+        const getter = scope === 'global' ? `stata_global_get("${escapeRString(src)}")` : `stata_local_get(.do2r_local, "${escapeRString(src)}")`;
+        const from = rString(bits[3], ctx); const to = rString(bits.slice(4).join(' '), ctx);
+        const countRaw = optionValue(options, 'count');
+        const countMatch = countRaw && countRaw !== true ? String(countRaw).trim().match(/^(local|global)\s+([A-Za-z_]\w*)$/i) : null;
+        const lines = [`.__do2r_subinstr <- stata_macro_subinstr(${getter}, ${from}, ${to}, all = ${hasOption(options, 'all') ? 'TRUE' : 'FALSE'}, word = ${hasOption(options, 'word') ? 'TRUE' : 'FALSE'})`];
+        if (isGlobal) lines.push(`stata_global_set("${escapeRString(name)}", .__do2r_subinstr$value)`);
+        else { ctx.macros.set(name, 'text'); lines.push(`${name} <- .__do2r_subinstr$value`, `stata_local_set(.do2r_local, "${escapeRString(name)}", ${name})`); }
+        if (countRaw && !countMatch) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'subinstr count() must name a local or global macro in the currently supported mapping.', rec.text)]);
+        if (countMatch) {
+          const countScope = countMatch[1].toLowerCase(); const countName = cleanIdentifier(countMatch[2]);
+          if (countScope === 'global') lines.push(`stata_global_set("${escapeRString(countName)}", .__do2r_subinstr$count)`);
+          else { ctx.macros.set(countName, 'scalar'); lines.push(`${countName} <- .__do2r_subinstr$count`, `stata_local_set(.do2r_local, "${escapeRString(countName)}", ${countName})`); }
+        }
+        lines.push('rm(.__do2r_subinstr)');
+        return result(lines, 'heuristic', [diag(rec.line, 'info', 'Extended macro subinstr was mapped with fixed-string replacement; word mode uses whitespace-delimited Stata-style tokens.', rec.text)]);
+      } else if (/^list\s+/i.test(f)) rhs = rString(f.replace(/^list\s+/i, ''), ctx);
       else return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'This extended macro function needs a dedicated mapping.', rec.text)]);
+      if (!isGlobal) ctx.macros.set(name, valueType);
       return isGlobal
         ? result(`stata_global_set("${escapeRString(name)}", ${rhs})`, confidence)
         : result([`${name} <- ${rhs}`, `stata_local_set(.do2r_local, "${escapeRString(name)}", ${name})`], confidence);
@@ -3872,6 +4528,7 @@ function translateStataLine(text, ctx, rec) {
   else if (cmd === 'keep' || cmd === 'drop') r = translateKeepDrop(cmd, rest, ctx, rec, by);
   else if (['use','save','import','export','insheet','outsheet'].includes(cmd)) r = translateIO(cmd, rest, options, ctx, rec);
   else if (cmd === 'putexcel') r = translatePutExcel(rest, options, ctx, rec);
+  else if (['table','dtable','etable','collect'].includes(cmd)) r = translateReporting(cmd, rest, options, ctx, rec);
   else if (cmd === 'merge') r = translateMerge(rest, options, ctx, rec);
   else if (cmd === 'append') {
     const path = parseUsingPath(rest); ctx.features.add('haven');
@@ -3881,11 +4538,12 @@ function translateStataLine(text, ctx, rec) {
   else if (cmd === 'collapse') r = translateCollapse(rest, options, ctx, rec);
   else if (cmd === 'fvset' || cmd === 'fvrevar') r = translateFactorProgramming(cmd, rest, options, ctx, rec);
   else if (cmd === 'svyset') r = translateSvyset(rest, options, ctx, rec);
+  else if (['stset','stcox','streg','sts','stsum','stcurve'].includes(cmd)) r = translateSurvival(cmd, rest, options, ctx, rec);
   else if (['mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg'].includes(cmd)) r = translateMixedModel(cmd, rest, options, ctx, rec);
-  else if (['tsfill','tsappend','tssmooth'].includes(cmd)) r = translateTimeSeriesUtility(cmd, rest, options, ctx, rec);
-  else if (['arima','dfuller','corrgram','var','vargranger'].includes(cmd)) r = translateTimeSeriesModel(cmd, rest, options, ctx, rec);
+  else if (['tsfill','tsappend','tssmooth','tsfilter'].includes(cmd)) r = translateTimeSeriesUtility(cmd, rest, options, ctx, rec);
+  else if (['arima','dfuller','corrgram','var','varsoc','vargranger','varlmar','varnorm','varstable','vec','vecrank','irf'].includes(cmd)) r = translateTimeSeriesModel(cmd, rest, options, ctx, rec);
   else if (['cross','joinby','fillin','split','separate','stack','xpose','range','insobs','ipolate','pctile','_pctile','xtile','mvencode','mvdecode','assertnested','ds','lookfor','compare','recast','compress','copy','rmdir','type','sysuse','webuse'].includes(cmd)) r = translateExtraData(cmd, rest, options, ctx, rec, by);
-  else if (['xtlogit','xtprobit','xtpoisson','xtgee'].includes(cmd)) r = translatePanelModel(cmd, rest, options, ctx, rec);
+  else if (['xtlogit','xtprobit','xtpoisson','xtologit','xtoprobit','xtgee'].includes(cmd)) r = translatePanelModel(cmd, rest, options, ctx, rec);
   else if (['regress','areg','xtreg','logit','probit','poisson','nbreg','qreg','tobit','ologit','oprobit','mlogit','clogit'].includes(cmd)) r = translateModel(cmd, rest, options, ctx, rec);
   else if (cmd === 'ivregress') r = translateIv(rest, options, ctx, rec);
   else if (cmd === 'glm') {
@@ -3894,7 +4552,7 @@ function translateStataLine(text, ctx, rec) {
   }
   else if (['summarize','tabulate','tabstat','correlate','pwcorr'].includes(cmd)) r = translateSummaries(cmd, rest, options, ctx, rec);
   else if (['ttest','ranksum','oneway','anova'].includes(cmd)) r = translateTests(cmd, rest, options, ctx, rec);
-  else if (['predict','margins','test','testnl','estat','estimates'].includes(cmd)) r = translatePostestimation(cmd, rest, options, ctx, rec);
+  else if (['predict','margins','marginsplot','lincom','nlcom','test','testnl','estat','estimates'].includes(cmd)) r = translatePostestimation(cmd, rest, options, ctx, rec);
   else if (['histogram','kdensity','scatter','line','twoway','graph'].includes(cmd)) r = translateGraph(cmd, rest, options, ctx, rec);
   else if (['clear','rename','sort','gsort','order','clonevar','count','assert','isid','duplicates','expand','contract','sample','describe','codebook','inspect','list','recode','encode','decode','destring','tostring','label','format'].includes(cmd)) r = translateDataUtility(cmd, rest, options, ctx, rec, by);
   else if (['frame','frget','frlink','fralias'].includes(cmd)) r = translateFrames(cmd, rest, options, ctx, rec);
@@ -3915,16 +4573,6 @@ function translateStataLine(text, ctx, rec) {
     const ds = [diag(rec.line, 'info', `${cmd} metadata is used by translated lag/lead/difference operators and panel/time-series models; R has no identical global declaration.`, rec.text)];
     if (deltaRaw && deltaRaw !== true && delta === '1') ds.push(diag(rec.line, 'warning', `delta(${deltaRaw}) is not a simple numeric spacing, so do2R records a unit delta and leaves calendar/unit-aware gap checks for review.`, rec.text));
     r = result(cols.length ? `data.table::setorderv(${ctx.currentData}, c(${cols.map(v => `"${escapeRString(v)}"`).join(', ')})) # ${cmd}: panel/time metadata recorded by do2R` : `# ${cmd} ${rest}`, 'heuristic', ds);
-  }
-  else if (cmd === 'stset') {
-    const w = splitWords(rest); const time = cleanIdentifier(w[0] || 'time'); const fail = optionValue(options, 'failure');
-    let event = 'event';
-    if (fail && fail !== true) event = translateExpression(fail.replace(/==\s*[^\s]+$/, ''), ctx);
-    ctx.survival = { time, event }; r = result(`# stset recorded: time = ${time}, event = ${event}`, 'heuristic', [diag(rec.line, 'warning', 'stset entry/exit/origin/scale/ID semantics require explicit Surv() construction in R; only basic time/failure metadata was recorded.', rec.text)]);
-  }
-  else if (cmd === 'stcox') {
-    ctx.features.add('survival'); const model = nextModel(ctx, 'cox_model'); const surv = ctx.survival || { time: 'time', event: 'event' };
-    r = result(`${model} <- survival::coxph(survival::Surv(${surv.time}, ${surv.event}) ~ ${formulaTerms(rest, ctx)}, data = ${ctx.currentData})`, 'heuristic', [diag(rec.line, 'warning', 'stcox was mapped to coxph() using recorded basic stset metadata; verify delayed entry, multiple records, strata, ties, weights, and robust SEs.', rec.text)]);
   }
   else if (cmd === 'set' && /^obs\s+/i.test(rest)) {
     ctx.features.add('obs');
@@ -3947,7 +4595,7 @@ function translateStataLine(text, ctx, rec) {
     r = result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `Command “${rawCmd}” is not translated safely. It may be community-contributed or require command-specific semantics.`, rec.text)]);
   }
 
-  const eClassCommands = new Set(['regress','areg','xtreg','xtlogit','xtprobit','xtpoisson','xtgee','logit','probit','poisson','nbreg','qreg','tobit','ologit','oprobit','mlogit','clogit','ivregress','glm','mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg','arima','stcox']);
+  const eClassCommands = new Set(['regress','areg','xtreg','xtlogit','xtprobit','xtpoisson','xtgee','logit','probit','poisson','nbreg','qreg','tobit','ologit','oprobit','mlogit','clogit','ivregress','glm','mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg','arima','stcox','streg']);
   if (eClassCommands.has(cmd) && ctx.lastModel && r.confidence !== 'review') {
     ctx.features.add('results');
     r.lines = [...r.lines, `.do2r_e <- stata_e_from_model(${ctx.lastModel}, cmd = "${escapeRString(cmd)}")`];
@@ -4612,6 +5260,55 @@ stata_e_from_model <- function(model, cmd = NULL) {
               V = V, df_r = df_r, r2 = r2, r2_a = ar2, rmse = rmse, rss = rss, cmd = cmd)
   out[!vapply(out, is.null, logical(1L))]
 }`);
+  if (features.has('irf')) blocks.push(`stata_irf_create <- function(model, n.ahead = 8L, boot = FALSE, runs = 200L, ci = 0.95, seed = NULL) {
+  n.ahead <- as.integer(n.ahead); runs <- as.integer(runs); ci <- as.numeric(ci)
+  if (!is.null(seed)) seed <- as.integer(seed)
+  mk <- function(ortho, cumulative) vars::irf(model, n.ahead = n.ahead, ortho = ortho,
+    cumulative = cumulative, boot = boot, runs = runs, ci = ci, seed = seed)
+  list(
+    irf = mk(FALSE, FALSE),
+    oirf = mk(TRUE, FALSE),
+    cirf = mk(FALSE, TRUE),
+    coirf = mk(TRUE, TRUE),
+    fevd = vars::fevd(model, n.ahead = n.ahead)
+  )
+}
+stata_irf_table <- function(x, statistic = "oirf", impulse = NULL, response = NULL) {
+  statistic <- tolower(as.character(statistic)[1L])
+  if (statistic == "fevd") {
+    z <- x$fevd
+    ans <- data.table::rbindlist(lapply(names(z), function(resp) {
+      m <- as.matrix(z[[resp]])
+      out <- data.table::as.data.table(as.table(m))
+      data.table::setnames(out, c("step", "impulse", "estimate"))
+      out[, response := resp]
+      out[, step := as.integer(step)]
+      out
+    }), use.names = TRUE, fill = TRUE)
+  } else {
+    z <- x[[statistic]]
+    if (is.null(z) || is.null(z$irf)) stop(sprintf("Unknown IRF statistic: %s", statistic), call. = FALSE)
+    ans <- data.table::rbindlist(lapply(names(z$irf), function(imp) {
+      m <- as.matrix(z$irf[[imp]])
+      out <- data.table::as.data.table(as.table(m))
+      data.table::setnames(out, c("step", "response", "estimate"))
+      out[, impulse := imp]
+      out[, step := as.integer(step) - 1L]
+      if (isTRUE(z$boot) && !is.null(z$Lower[[imp]])) {
+        lo <- as.matrix(z$Lower[[imp]]); hi <- as.matrix(z$Upper[[imp]])
+        out[, lower := as.vector(lo)]
+        out[, upper := as.vector(hi)]
+      }
+      out
+    }), use.names = TRUE, fill = TRUE)
+  }
+  impulse_keep <- if (is.null(impulse)) NULL else as.character(impulse)
+  response_keep <- if (is.null(response)) NULL else as.character(response)
+  if (!is.null(impulse_keep)) ans <- ans[impulse %in% impulse_keep]
+  if (!is.null(response_keep)) ans <- ans[response %in% response_keep]
+  data.table::setcolorder(ans, intersect(c("impulse", "response", "step", "estimate", "lower", "upper"), names(ans)))
+  ans[]
+}`);
   if (features.has('vargranger')) blocks.push(`stata_vargranger <- function(model) {
   eqs <- names(model$varresult)
   one_equation <- function(eq) {
@@ -4635,6 +5332,26 @@ stata_e_from_model <- function(model, cmd = NULL) {
   out <- do.call(rbind, lapply(eqs, one_equation))
   rownames(out) <- NULL
   out
+}`);
+  if (features.has('vardiagnostics')) blocks.push(`stata_varlmar <- function(model, mlag = 2L) {
+  mlag <- as.integer(mlag); if (length(mlag) != 1L || is.na(mlag) || mlag < 1L) stop("mlag() must be a positive integer", call. = FALSE)
+  out <- lapply(seq_len(mlag), function(j) {
+    z <- vars::serial.test(model, lags.bg = j, type = "BG")$serial
+    data.frame(lag = j, chi2 = unname(as.numeric(z$statistic)), df = unname(as.numeric(z$parameter)), p = unname(as.numeric(z$p.value)))
+  })
+  ans <- do.call(rbind, out); rownames(ans) <- NULL; ans
+}
+stata_varstable <- function(model, graph = FALSE) {
+  eig <- vars::roots(model, modulus = FALSE)
+  tab <- data.frame(real = Re(eig), imaginary = Im(eig), modulus = Mod(eig))
+  stable <- all(tab$modulus < 1)
+  if (isTRUE(graph)) {
+    theta <- seq(0, 2 * pi, length.out = 361L)
+    plot(cos(theta), sin(theta), type = "l", asp = 1, xlab = "Real", ylab = "Imaginary")
+    points(tab$real, tab$imaginary)
+    abline(h = 0, v = 0, lty = 3)
+  }
+  list(roots = tab, stable = stable)
 }`);
   if (features.has('syntax')) blocks.push(`stata_option_get <- function(opts, full, min, default = NULL, flag = FALSE) {
   if (!length(opts)) return(default)
@@ -4758,20 +5475,90 @@ stata_missing_compare <- function(x, op, tag = "") {
   data.table::setcolorder(out, cols)
   out
 }`);
-  if (features.has('tsappend')) blocks.push(`stata_tsappend <- function(DT, panel = NULL, time, delta = 1, add, panel_value = NULL) {
+  if (features.has('tsappend')) blocks.push(`stata_ts_parse_last <- function(value, fmt = NULL) {
+  x <- trimws(as.character(value)[1L])
+  x <- sub('^"(.*)"$', "\\1", x)
+  if (is.null(fmt) || !nzchar(as.character(fmt)[1L])) {
+    z <- suppressWarnings(as.numeric(x)); if (is.na(z)) stop("last() endpoint is not numeric and tsfmt() was not supplied", call. = FALSE); return(z)
+  }
+  f <- tolower(sub("^%", "", trimws(as.character(fmt)[1L])))
+  period <- function(pattern, peryear) {
+    m <- regexec(pattern, x, ignore.case = TRUE); z <- regmatches(x, m)[[1L]]
+    if (!length(z)) stop(sprintf("Cannot parse last(%s) with tsfmt(%s)", x, f), call. = FALSE)
+    (as.integer(z[2L]) - 1960L) * peryear + as.integer(z[3L]) - 1L
+  }
+  if (f == "tm") return(period("^([+-]?[0-9]+)m([0-9]{1,2})$", 12L))
+  if (f == "tq") return(period("^([+-]?[0-9]+)q([1-4])$", 4L))
+  if (f == "th") return(period("^([+-]?[0-9]+)h([1-2])$", 2L))
+  if (f == "tw") return(period("^([+-]?[0-9]+)w([0-9]{1,2})$", 52L))
+  if (f == "ty") return(as.numeric(x))
+  parse_date <- function(z) {
+    fmts <- c("%d%b%Y", "%d %b %Y", "%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y", "%m/%d/%Y")
+    for (ff in fmts) { d <- suppressWarnings(as.Date(z, format = ff)); if (!is.na(d)) return(d) }
+    as.Date(NA)
+  }
+  if (f == "td") {
+    d <- parse_date(x); if (is.na(d)) stop(sprintf("Cannot parse daily last(%s)", x), call. = FALSE)
+    return(as.numeric(d - as.Date("1960-01-01")))
+  }
+  if (f == "tc") {
+    fmts <- c("%d%b%Y %H:%M:%OS", "%d %b %Y %H:%M:%OS", "%Y-%m-%d %H:%M:%OS", "%Y/%m/%d %H:%M:%OS", "%d%b%Y")
+    z <- as.POSIXct(NA, origin = "1970-01-01", tz = "UTC")
+    for (ff in fmts) { z <- suppressWarnings(as.POSIXct(x, format = ff, tz = "UTC")); if (!is.na(z)) break }
+    if (is.na(z)) stop(sprintf("Cannot parse clock last(%s)", x), call. = FALSE)
+    return(as.numeric(difftime(z, as.POSIXct("1960-01-01", tz = "UTC"), units = "secs")) * 1000)
+  }
+  stop(sprintf("Unsupported tsfmt(%s)", fmt), call. = FALSE)
+}
+stata_tsappend <- function(DT, panel = NULL, time, delta = 1, add = NULL, last = NULL, tsfmt = NULL, panel_value = NULL) {
   DT <- stata_tsfill(DT, panel = panel, time = time, delta = delta, full = FALSE)
-  add <- as.integer(add); if (is.na(add) || add < 0L) stop("add must be a nonnegative integer")
-  if (add == 0L) return(DT)
+  delta <- as.numeric(delta); if (!is.finite(delta) || delta <= 0) stop("delta must be positive", call. = FALSE)
+  target <- if (is.null(last)) NULL else stata_ts_parse_last(last, tsfmt)
+  if (is.null(target)) {
+    add <- as.integer(add); if (length(add) != 1L || is.na(add) || add < 0L) stop("add must be a nonnegative integer", call. = FALSE)
+  }
+  make_times <- function(cur) {
+    n <- if (is.null(target)) add else max(0L, floor((target - cur) / delta + 1e-10))
+    if (!n) return(numeric())
+    cur + seq_len(n) * delta
+  }
   if (is.null(panel)) {
-    extra <- data.table::data.table(.time = max(DT[[time]], na.rm = TRUE) + seq_len(add) * delta)
+    times <- make_times(max(DT[[time]], na.rm = TRUE))
+    if (!length(times)) return(DT)
+    extra <- data.table::data.table(.time = times)
     data.table::setnames(extra, ".time", time); keys <- time
   } else {
     ids <- unique(DT[[panel]]); if (!is.null(panel_value)) ids <- ids[ids %in% panel_value]
-    extra <- data.table::rbindlist(lapply(ids, function(id) data.table::data.table(.panel = id, .time = max(DT[get(panel) == id, get(time)], na.rm = TRUE) + seq_len(add) * delta)))
+    parts <- lapply(ids, function(id) {
+      times <- make_times(max(DT[get(panel) == id, get(time)], na.rm = TRUE))
+      if (!length(times)) return(NULL)
+      data.table::data.table(.panel = id, .time = times)
+    })
+    parts <- Filter(Negate(is.null), parts)
+    if (!length(parts)) return(DT)
+    extra <- data.table::rbindlist(parts, use.names = TRUE, fill = TRUE)
     data.table::setnames(extra, c(".panel", ".time"), c(panel, time)); keys <- c(panel, time)
   }
   out <- data.table::rbindlist(list(DT, extra), use.names = TRUE, fill = TRUE)
   data.table::setorderv(out, keys); out
+}`);
+  if (features.has('tsfilter_hp')) blocks.push(`stata_tsfilter_hp <- function(x, lambda = 1600, panel = NULL) {
+  lambda <- as.numeric(lambda)[1L]
+  if (!is.finite(lambda) || lambda <= 0) stop("HP smoothing parameter must be positive", call. = FALSE)
+  one <- function(z) {
+    z <- as.numeric(z)
+    if (length(z) < 4L) stop("HP filtering requires at least four observations per series/panel", call. = FALSE)
+    if (anyNA(z)) stop("HP filtering currently requires a complete series within each panel; fill or restrict gaps explicitly", call. = FALSE)
+    fit <- mFilter::hpfilter(z, freq = lambda, type = "lambda", drift = FALSE)
+    list(cycle = as.numeric(fit$cycle), trend = as.numeric(fit$trend))
+  }
+  if (is.null(panel)) return(one(x))
+  groups <- split(seq_along(x), panel, drop = TRUE)
+  cycle <- trend <- rep(NA_real_, length(x))
+  for (idx in groups) {
+    fit <- one(x[idx]); cycle[idx] <- fit$cycle; trend[idx] <- fit$trend
+  }
+  list(cycle = cycle, trend = trend)
 }`);
   if (features.has('tssmooth')) blocks.push(`stata_tssmooth_ma <- function(x, offsets, weights, panel = NULL, time = NULL, delta = 1) {
   stopifnot(length(offsets) == length(weights))
@@ -4790,6 +5577,49 @@ stata_missing_compare <- function(x, op, tag = "") {
   X0 <- X; X0[is.na(X0)] <- 0
   num <- rowSums(X0 * W)
   out <- num / den; out[den == 0] <- NA_real_; out
+}`);
+  if (features.has('tssmooth_exp')) blocks.push(`stata_tssmooth_exponential <- function(x, alpha = NULL, s0 = NULL, samp0 = NULL, forecast = 0L, panel = NULL) {
+  forecast <- as.integer(forecast); if (length(forecast) != 1L || is.na(forecast) || forecast < 0L || forecast > 500L) stop("forecast must be an integer from 0 through 500", call. = FALSE)
+  if (!is.null(alpha)) { alpha <- as.numeric(alpha); if (length(alpha) != 1L || is.na(alpha) || alpha <= 0 || alpha >= 1) stop("parms() must be strictly between 0 and 1", call. = FALSE) }
+  if (!is.null(samp0)) { samp0 <- as.integer(samp0); if (length(samp0) != 1L || is.na(samp0) || samp0 < 1L) stop("samp0() must be a positive integer", call. = FALSE) }
+  if (!is.null(s0) && !is.null(samp0)) stop("s0() and samp0() are mutually exclusive", call. = FALSE)
+  one <- function(z) {
+    observed <- which(!is.na(z))
+    if (!length(observed)) return(list(value = rep(NA_real_, length(z)), results = list(N = 0L, alpha = NA_real_, rss = NA_real_, rmse = NA_real_, N_pre = 0L, s1_0 = NA_real_, method = "exponential")))
+    first <- min(observed); last <- max(observed)
+    npre <- if (!is.null(samp0)) min(samp0, length(observed)) else max(1L, floor(length(observed) / 2L))
+    initial <- if (!is.null(s0)) as.numeric(s0)[1L] else mean(z[observed[seq_len(npre)]], na.rm = TRUE)
+    run <- function(a, keep = TRUE) {
+      state <- initial
+      out <- rep(NA_real_, length(z))
+      for (i in seq.int(first, last)) {
+        out[i] <- state
+        if (!is.na(z[i])) state <- a * z[i] + (1 - a) * state
+      }
+      if (forecast > 0L && last < length(z)) {
+        hi <- min(length(z), last + forecast)
+        if (hi >= last + 1L) out[(last + 1L):hi] <- state
+      }
+      resid <- z[observed] - out[observed]
+      rss <- sum(resid^2, na.rm = TRUE)
+      if (keep) list(value = out, rss = rss, rmse = sqrt(rss / max(1L, length(observed)))) else rss
+    }
+    a <- if (is.null(alpha)) stats::optimize(function(a) run(a, FALSE), interval = c(1e-7, 1 - 1e-7))$minimum else alpha
+    fit <- run(a, TRUE)
+    fit$results <- list(N = length(observed), alpha = unname(a), rss = fit$rss, rmse = fit$rmse, N_pre = npre, s1_0 = initial, method = "exponential")
+    fit
+  }
+  if (is.null(panel)) {
+    fit <- one(x)
+    return(list(value = fit$value, results = fit$results))
+  }
+  groups <- split(seq_along(x), panel, drop = TRUE)
+  out <- rep(NA_real_, length(x)); stats_out <- vector("list", length(groups)); names(stats_out) <- names(groups)
+  j <- 0L
+  for (idx in groups) {
+    j <- j + 1L; fit <- one(x[idx]); out[idx] <- fit$value; stats_out[[j]] <- fit$results
+  }
+  list(value = out, results = list(panels = stats_out, method = "exponential"))
 }`);
   if (features.has('excelio')) blocks.push(`stata_excel_col <- function(n) {
   n <- as.integer(n)
@@ -4960,6 +5790,23 @@ stata_pmin <- function(...) {
 }`);
   if (features.has('words')) blocks.push(`stata_word <- function(s, n) vapply(strsplit(trimws(as.character(s)), "\\\\s+"), function(x) if (length(x) >= n) x[n] else "", character(1L))
 stata_wordcount <- function(s) lengths(strsplit(trimws(as.character(s)), "\\\\s+"))`);
+  if (features.has('macro_subinstr')) blocks.push(`stata_macro_subinstr <- function(text, from, to, all = FALSE, word = FALSE) {
+  text <- as.character(text)[1L]; from <- as.character(from)[1L]; to <- as.character(to)[1L]
+  if (!nzchar(from)) return(list(value = text, count = 0L))
+  if (word) {
+    quoted <- paste0("\\Q", gsub("\\E", "\\E\\\\E\\Q", from, fixed = TRUE), "\\E")
+    pattern <- paste0("(?<!\\S)", quoted, "(?!\\S)")
+    hits <- gregexpr(pattern, text, perl = TRUE)[[1L]]
+    count <- if (hits[1L] < 0L) 0L else length(hits)
+    value <- if (all) gsub(pattern, to, text, perl = TRUE) else sub(pattern, to, text, perl = TRUE)
+  } else {
+    hits <- gregexpr(from, text, fixed = TRUE)[[1L]]
+    count <- if (hits[1L] < 0L) 0L else length(hits)
+    value <- if (all) gsub(from, to, text, fixed = TRUE) else sub(from, to, text, fixed = TRUE)
+  }
+  if (!all && count > 1L) count <- 1L
+  list(value = value, count = as.integer(count))
+}`);
   if (features.has('fillin')) blocks.push(`stata_fillin <- function(DT, vars) {
   if (!length(vars)) return(DT)
   levels <- setNames(lapply(vars, function(v) unique(DT[[v]])), vars)
@@ -5222,6 +6069,111 @@ stata_xtile <- function(x, cutpoints) {
   if (is.null(by)) return(DT[, as.list(calc(.SD)), .SDcols = vars])
   DT[, as.list(calc(.SD)), by = by, .SDcols = vars]
 }`);
+  if (features.has('marginsplot')) blocks.push(`stata_marginsplot <- function(x) {
+  d <- as.data.frame(x)
+  est <- intersect(c("estimate", "Estimate"), names(d))[1L]
+  lo <- intersect(c("conf.low", "conf_low", "2.5 %"), names(d))[1L]
+  hi <- intersect(c("conf.high", "conf_high", "97.5 %"), names(d))[1L]
+  reserved <- c("estimate", "Estimate", "std.error", "Std. Error", "statistic", "p.value", "s.value", "conf.low", "conf.high", "conf_low", "conf_high", "df", "term", "contrast", "type", "rowid")
+  dims <- setdiff(names(d), reserved)
+  if (!length(est)) stop("Could not identify an estimate column in translated margins output.", call. = FALSE)
+  if (!length(dims)) { d$.__index <- seq_len(nrow(d)); dims <- ".__index" }
+  xvar <- dims[1L]
+  p <- ggplot2::ggplot(d, ggplot2::aes(x = .data[[xvar]], y = .data[[est]])) + ggplot2::geom_point()
+  if (length(lo) && length(hi)) p <- p + ggplot2::geom_errorbar(ggplot2::aes(ymin = .data[[lo]], ymax = .data[[hi]]), width = 0.1)
+  p + ggplot2::labs(x = xvar, y = "Estimate")
+}`);
+  if (features.has('stcurve')) blocks.push(`stata_stcurve <- function(model, type = c("survival", "failure", "hazard", "cumhaz")) {
+  type <- match.arg(type)
+  if (inherits(model, "flexsurvreg")) {
+    if (type == "failure") {
+      s <- summary(model, type = "survival")
+      z <- s[[1L]]
+      graphics::plot(z$time, 1 - z$est, type = "l", xlab = "Time", ylab = "Failure probability")
+      return(invisible(z))
+    }
+    return(plot(model, type = type))
+  }
+  if (inherits(model, "coxph")) {
+    sf <- survival::survfit(model)
+    if (type == "hazard") stop("Direct hazard plotting after coxph needs smoothing; translate manually for publication use.", call. = FALSE)
+    fun <- if (type == "failure") "event" else if (type == "cumhaz") "cumhaz" else NULL
+    if (is.null(fun)) plot(sf) else plot(sf, fun = fun)
+    return(invisible(sf))
+  }
+  stop("stata_stcurve supports translated flexsurvreg and coxph models.", call. = FALSE)
+}`);
+  if (features.has('reporting')) blocks.push(`stata_table <- function(DT, dimensions, statistics = character(), totals = TRUE) {
+  dimensions <- as.character(dimensions)
+  statistics <- as.character(statistics)
+  stopifnot(length(dimensions) > 0L, all(dimensions %in% names(DT)))
+  parse_stat <- function(spec) {
+    bits <- strsplit(trimws(spec), "\\s+")[[1L]]
+    list(stat = tolower(bits[1L]), var = if (length(bits) > 1L) bits[2L] else "")
+  }
+  calc <- function(stat, var, n_group) {
+    if (stat %in% c("frequency", "freq")) return(n_group)
+    if (stat == "percent") return(100 * n_group / nrow(DT))
+    if (!nzchar(var) || !var %in% names(DT)) return(NA_real_)
+    x <- get(var)
+    switch(stat,
+      mean = mean(x, na.rm = TRUE), sd = stats::sd(x, na.rm = TRUE),
+      sum = sum(x, na.rm = TRUE), min = min(x, na.rm = TRUE), max = max(x, na.rm = TRUE),
+      median = stats::median(x, na.rm = TRUE), p50 = stats::median(x, na.rm = TRUE),
+      count = sum(!is.na(x)), n = sum(!is.na(x)),
+      semean = stats::sd(x, na.rm = TRUE) / sqrt(sum(!is.na(x))),
+      variance = stats::var(x, na.rm = TRUE), NA_real_)
+  }
+  if (!length(statistics)) return(DT[, .(frequency = .N), by = dimensions])
+  parsed <- lapply(statistics, parse_stat)
+  DT[, {
+    vals <- lapply(parsed, function(z) calc(z$stat, z$var, .N))
+    nms <- vapply(parsed, function(z) if (nzchar(z$var)) paste(z$stat, z$var, sep = "_") else z$stat, character(1L))
+    stats::setNames(vals, make.unique(nms))
+  }, by = dimensions]
+}
+stata_dtable <- function(DT, variables, categorical = character(), by = NULL, continuous_stats = c("mean", "sd")) {
+  variables <- unique(as.character(variables))
+  categorical <- unique(as.character(categorical))
+  stopifnot(all(variables %in% names(DT)))
+  if (!is.null(by)) stopifnot(length(by) == 1L, by %in% names(DT))
+  one_cont <- function(v) {
+    calc <- function(x) {
+      out <- lapply(continuous_stats, function(st) switch(tolower(st),
+        n = sum(!is.na(x)), count = sum(!is.na(x)), mean = mean(x, na.rm = TRUE),
+        sd = stats::sd(x, na.rm = TRUE), se = stats::sd(x, na.rm = TRUE) / sqrt(sum(!is.na(x))),
+        semean = stats::sd(x, na.rm = TRUE) / sqrt(sum(!is.na(x))),
+        min = min(x, na.rm = TRUE), max = max(x, na.rm = TRUE),
+        median = stats::median(x, na.rm = TRUE), p50 = stats::median(x, na.rm = TRUE), NA_real_))
+      stats::setNames(out, continuous_stats)
+    }
+    z <- if (is.null(by)) data.table::as.data.table(calc(DT[[v]])) else DT[, as.list(calc(get(v))), by = by]
+    z[, variable := v]
+    z[, level := NA_character_]
+    z
+  }
+  one_cat <- function(v) {
+    groups <- if (is.null(by)) v else c(by, v)
+    z <- DT[!is.na(get(v)), .(N = .N), by = groups]
+    if (is.null(by)) z[, percent := 100 * N / sum(N)] else z[, percent := 100 * N / sum(N), by = by]
+    z[, variable := v]
+    z[, level := as.character(get(v))]
+    z[, (v) := NULL]
+    z
+  }
+  parts <- lapply(variables, function(v) if (v %in% categorical || !is.numeric(DT[[v]])) one_cat(v) else one_cont(v))
+  data.table::rbindlist(parts, use.names = TRUE, fill = TRUE)
+}`);
+  if (features.has('reportexport')) blocks.push(`stata_collect_export <- function(x, path, replace = FALSE) {
+  path <- as.character(path)[1L]
+  if (file.exists(path) && !replace) stop(sprintf("File exists: %s", path), call. = FALSE)
+  ext <- tolower(tools::file_ext(path))
+  if (ext == "csv") data.table::fwrite(as.data.frame(x), path)
+  else if (ext %in% c("tsv", "txt")) data.table::fwrite(as.data.frame(x), path, sep = "\\t")
+  else if (ext %in% c("xlsx", "xlsm")) openxlsx::write.xlsx(as.data.frame(x), path, overwrite = replace)
+  else stop("Translated collect export currently supports .csv, .tsv/.txt, .xlsx, and .xlsm output.", call. = FALSE)
+  invisible(path)
+}`);
   return blocks;
 }
 
@@ -5230,7 +6182,7 @@ function buildHeader(ctx) {
   const packages = new Set(['data.table']);
   const featurePackages = {
     haven: 'haven', glue: 'glue', fixest: 'fixest', plm: 'plm', MASS: 'MASS', quantreg: 'quantreg', AER: 'AER',
-    nnet: 'nnet', survival: 'survival', marginaleffects: 'marginaleffects', ggplot2: 'ggplot2', readxl: 'readxl', openxlsx: 'openxlsx', arrow: 'arrow', survey: 'survey', lme4: 'lme4', ordinal: 'ordinal', urca: 'urca', vars: 'vars', reticulate: 'reticulate', collapse: 'collapse', geepack: 'geepack'
+    nnet: 'nnet', survival: 'survival', flexsurv: 'flexsurv', marginaleffects: 'marginaleffects', car: 'car', modelsummary: 'modelsummary', ggplot2: 'ggplot2', readxl: 'readxl', openxlsx: 'openxlsx', arrow: 'arrow', survey: 'survey', lme4: 'lme4', ordinal: 'ordinal', urca: 'urca', vars: 'vars', reticulate: 'reticulate', collapse: 'collapse', geepack: 'geepack', mFilter: 'mFilter'
   };
   for (const [f, p] of Object.entries(featurePackages)) if (ctx.features.has(f)) packages.add(p);
   const lines = [
@@ -5272,7 +6224,7 @@ export function translateStata(source, options = {}) {
     stack: [],
     frames: new Set([defaultData]),
     preserveStack: [], preserveCounter: 0,
-    modelCounter: 0, lastModel: '', panel: null, survival: null, survey: null,
+    modelCounter: 0, lastModel: '', lastModelKind: '', tableCounter: 0, lastTable: '', lastMargins: '', lastIrf: '', panel: null, survival: null, survey: null,
     diagnostics: [], counts: { exact: 0, heuristic: 0, review: 0 }, statements: 0
   };
 

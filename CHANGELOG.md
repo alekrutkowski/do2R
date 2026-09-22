@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.9.0 – 2026-09-22
+
+- Add modern reporting translations for common `table`, `dtable`, `etable`, and `collect` workflows, including tidy summaries, `modelsummary` estimation tables, and CSV/TSV/XLSX collection export.
+- Expand `margins` with `dydx()`, `at()`, `atmeans`, `over()`, counterfactual grids, stored margins results, and generic `marginsplot` output through `marginaleffects` and `ggplot2`.
+- Add common postestimation coefficient combinations with `lincom` and `nlcom` through `car::deltaMethod()`, including exponentiated-result options and confidence levels.
+- Deepen survival support with richer `stset` failure declarations, `stcox` strata, `streg` parametric models through `flexsurv`, Kaplan–Meier `sts`/`stsum`, and `stcurve` survival/failure/hazard/cumulative-hazard output.
+- Add Hodrick–Prescott `tsfilter hp`, Johansen `vecrank`/`vec`, and in-memory `irf create`/`graph`/`table` mappings through `mFilter`, `urca`, and `vars`.
+- Harden estimator state so postestimation commands do not attach to stale models, and fix single-exponential smoothing to pass the translated data vector explicitly.
+- Add regression coverage for all new reporting, margins, survival, filtering, VEC, and IRF paths.
+
+## 0.8.0 – 2026-09-22
+
+- Extend `tsappend` with endpoint `last()` and `tsfmt()` handling for common Stata time scales.
+- Add `tssmooth exponential` translation, including fixed or optimized smoothing parameters, initial-value controls, panel-aware execution, and forecast extension.
+- Add VAR lag selection and diagnostics through `varsoc`, `varlmar`, `varnorm`, and `varstable`, with explicit review notes where R and Stata diagnostics are not numerically identical.
+- Add random-effects ordered panel mappings for `xtologit` and `xtoprobit` through `ordinal::clmm`, including `intpoints()` and adaptive/non-adaptive quadrature choices.
+- Expand extended macro-function support with string-length variants, `copy`, and `subinstr` options including `all`, `word`, and `count()`.
+- Add regression tests for the new translations and refresh the in-app roadmap and documentation.
+
 ## 0.7.0 – 2026-09-11
 
 - Treat multiline `/* ... */` comments inside a Stata statement as lexical continuation, independently of indentation.

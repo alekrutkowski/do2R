@@ -135,6 +135,16 @@ assert.match(macroTokens.code, /assign\("\*", paste\(tokens, collapse = " "\), e
 assert.match(macroTokens.code, /grepl\("\\\\s", c, perl = TRUE\)/);
 assert.doesNotMatch(dynamicMacroName.code, /TODO/);
 
+const extendedMacros = translateStata(`local s "a or b or c"
+local n : strlen local s
+local cp : copy local s
+local out : subinstr local s "or" "and", all count(local k) word`);
+assert.equal(extendedMacros.counts.review, 0);
+assert.match(extendedMacros.code, /nchar\(as\.character\(stata_local_get/);
+assert.match(extendedMacros.code, /stata_macro_subinstr/);
+assert.match(extendedMacros.code, /all = TRUE[\s\S]*word = TRUE/);
+assert.match(extendedMacros.code, /k <- \.__do2r_subinstr\$count/);
+
 const literalMissingComparison = translateStata(`display . > 3\ngen high = x > 3`, { addHeader: true });
 assert.match(literalMissingComparison.code, /cat\(TRUE/);
 assert.match(literalMissingComparison.code, /stata_compare\(x,\s*">",\s*3\)/);
@@ -327,10 +337,65 @@ tssmooth ma sm = x, weights(1/2 <3> 2/1)`);
 assert.equal(weightedSmooth.counts.review, 0);
 assert.match(weightedSmooth.code, /weights = c\(1, 2, 3, 2, 1\)/);
 
-const unsupportedTsappend = translateStata(`tsset t
+const endpointTsappend = translateStata(`tsset t
 tsappend, last(2020m12) tsfmt(tm)`);
-assert.equal(unsupportedTsappend.counts.review, 1);
-assert.match(unsupportedTsappend.code, /TODO/);
+assert.equal(endpointTsappend.counts.review, 0);
+assert.match(endpointTsappend.code, /stata_tsappend\(dt, panel = NULL, time = "t", delta = 1, last = "2020m12", tsfmt = "tm"\)/);
+assert.match(endpointTsappend.code, /stata_ts_parse_last/);
+
+const exponentialSmooth = translateStata(`tsset t
+tssmooth exponential sm = x, parms(.4) samp0(3) forecast(2)`);
+assert.equal(exponentialSmooth.counts.review, 0);
+assert.match(exponentialSmooth.code, /stata_tssmooth_exponential\(dt\[, x\], alpha = \.4, s0 = NULL, samp0 = 3, forecast = 2\)/);
+assert.match(exponentialSmooth.code, /stats::optimize/);
+
+const reporting = translateStata(`table region, statistic(mean income) statistic(sd income)
+dtable age income i.sex, by(group)
+regress y x
+etable, stars
+collect export "out.xlsx", replace`);
+assert.equal(reporting.counts.review, 0);
+assert.match(reporting.code, /stata_table\(/);
+assert.match(reporting.code, /statistics = c\("mean income", "sd income"\)/);
+assert.match(reporting.code, /stata_dtable\(/);
+assert.match(reporting.code, /modelsummary::modelsummary/);
+assert.match(reporting.code, /stata_collect_export\(\.do2r_etable_3, "out\.xlsx", replace = TRUE\)/);
+
+const marginalPost = translateStata(`regress y x i.g
+margins, dydx(x) at(x=(0 1)) over(g)
+marginsplot
+lincom 2*_b[x]
+nlcom exp(_b[x])`);
+assert.equal(marginalPost.counts.review, 0);
+assert.match(marginalPost.code, /marginaleffects::avg_slopes/);
+assert.match(marginalPost.code, /grid_type = "counterfactual"/);
+assert.match(marginalPost.code, /stata_numlist\("0 1"\)/);
+assert.match(marginalPost.code, /stata_marginsplot/);
+assert.match(marginalPost.code, /car::deltaMethod\(model_1, "2\*`x`"/);
+assert.match(marginalPost.code, /car::deltaMethod\(model_1, "exp\(`x`\)"/);
+assert.doesNotMatch(marginalPost.code, /stata_macro_expand\("exp\(`/);
+
+const survivalModels = translateStata(`stset time, failure(dead==1)
+stcox x i.g, strata(site)
+stcurve, survival
+streg x, distribution(weibull)
+stcurve, hazard
+sts graph, by(g) failure
+stsum`);
+assert.equal(survivalModels.counts.review, 0);
+assert.match(survivalModels.code, /survival::Surv\(\(\(time\) \/ \(1\)\), dead %in% c\(1\)\)/);
+assert.match(survivalModels.code, /survival::coxph/);
+assert.match(survivalModels.code, /survival::strata\(site\)/);
+assert.match(survivalModels.code, /flexsurv::flexsurvreg/);
+assert.match(survivalModels.code, /dist = "weibullPH"/);
+assert.match(survivalModels.code, /stata_stcurve\(streg_model_2, type = "hazard"\)/);
+
+const staleSurvivalState = translateStata(`stset time, failure(dead)
+streg x
+regress y x
+stcurve`, { addHeader: false });
+assert.equal(staleSurvivalState.counts.review, 1);
+assert.match(staleSurvivalState.code, /TODO \[Stata line 4\]/);
 
 const survey = translateStata(`svyset psu [pweight=w], strata(stratum) fpc(fpc)
 svy, subpop(if adult==1): mean income
@@ -387,10 +452,61 @@ var y1 y2`, { addHeader: false });
 assert.equal(varDefaults.counts.review, 0);
 assert.match(varDefaults.code, /p = 2L/);
 assert.match(varDefaults.code, /type = "const"/);
+const orderedPanel = translateStata(`xtset id t
+xtologit grade x i.g
+xtoprobit grade x, intmethod(ghermite) intpoints(8)`);
+assert.equal(orderedPanel.counts.review, 0);
+assert.match(orderedPanel.code, /ordinal::clmm/);
+assert.match(orderedPanel.code, /nAGQ = -8L/);
+
 const sparseVarLags = translateStata(`tsset t
 var y1 y2, lags(2 3)`, { addHeader: false });
 assert.equal(sparseVarLags.counts.review, 1);
 assert.match(sparseVarLags.code, /TODO/);
+
+const varDiagnostics = translateStata(`tsset t
+varsoc y1 y2, maxlag(6)
+var y1 y2, lags(1/2)
+varlmar, mlag(4)
+varnorm
+varstable, graph`);
+assert.equal(varDiagnostics.counts.review, 0);
+assert.match(varDiagnostics.code, /vars::VARselect/);
+assert.match(varDiagnostics.code, /stata_varlmar\(var_model_1, mlag = 4\)/);
+assert.match(varDiagnostics.code, /vars::normality\.test\(var_model_1/);
+assert.match(varDiagnostics.code, /stata_varstable\(var_model_1, graph = TRUE\)/);
+
+const hpFilter = translateStata(`tsset t
+tsfilter hp cycle = y, smooth(1600) trend(trend)`);
+assert.equal(hpFilter.counts.review, 0);
+assert.match(hpFilter.code, /mFilter::hpfilter/);
+assert.match(hpFilter.code, /stata_tsfilter_hp\(dt\[\["y"\]\], lambda = 1600, panel = NULL\)/);
+assert.match(hpFilter.code, /dt\[, cycle := \.__do2r_hp\$cycle\]/);
+assert.match(hpFilter.code, /dt\[, trend := \.__do2r_hp\$trend\]/);
+
+const vecIrf = translateStata(`tsset t
+vecrank y1 y2, lags(2) max
+vec y1 y2, lags(3) rank(1)
+irf create baseline, step(12) bs reps(250)
+irf graph oirf, impulse(y1) response(y2)
+irf table irf`);
+assert.equal(vecIrf.counts.review, 0);
+assert.match(vecIrf.code, /urca::ca\.jo/);
+assert.match(vecIrf.code, /type = "eigen"/);
+assert.match(vecIrf.code, /vars::vec2var/);
+assert.match(vecIrf.code, /stata_irf_create\(\s*vec_model_1/);
+assert.match(vecIrf.code, /n\.ahead = 12/);
+assert.match(vecIrf.code, /boot = TRUE/);
+assert.match(vecIrf.code, /runs = 250/);
+assert.match(vecIrf.code, /plot\(\.do2r_irf_baseline\$oirf, impulse = c\("y1"\), response = c\("y2"\)\)/);
+assert.match(vecIrf.code, /stata_irf_table\(\.do2r_irf_baseline, statistic = "irf"\)/);
+
+const staleIrfState = translateStata(`tsset t
+var y1 y2
+regress z x
+irf create old`, { addHeader: false });
+assert.equal(staleIrfState.counts.review, 1);
+assert.match(staleIrfState.code, /TODO \[Stata line 4\]/);
 
 const factorGrammar = translateStata(`fvset base last g
 reg y i.g##(i.h c.x) c.x#c.x ib(freq).region
@@ -471,8 +587,8 @@ assert.match(stylesCss, /\.active-code-line \{ display: none; \}/);
 assert.match(stylesCss, /--runtime-line-height/);
 assert.match(indexHtml, /id="optionsPanel"(?![^>]*hidden)/);
 assert.match(indexHtml, /Double-click either editor/);
-assert.match(indexHtml, /v0\.7\.0/);
-assert.match(appJs, /editor-utils\.js\?v=0\.7\.0/);
+assert.match(indexHtml, /v0\.9\.0/);
+assert.match(appJs, /editor-utils\.js\?v=0\.9\.0/);
 const highlightedRows = highlightCodeLines('gen x=1\n/* block\ncomment */\ngen y=2', 'stata');
 assert.equal(highlightedRows.length, 4);
 assert.match(highlightedRows[1], /tok-comment/);
@@ -508,6 +624,10 @@ assert.ok(COVERAGE_ROADMAP.added.some(x => /Frame links/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /nonlinear panel/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Factor-variable grammar/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Repeated estimation/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Reporting/.test(x.family) && /dtable/.test(x.commands) && /etable/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Marginal analysis/.test(x.family) && /nlcom/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Survival/.test(x.family) && /streg/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Time-series data/.test(x.family) && /tsfilter hp/.test(x.commands) && /vec/.test(x.commands) && /irf/.test(x.commands)));
 assert.ok(COVERAGE_ROADMAP.next.some(x => /Advanced resampling semantics/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.next.some(x => /Factor-variable edge/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.next.some(x => x.family === 'Advanced survey designs' && x.priority === 'P1'));

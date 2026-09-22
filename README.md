@@ -1,4 +1,4 @@
-# do2R v0.7.0
+# do2R v0.9.0
 
 **do2R** is a static, browser-only Stata/Mata → R translator intended for migration work on `.do`, `.ado`, and Mata code. It has no server component and can be hosted directly on GitHub Pages:
 
@@ -51,6 +51,7 @@ Macros are treated as a Stata preprocessing subsystem rather than ordinary R var
 - Backslash-delayed references are protected across an expansion pass.
 - Dynamic macro names such as ``local `eeo' 123`` are translated by expanding the macro name first and then using `assign()` through the local-macro helper.
 - `tokenize`, positional locals `1`, `2`, ..., `` `*' ``, and `macro shift [#]` are translated.
+- Common extended macro functions are translated, including `word`, `word count`, `strlen` / `length` / Unicode length variants, `copy`, and `subinstr` with `all`, `word`, and `count()`.
 - Common `gettoken` workflows are translated, including `parse()`, quoted strings, and conservative support for `match()` / `bind`.
 - `syntax` declarations emit R argument extraction plus `stopifnot()` contracts for common varlist and option types. Stata defaults are made explicit where R defaults differ.
 
@@ -83,7 +84,7 @@ Stata time-series operators now preferentially target the **collapse** package:
 - repeated/combined operators and common lag-range forms are supported;
 - `tsset` / `xtset` metadata is supplied to grouped/panel operations when available.
 
-Coverage also includes `tsfill`, `tsappend, add()`, `tssmooth ma`, `arima`, `dfuller`, `corrgram`, ordinary consecutive-lag `var`, and pairwise `vargranger` Wald tests.
+Coverage also includes `tsfill`, `tsappend, add()` plus endpoint `last()` / `tsfmt()`, `tssmooth ma` and single-exponential smoothing, Hodrick–Prescott `tsfilter hp`, `arima`, `dfuller`, `corrgram`, ordinary consecutive-lag `var`, `varsoc` lag selection, pairwise `vargranger` Wald tests, core `varlmar` / `varnorm` / `varstable` diagnostics, Johansen `vecrank` / `vec`, and common `irf create` / `graph` / `table` workflows.
 
 ### Frames
 
@@ -92,21 +93,24 @@ Coverage also includes `tsfill`, `tsappend, add()`, `tssmooth ma`, `arima`, `dfu
 - Simple `frval()` access is supported.
 - Live alias semantics (`fralias`) and full link lifecycle commands remain on the roadmap.
 
-### Excel
+### Excel and reporting
 
 - `import excel` → `readxl::read_excel()` plus compatibility handling for common Stata options.
 - `export excel` → `openxlsx`.
 - `putexcel set`, scalar/string/cell assignment, `matrix()`, `formula()`, and `image()` have initial `openxlsx` mappings.
-- Advanced cell formatting, `etable`, `collect`, and richer workbook state remain future work.
+- Common modern `table`, `dtable`, and `etable` workflows are translated to tidy `data.table` summaries and `modelsummary` output.
+- Basic `collect clear` / `preview` / `export` state is preserved, with CSV/TSV/XLSX export. Advanced collection styling, `putdocx`, `putpdf`, and rich workbook formatting remain roadmap items.
 
-### More model coverage
+### More model coverage and postestimation
 
 The current translator includes common mappings for:
 
 - OLS/GLM and many common single-equation estimators;
-- common `xtlogit`, `xtprobit`, `xtpoisson`, and `xtgee` cases;
+- common `xtlogit`, `xtprobit`, `xtpoisson`, and `xtgee` cases, plus random-effects ordered `xtologit` / `xtoprobit` through `ordinal::clmm`;
 - `mixed`, `melogit`, `meprobit`, `mecloglog`, `meologit`, `meoprobit`, `mepoisson`, `menbreg`, and common `meglm` family/link combinations;
 - basic survey declarations and common `svy:` estimation;
+- richer `margins` scenarios through `marginaleffects`, plus generic `marginsplot`, `lincom`, and `nlcom`;
+- survival declarations and common `stcox`, parametric `streg`, Kaplan–Meier `sts` / `stsum`, and `stcurve` workflows through `survival` and `flexsurv`;
 - many data-management, reshape, join, descriptive-statistics, testing, and graphics commands.
 
 ### Comments
@@ -148,16 +152,16 @@ The built-in gallery contains 21 diverse Stata/Mata snippets:
 
 The in-app coverage map is the canonical roadmap. The next high-impact groups are:
 
-1. **Macro/parser edge cases** – extended macro functions, positional `0` / call-line fidelity, compound quotes, Unicode/bind corner cases, and delayed expansion across multiple preprocessing passes.
+1. **Macro/parser edge cases** – remaining extended macro functions, positional `0` / call-line fidelity, compound quotes, Unicode/bind corner cases, and delayed expansion across multiple preprocessing passes.
 2. **Python/sfi depth** – map common `sfi.Data`, `Frame`, `Macro`, `Scalar`, `Matrix`, and `ValueLabel` interactions to R objects and `reticulate` exchange rather than merely executing Python source.
 3. **Advanced survey designs** – multistage and replicate-weight designs.
-4. **Deeper time-series models** – filters, exponential/Holt-Winters smoothing, ARCH, VEC, VAR diagnostics, IRFs, and forecasting. Ordinary consecutive-lag VARs and pairwise Granger tests are now covered.
+4. **Deeper time-series models** – double-exponential/Holt-Winters smoothing, additional filters, ARCH/GARCH, richer VAR/VEC diagnostics, structural VARs, and forecasting. HP filtering, Johansen VEC/rank workflows, and common IRF creation/plot/table paths are now covered.
 5. **Advanced resampling semantics** – BC/BCa intervals, `reject()`, custom weights and `idcluster`, jackknife MSE/pseudovalues, exact permutation enumeration, and fuller `rolling` save/window semantics.
 6. **Factor-variable edge/design semantics** – omitted/empty-cell fidelity, factor variables in every varlist-bearing option, coefficient-name fidelity, and `fvset design` effects in postestimation.
-7. **Panel estimator depth** – additional `xt*` families and richer GEE semantics.
+7. **Panel estimator depth** – `xtnbreg`, `xtregar`, `xttobit`, `xtmlogit`, dynamic-panel estimators, and richer GEE semantics. Random-effects ordered logit/probit are now covered.
 8. **Advanced calendars** – weekly dates, full `%t*` display behavior, and business calendars.
-9. **Reporting/collections** – `table`, `dtable`, `etable`, `collect`, advanced `putexcel`, `putdocx`, and `putpdf`.
-10. **MI, survival, deep Mata, SEM/GSEM and specialized estimator families**.
+9. **Advanced reporting/collections** – richer `collect` dimensions/styles/layouts, advanced `putexcel`, `putdocx`, and `putpdf`. Core `table`, `dtable`, `etable`, and basic collection export are now covered.
+10. **MI and deeper survival** – multiple imputation, competing risks, split/join survival data, richer curve scenarios, plus deep Mata, SEM/GSEM, and specialized estimator families.
 
 ## Run locally
 
@@ -189,10 +193,13 @@ do2R itself has no runtime JavaScript dependencies. Depending on the Stata sourc
 - `fixest`
 - `ggplot2`
 - `marginaleffects`
+- `car`
+- `modelsummary`
 - `survey`
 - `lme4`
 - `ordinal`
 - `survival`
+- `flexsurv`
 - `geepack`
 - `plm`
 - `quantreg`
@@ -202,6 +209,7 @@ do2R itself has no runtime JavaScript dependencies. Depending on the Stata sourc
 - `reticulate`
 - `urca`
 - `vars`
+- `mFilter`
 - `AER`
 - `nnet`
 - `glue`
