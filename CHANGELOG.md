@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.10.0 – 2026-09-22
+
+- Add core multiple-imputation translation with `mi set`, `mi register`, `mi describe`, numbered `mi extract`, common univariate/chained imputations through `mice`, and `mi estimate:` pooling for common model families.
+- Improve chained-imputation fidelity by including other imputed variables in each prediction equation, matching Stata's default low-to-high missingness visit order, and mapping predictive-mean-matching `knn()` to MICE donor pools.
+- Add Arellano–Bond `xtabond` and system-GMM `xtdpdsys` mappings through `plm::pgmm()`, plus `estat abond` and `estat sargan`.
+- Add widely used high-dimensional fixed-effect commands `reghdfe`, `ivreghdfe`, and `ppmlhdfe` through `fixest`, including categorical FE interactions, heterogeneous slopes, common IV syntax, clustered VCE, exposure, and offsets.
+- Add `heckman`, `intreg`, `fracreg logit/probit`, `zip`, and `zinb` through `sampleSelection`, `survival`, base GLM, and `pscl`, with diagnostics for parameterization and covariance differences.
+- Fix nested `select()` / `inflate()` option parsing, harden MI metadata inspection, flag unsupported MI sample/weight/conditional semantics instead of treating them as predictors, and prevent `plm::pgmm()` from silently introducing time dummies into ordinary `xtabond` translations.
+- Add regression tests for the new MI, dynamic-panel, selection/fractional/zero-inflated, and high-dimensional fixed-effect paths; refresh roadmap, dependency notices, and release metadata.
+- Polish the top-left `d → R` brand mark with a legible single-line monogram and improved light/dark-theme contrast.
+
 ## 0.9.0 – 2026-09-22
 
 - Add modern reporting translations for common `table`, `dtable`, `etable`, and `collect` workflows, including tidy summaries, `modelsummary` estimation tables, and CSV/TSV/XLSX collection export.

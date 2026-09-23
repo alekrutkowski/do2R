@@ -250,7 +250,11 @@ export const COVERAGE_ROADMAP = {
     { family: 'Repeated estimation', commands: 'bootstrap:, jackknife:/jknife:, permute:, simulate, rolling: with common r()/e()/_b/_se statistics, reps/seed/cluster/strata/window options' },
     { family: 'Reporting & collections', commands: 'table, dtable, etable, collect clear/preview/export with common statistic()/by() workflows and CSV/TSV/XLSX output' },
     { family: 'Marginal analysis & coefficient combinations', commands: 'margins dydx()/at()/atmeans/over(), marginsplot, lincom, nlcom with common exponentiation/level options' },
-    { family: 'Survival analysis', commands: 'stset failure()/time0()/scale(), stcox + strata(), streg common parametric distributions, sts graph/list, stsum, stcurve survival/failure/hazard/cumhaz' }
+    { family: 'Survival analysis', commands: 'stset failure()/time0()/scale(), stcox + strata(), streg common parametric distributions, sts graph/list, stsum, stcurve survival/failure/hazard/cumhaz' },
+    { family: 'Multiple imputation core', commands: 'mi set/register/describe/extract, mi impute regress/pmm/logit/ologit/mlogit, chained equations with method-specific pmm knn(), mi estimate pooling for common models' },
+    { family: 'Dynamic panel GMM', commands: 'xtabond, xtdpdsys, lags()/maxldep()/twostep/collapse, estat abond, estat sargan via plm::pgmm/mtest/sargan' },
+    { family: 'High-dimensional fixed effects', commands: 'reghdfe, ivreghdfe common 2SLS form, ppmlhdfe with absorb(), clustered VCE, exposure()/offset() via fixest' },
+    { family: 'Selection, censored, fractional & zero-inflated models', commands: 'heckman, intreg, fracreg logit/probit, zip, zinb with common select()/inflate()/offset()/exposure() options' }
   ],
   next: [
     { priority: 'P1', family: 'Macro/parser edge cases', commands: 'remaining extended macro functions, positional `0`/call-line fidelity, compound-quote edge cases, gettoken Unicode/bind corner cases, delayed expansion across multiple parser passes', note: 'Common parsing functions such as word/count, strlen/length, copy, and subinstr are mapped; finish the remaining parser-level textual substitution edge cases before broadening rare estimators.' },
@@ -260,12 +264,12 @@ export const COVERAGE_ROADMAP = {
     { priority: 'P1', family: 'Time-series data mechanics & remaining models', commands: 'tssmooth double-exponential/Holt-Winters, additional tsfilter methods, arch/GARCH, SVAR, richer VAR/VEC diagnostics, forecast', note: 'HP filtering, Johansen rank/VEC models, IRFs, tsappend endpoint dates, single-exponential smoothing, lag selection, and core VAR diagnostics are now covered; continue with volatility models, structural systems, richer diagnostics, and forecasting.' },
     { priority: 'P1', family: 'Advanced resampling semantics', commands: 'bootstrap BC/BCa/reject()/weights/idcluster, jackknife mse/pseudovalues/reject(), exact permute enumeration, rolling start()/end()/keep()/saving()', note: 'The reusable repeated-command layer now exists; finish Stata-specific replication, interval, rejection, and saved-result details.' },
     { priority: 'P1', family: 'Factor-variable edge/design semantics', commands: 'full o./b./bn. omission rules, empty cells, factor variables inside every varlist/option, coefficient-name fidelity, fvset design effects in margins/contrast', note: 'The core grammar and base-level machinery are implemented; the remaining work is Stata-specific omitted-column/design-matrix fidelity across commands.' },
-    { priority: 'P1', family: 'Panel estimator depth', commands: 'xtnbreg, xtregar, xttobit, xtmlogit, xtabond/xtdpd/xtdpdsys and richer xtgee structures', note: 'Random-effects ordered logit/probit are now mapped; extend the remaining xt families while preserving estimator-specific likelihood, incidental-parameter, correlation, and VCE semantics.' },
+    { priority: 'P1', family: 'Panel estimator depth', commands: 'xtnbreg, xtregar, xttobit, xtmlogit, flexible xtdpd moment structures, xtvar, and richer xtgee structures', note: 'Arellano–Bond xtabond and system-GMM xtdpdsys core workflows are now mapped; extend the remaining xt families while preserving estimator-specific likelihood, moment, correlation, and VCE semantics.' },
     { priority: 'P1', family: 'Advanced date/time & calendars', commands: 'full datetime masks/top-year rules, weekly dates, %t display formats, bcal create/load, bofd()/dofb()', note: 'Finish Stata parsing/display semantics and business-calendar mappings beyond the common constructors now covered.' },
     { priority: 'P2', family: 'Advanced reporting & collections', commands: 'collect dimensions/layout/style/labels, advanced table/dtable/etable statistics/tests, putexcel formatting, putdocx, putpdf', note: 'Core tables, estimation tables, basic collection state, and CSV/TSV/XLSX export are mapped; finish Stata-specific presentation state and document outputs.' },
-    { priority: 'P2', family: 'Multiple imputation & deeper survival', commands: 'mi, stcrreg, stsplit/stjoin, richer stcurve at()/CI/range(), recurrent/multiple-failure workflows', note: 'Core stset, Cox, parametric streg, Kaplan–Meier, and curve output are mapped; MI pooling, competing risks, survival-data transformation, and advanced risk-set semantics remain.' },
+    { priority: 'P2', family: 'MI depth & deeper survival', commands: 'mi passive/update/misstable, monotone/mvn/count/truncated imputation, by()/conditional() imputation, richer mi estimate/postestimation, stcrreg, stsplit/stjoin, richer stcurve at()/CI/range()', note: 'Core mice-backed MI setup, common univariate/chained imputation, Rubin pooling, Cox/parametric survival, Kaplan–Meier, and curve output are mapped; finish Stata-specific MI data management, additional imputation models, competing risks, and advanced risk-set semantics.' },
     { priority: 'P2', family: 'Remaining multilevel outcomes', commands: 'meintreg, metobit, mestreg, menl, multilevel postestimation and richer covariance()/integration structures', note: 'Extend the shared random-effects parser while preserving censoring, survival, nonlinear, covariance, and quadrature semantics.' },
-    { priority: 'P2', family: 'Advanced estimators', commands: 'gmm, heckman, heckprobit, frontier, intreg, fracreg, zero-inflated and hurdle models', note: 'Requires explicit package selection and warnings for likelihood, parameterization, and default differences.' },
+    { priority: 'P2', family: 'Advanced estimators', commands: 'gmm, heckprobit, frontier, truncreg, hurdle models, multivariate censored/selection systems', note: 'Heckman selection, interval regression, fractional-response logit/probit, ZIP, and ZINB are now mapped; the remaining estimators require explicit package selection and careful likelihood/parameterization warnings.' },
     { priority: 'P3', family: 'Deep Mata/runtime language', commands: 'structs/classes/pointers, optimize(), associative arrays, file I/O, callbacks', note: 'Needs a more complete parser and runtime-model emulation rather than command-by-command regexes.' },
     { priority: 'P3', family: 'Specialized model families', commands: 'sem/gsem, teffects/etregress, choice, bayes:, lasso/elasticnet, spatial, meta, irt, fmm', note: 'Large dedicated Stata subsystems should follow once the cross-cutting parser and repeated-estimation layers are stronger.' }
   ]
@@ -3101,6 +3105,501 @@ function translateIv(rest, options, ctx, rec) {
   return result(`${model} <- fixest::feols(${dep} ~ ${exog} | ${endog} ~ ${inst}, data = ${data}${vcovArgs(options, ctx)})`, 'heuristic', [diag(rec.line, 'warning', 'ivregress 2sls was mapped to fixest IV syntax; verify excluded/exogenous instruments, VCE, first-stage diagnostics, and finite-sample conventions.', rec.text)]);
 }
 
+
+function fixestAbsorbTerms(raw, ctx) {
+  const terms = splitWords(String(raw || '')).filter(Boolean);
+  const out = [];
+  let simple = true;
+  for (const term of terms) {
+    if (/\[|\]|\(|\)/.test(term)) { simple = false; out.push(formulaTerm(term, ctx, true)); continue; }
+
+    // reghdfe heterogeneous slopes have dedicated fixest syntax:
+    //   state#c.time   -> state[[time]]  (slope only)
+    //   state##c.time  -> state[time]    (FE + varying slope)
+    // fixest uses ^ for pure categorical FE interactions such as firm#year.
+    let m = term.match(/^(?:i\.)?([A-Za-z_]\w*)##c\.([A-Za-z_]\w*)$/i);
+    if (!m) {
+      const reverse = term.match(/^c\.([A-Za-z_]\w*)##(?:i\.)?([A-Za-z_]\w*)$/i);
+      if (reverse) m = [reverse[0], reverse[2], reverse[1]];
+    }
+    if (m) {
+      out.push(`${cleanIdentifier(m[1], m[1])}[${cleanIdentifier(m[2], m[2])}]`);
+      continue;
+    }
+
+    m = term.match(/^(?:i\.)?([A-Za-z_]\w*)#c\.([A-Za-z_]\w*)$/i);
+    if (!m) {
+      const reverse = term.match(/^c\.([A-Za-z_]\w*)#(?:i\.)?([A-Za-z_]\w*)$/i);
+      if (reverse) m = [reverse[0], reverse[2], reverse[1]];
+    }
+    if (m) {
+      out.push(`${cleanIdentifier(m[1], m[1])}[[${cleanIdentifier(m[2], m[2])}]]`);
+      continue;
+    }
+
+    if (/##/.test(term)) { simple = false; out.push(formulaTerm(term, ctx, true)); continue; }
+    if (term.includes('#')) {
+      const bits = term.split('#').map(x => x.replace(/^(?:i|c)\./i, '')).map(x => cleanIdentifier(x, x)).filter(Boolean);
+      if (bits.length >= 2 && bits.every(x => /^[A-Za-z_]\w*$/.test(x))) out.push(bits.join('^'));
+      else { simple = false; out.push(formulaTerm(term, ctx, true)); }
+    } else {
+      const v = term.replace(/^(?:i|c)\./i, '');
+      if (/^[A-Za-z_]\w*$/.test(v)) out.push(cleanIdentifier(v, v));
+      else { simple = false; out.push(formulaTerm(term, ctx, true)); }
+    }
+  }
+  return { formula: out.filter(Boolean).join(' + ') || '1', simple };
+}
+
+function translateHdfeModel(cmd, rest, options, ctx, rec) {
+  ctx.features.add('fixest');
+  const absorbRaw = optionValue(options, 'absorb') || optionValue(options, 'a');
+  const absorb = absorbRaw && absorbRaw !== true ? fixestAbsorbTerms(absorbRaw, ctx) : { formula: '1', simple: true };
+  const ds = [];
+  if (!absorbRaw) ds.push(diag(rec.line, 'info', `${cmd} was translated without absorb(); the resulting model has no high-dimensional fixed effects.`, rec.text));
+  if (!absorb.simple) ds.push(diag(rec.line, 'warning', 'One or more absorb() terms use advanced slope/interaction syntax. Review the translated fixest fixed-effects formula.', rec.text));
+
+  if (cmd === 'ivreghdfe') {
+    const weighted = parseWeights(rest, ctx);
+    const q = extractQualifiers(weighted.text);
+    const m = q.core.match(/^([^\s]+)\s*(.*?)\s*\(([^=()]+)=([^()]*)\)\s*$/);
+    if (!m) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'ivreghdfe currently expects the common 2SLS form depvar exog (endog = instruments).', rec.text)]);
+    const dep = cleanIdentifier(m[1], m[1]);
+    const exog = formulaTerms(m[2], ctx);
+    const endog = formulaTerms(m[3], ctx);
+    const inst = formulaTerms(m[4], ctx);
+    const subset = q.ifExpr || q.inExpr ? rowFilter(q.ifExpr, q.inExpr, ctx) : '';
+    const data = modelDataExpr(ctx, subset);
+    const model = nextModel(ctx, 'hdfe_iv_model');
+    ctx.lastModelKind = 'iv';
+    const fePart = absorbRaw ? ` | ${absorb.formula} | ${endog} ~ ${inst}` : ` | ${endog} ~ ${inst}`;
+    const weightArg = weighted.weight ? `, weights = ~ ${weighted.weight}` : '';
+    if (weighted.weight) ds.push(diag(rec.line, 'warning', `${weighted.type} semantics differ across Stata and fixest; verify the intended IV weighting interpretation.`, rec.text));
+    if (hasOption(options, 'liml') || hasOption(options, 'gmm2s') || hasOption(options, 'cue')) ds.push(diag(rec.line, 'warning', 'The translated ivreghdfe call uses fixest 2SLS. LIML/GMM/CUE estimator switches are not reproduced.', rec.text));
+    return result(`${model} <- fixest::feols(${dep} ~ ${exog}${fePart}, data = ${data}${weightArg}${vcovArgs(options, ctx)})`, 'heuristic',
+      [diag(rec.line, 'warning', 'ivreghdfe was mapped to fixest IV syntax with absorbed fixed effects. Compare singleton removal, degrees of freedom, weak-IV diagnostics, and VCE conventions.', rec.text), ...ds]);
+  }
+
+  const core = parseModelCore(rest, ctx);
+  if (!core.dep) return null;
+  const data = modelDataExpr(ctx, core.subset);
+  const rhs = formulaTerms(core.rhs, ctx);
+  const model = nextModel(ctx, cmd === 'ppmlhdfe' ? 'ppmlhdfe_model' : 'reghdfe_model');
+  const fe = absorbRaw ? ` | ${absorb.formula}` : '';
+  const weightArg = core.weight ? `, weights = ~ ${core.weight}` : '';
+  if (core.weight) ds.push(diag(rec.line, 'warning', `${core.weightType} semantics differ across Stata and fixest; verify weighting and VCE conventions.`, rec.text));
+
+  if (cmd === 'reghdfe') {
+    ctx.lastModelKind = 'linear';
+    return result(`${model} <- fixest::feols(${core.dep} ~ ${rhs}${fe}, data = ${data}${weightArg}${vcovArgs(options, ctx)})`, 'heuristic',
+      [diag(rec.line, 'warning', 'reghdfe was mapped to fixest::feols(). Verify absorbed DoF, singleton handling, heterogeneous slopes, clustering, and convergence tolerances.', rec.text), ...ds]);
+  }
+
+  const exposure = optionValue(options, 'exposure');
+  const offset = optionValue(options, 'offset');
+  const off = exposure && exposure !== true ? ` + offset(log(${cleanIdentifier(exposure, exposure)}))` :
+    offset && offset !== true ? ` + offset(${cleanIdentifier(offset, offset)})` : '';
+  ctx.lastModelKind = 'poisson';
+  return result(`${model} <- fixest::fepois(${core.dep} ~ ${rhs}${off}${fe}, data = ${data}${weightArg}${vcovArgs(options, ctx)})`, 'heuristic',
+    [diag(rec.line, 'warning', 'ppmlhdfe was mapped to fixest::fepois(). Verify separation handling, singleton/perfect-fit removal, exposure/offset semantics, absorbed DoF, and VCE conventions.', rec.text), ...ds]);
+}
+
+function translateAdvancedModel(cmd, rest, options, ctx, rec) {
+  if (cmd === 'fracreg') {
+    const words = splitWords(rest);
+    const linkRaw = (words.shift() || '').toLowerCase();
+    if (!['logit', 'probit'].includes(linkRaw)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'fracreg currently maps the common logit and probit specifications; heteroskedastic probit needs a dedicated likelihood.', rec.text)]);
+    const core = parseModelCore(words.join(' '), ctx);
+    if (!core.dep) return null;
+    const model = nextModel(ctx, 'frac_model');
+    ctx.lastModelKind = 'fracreg';
+    const data = modelDataExpr(ctx, core.subset);
+    const weight = core.weight ? `, weights = ${core.weight}` : '';
+    const ds = [diag(rec.line, 'warning', `fracreg ${linkRaw} was mapped to a fractional-response GLM with quasibinomial(${linkRaw}). Point estimates follow the same mean specification, but Stata likelihood/VCE/reporting conventions differ.`, rec.text)];
+    if (optionValue(options, 'het')) ds.push(diag(rec.line, 'review', 'fracreg het() is not reproduced by quasibinomial GLM; the translated model keeps the conditional-mean equation only.', rec.text));
+    if (core.weight) ds.push(diag(rec.line, 'warning', `${core.weightType} semantics need verification in the fractional-response GLM.`, rec.text));
+    return result(`${model} <- stats::glm(${core.dep} ~ ${formulaTerms(core.rhs, ctx)}, data = ${data}, family = stats::quasibinomial(link = "${linkRaw}")${weight})`, optionValue(options, 'het') ? 'review' : 'heuristic', ds);
+  }
+
+  if (cmd === 'zip' || cmd === 'zinb') {
+    const core = parseModelCore(rest, ctx);
+    if (!core.dep) return null;
+    const inflateRaw = optionValues(options, 'inflate').find(x => x !== true);
+    if (!inflateRaw || inflateRaw === true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', `${cmd} requires inflate(); no zero-inflation equation was inferred.`, rec.text)]);
+    ctx.features.add('pscl');
+    const model = nextModel(ctx, `${cmd}_model`);
+    ctx.lastModelKind = cmd;
+    const data = modelDataExpr(ctx, core.subset);
+    const [inflateVarsRaw, inflateOpts] = splitTopLevel(String(inflateRaw), ',');
+    const inflateVars = /^_cons$/i.test(inflateVarsRaw.trim()) ? '1' : formulaTerms(inflateVarsRaw, ctx);
+    const inflOffsetRaw = optionValue(inflateOpts, 'offset');
+    const inflOffset = inflOffsetRaw && inflOffsetRaw !== true ? ` + offset(${cleanIdentifier(inflOffsetRaw, inflOffsetRaw)})` : '';
+    const exposure = optionValue(options, 'exposure');
+    const offset = optionValue(options, 'offset');
+    const countOffset = exposure && exposure !== true ? ` + offset(log(${cleanIdentifier(exposure, exposure)}))` :
+      offset && offset !== true ? ` + offset(${cleanIdentifier(offset, offset)})` : '';
+    const link = hasOption(options, 'probit') ? 'probit' : 'logit';
+    const dist = cmd === 'zinb' ? 'negbin' : 'poisson';
+    const weight = core.weight ? `, weights = ${core.weight}` : '';
+    const ds = [diag(rec.line, 'warning', `${cmd} was mapped to pscl::zeroinfl(). Compare parameterization, optimization, robust/cluster VCE, exposure/offset handling, and likelihood-based tests against Stata.`, rec.text)];
+    if (optionValue(options, 'vce')) ds.push(diag(rec.line, 'warning', 'vce() is not applied inside pscl::zeroinfl(); use sandwich/clubSandwich or an estimator-specific covariance method after reviewing the target VCE.', rec.text));
+    return result(`${model} <- pscl::zeroinfl(${core.dep} ~ ${formulaTerms(core.rhs, ctx)}${countOffset} | ${inflateVars}${inflOffset}, data = ${data}, dist = "${dist}", link = "${link}"${weight})`, 'heuristic', ds);
+  }
+
+  if (cmd === 'heckman') {
+    const core = parseModelCore(rest, ctx);
+    if (!core.dep) return null;
+    const selectRaw = optionValues(options, 'select').find(x => x !== true);
+    if (!selectRaw || selectRaw === true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'heckman requires select(); no selection equation was inferred.', rec.text)]);
+    ctx.features.add('sampleSelection');
+    const [selectEqRaw, selectOpts] = splitTopLevel(String(selectRaw), ',');
+    const eq = selectEqRaw.match(/^([^=]+)=([\s\S]+)$/);
+    const selectDep = eq ? cleanIdentifier(eq[1].trim(), eq[1].trim()) : `I(!is.na(${core.dep}))`;
+    const selectVarsRaw = eq ? eq[2].trim() : selectEqRaw.trim();
+    const selectNoConst = hasOption(selectOpts, 'noconstant') ? '0 + ' : '';
+    const selectOffsetRaw = optionValue(selectOpts, 'offset');
+    const selectOffset = selectOffsetRaw && selectOffsetRaw !== true ? ` + offset(${cleanIdentifier(selectOffsetRaw, selectOffsetRaw)})` : '';
+    const outcomeNoConst = hasOption(options, 'noconstant') ? '0 + ' : '';
+    const outcomeOffsetRaw = optionValue(options, 'offset');
+    const outcomeOffset = outcomeOffsetRaw && outcomeOffsetRaw !== true ? ` + offset(${cleanIdentifier(outcomeOffsetRaw, outcomeOffsetRaw)})` : '';
+    const data = modelDataExpr(ctx, core.subset);
+    const model = nextModel(ctx, 'heckman_model');
+    ctx.lastModelKind = 'heckman';
+    const method = hasOption(options, 'twostep') ? '2step' : 'ml';
+    const weight = core.weight ? `, weights = ${core.weight}` : '';
+    const ds = [diag(rec.line, 'warning', `heckman was mapped to sampleSelection::selection(method="${method}"). Verify selection coding, likelihood normalization, inverse-Mills reporting, weights, and VCE conventions.`, rec.text)];
+    if (optionValue(options, 'vce')) ds.push(diag(rec.line, 'warning', 'Stata vce() options are not directly propagated to sampleSelection::selection().', rec.text));
+    return result(`${model} <- sampleSelection::selection(${selectDep} ~ ${selectNoConst}${formulaTerms(selectVarsRaw, ctx)}${selectOffset}, ${core.dep} ~ ${outcomeNoConst}${formulaTerms(core.rhs, ctx)}${outcomeOffset}, data = ${data}, method = "${method}"${weight})`, 'heuristic', ds);
+  }
+
+  if (cmd === 'intreg') {
+    const weighted = parseWeights(rest, ctx);
+    const q = extractQualifiers(weighted.text);
+    const words = splitWords(q.core);
+    const lower = cleanIdentifier(words.shift() || '', '');
+    const upper = cleanIdentifier(words.shift() || '', '');
+    if (!lower || !upper) return null;
+    ctx.features.add('survival');
+    const rhs = formulaTerms(words.join(' '), ctx);
+    const subset = q.ifExpr || q.inExpr ? rowFilter(q.ifExpr, q.inExpr, ctx) : '';
+    const data = modelDataExpr(ctx, subset);
+    const model = nextModel(ctx, 'intreg_model');
+    ctx.lastModelKind = 'intreg';
+    const weight = weighted.weight ? `, weights = ${weighted.weight}` : '';
+    const ds = [diag(rec.line, 'warning', 'intreg was mapped to survival::survreg() with an interval2 Gaussian survival response. Verify scale/likelihood conventions, censoring endpoints, robust VCE, and heteroskedasticity options.', rec.text)];
+    if (optionValue(options, 'het')) ds.push(diag(rec.line, 'review', 'intreg het() is not reproduced by survival::survreg(); the location equation is translated but the heteroskedastic scale equation requires manual implementation.', rec.text));
+    if (weighted.weight) ds.push(diag(rec.line, 'warning', `${weighted.type} semantics need verification in survreg().`, rec.text));
+    return result(`${model} <- survival::survreg(survival::Surv(${lower}, ${upper}, type = "interval2") ~ ${rhs}, data = ${data}, dist = "gaussian"${weight})`, optionValue(options, 'het') ? 'review' : 'heuristic', ds);
+  }
+
+  return null;
+}
+
+function parseMiChainedSpec(raw) {
+  const src = String(raw || '').trim();
+  let eq = -1, depth = 0, quote = false;
+  for (let i = 0; i < src.length; i += 1) {
+    const c = src[i];
+    if (c === '"') quote = !quote;
+    if (quote) continue;
+    if (c === '(') depth += 1;
+    else if (c === ')') depth = Math.max(0, depth - 1);
+    else if (c === '=' && depth === 0) { eq = i; break; }
+  }
+  if (eq < 0) return null;
+  const lhs = src.slice(0, eq).trim();
+  const predictors = src.slice(eq + 1).trim();
+  const blocks = [];
+  let pos = 0;
+  while (pos < lhs.length) {
+    while (/\s/.test(lhs[pos] || '')) pos += 1;
+    if (lhs[pos] !== '(') return null;
+    let d = 1, q = false, close = -1;
+    for (let i = pos + 1; i < lhs.length; i += 1) {
+      const c = lhs[i];
+      if (c === '"') q = !q;
+      if (q) continue;
+      if (c === '(') d += 1;
+      else if (c === ')') {
+        d -= 1;
+        if (d === 0) { close = i; break; }
+      }
+    }
+    if (close < 0) return null;
+    const methodSpec = lhs.slice(pos + 1, close).trim();
+    const [methodHead, methodOptions] = splitTopLevel(methodSpec, ',');
+    const headWords = splitWords(methodHead);
+    const method = (headWords.shift() || '').toLowerCase();
+    if (!['regress','pmm','logit','ologit','mlogit'].includes(method)) return null;
+    const qualifier = headWords.join(' ').trim();
+    let next = close + 1, nd = 0, nq = false;
+    for (; next < lhs.length; next += 1) {
+      const c = lhs[next];
+      if (c === '"') nq = !nq;
+      if (nq) continue;
+      if (c === '(' && nd === 0) break;
+      if (c === '(') nd += 1;
+      else if (c === ')') nd = Math.max(0, nd - 1);
+    }
+    const varsRaw = lhs.slice(close + 1, next).trim();
+    const vars = splitWords(varsRaw).map(x => cleanIdentifier(x, x)).filter(Boolean);
+    if (!vars.length) return null;
+    blocks.push({ method, vars, options: methodOptions, qualifier });
+    pos = next;
+  }
+  return blocks.length ? { blocks, predictors } : null;
+}
+function miceMethodForStata(method) {
+  return ({ regress: 'norm', pmm: 'pmm', logit: 'logreg', ologit: 'polr', mlogit: 'polyreg' })[String(method || '').toLowerCase()] || '';
+}
+
+function translateMiCommand(rest, options, ctx, rec) {
+  const w = splitWords(rest);
+  const sub = (w.shift() || '').toLowerCase();
+  ctx.mi ||= { style: '', imputed: new Set(), regular: new Set(), object: '.do2r_mi' };
+
+  if (sub === 'set') {
+    const style = (w.shift() || '').toLowerCase();
+    if (!['wide','mlong','flong','flongsep'].includes(style)) return null;
+    ctx.mi.style = style;
+    return result(`.do2r_mi_style <- "${style}" # mice::mids is format-neutral; Stata MI storage style recorded for review`, 'heuristic',
+      [diag(rec.line, 'info', `mi set ${style} records the Stata storage style, but R mice uses a mids object rather than Stata's wide/mlong/flong physical layout.`, rec.text)]);
+  }
+
+  if (sub === 'register') {
+    const kind = (w.shift() || '').toLowerCase();
+    const vars = w.map(x => cleanIdentifier(x, x)).filter(Boolean);
+    if (!['imputed','regular','passive'].includes(kind) || !vars.length) return null;
+    if (kind === 'imputed') vars.forEach(v => ctx.mi.imputed.add(v));
+    if (kind === 'regular') vars.forEach(v => ctx.mi.regular.add(v));
+    const name = kind === 'imputed' ? '.do2r_mi_registered_imputed' : kind === 'regular' ? '.do2r_mi_registered_regular' : '.do2r_mi_registered_passive';
+    const confidence = kind === 'passive' ? 'review' : 'heuristic';
+    const ds = [diag(rec.line, kind === 'passive' ? 'review' : 'info', kind === 'passive' ? 'Passive MI variables require deterministic re-evaluation within each imputation; only the registration intent is preserved.' : `mi register ${kind} is recorded for the subsequent mice imputation setup.`, rec.text)];
+    return result(`${name} <- unique(c(if (exists("${name}", inherits = FALSE)) ${name} else character(), c(${vars.map(v => `"${escapeRString(v)}"`).join(', ')})))`, confidence, ds);
+  }
+
+  if (sub === 'describe') {
+    ctx.features.add('mice');
+    return result(`if (exists("${ctx.mi.object}", inherits = FALSE)) ${ctx.mi.object} else list(style = get0(".do2r_mi_style", ifnotfound = ""), imputed = get0(".do2r_mi_registered_imputed", ifnotfound = character()), regular = get0(".do2r_mi_registered_regular", ifnotfound = character()), passive = get0(".do2r_mi_registered_passive", ifnotfound = character()))`, 'heuristic');
+  }
+
+  if (sub === 'extract') {
+    const which = (w.shift() || '0').trim();
+    ctx.features.add('mice');
+    if (which === '0') return result(`${ctx.currentData} <- data.table::as.data.table(mice::complete(${ctx.mi.object}, action = 0))`, 'heuristic',
+      [diag(rec.line, 'info', 'mi extract 0 was mapped to the original incomplete data stored in the mice mids object.', rec.text)]);
+    if (/^\d+$/.test(which)) return result(`${ctx.currentData} <- data.table::as.data.table(mice::complete(${ctx.mi.object}, action = ${Number(which)}L))`, 'heuristic',
+      [diag(rec.line, 'info', `mi extract ${which} was mapped to mice::complete().`, rec.text)]);
+    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'mi extract currently supports 0 and numbered imputations.', rec.text)]);
+  }
+
+  if (sub !== 'impute') return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+    [diag(rec.line, 'review', `mi ${sub || '(missing subcommand)'} is not yet mapped. Core set/register/impute/estimate/describe/extract workflows are supported.`, rec.text)]);
+
+  const method = (w.shift() || '').toLowerCase();
+  const imputeSpec = w.join(' ');
+  const weightedSpec = parseWeights(imputeSpec, ctx);
+  const imputeQualifiers = extractQualifiers(weightedSpec.text);
+  const imputeCore = imputeQualifiers.core;
+  const addRaw = optionValue(options, 'add');
+  if (!addRaw || addRaw === true || !/^\d+$/.test(String(addRaw).trim())) {
+    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'mi impute currently needs add(#) to construct a new mice mids object; replace/update of an existing Stata MI dataset is not guessed.', rec.text)]);
+  }
+  const m = Number(addRaw);
+  const seedRaw = optionValue(options, 'rseed');
+  const seed = seedRaw && seedRaw !== true ? translateExpression(seedRaw, ctx) : 'NA';
+  const maxitRaw = optionValue(options, 'burnin');
+  const maxit = maxitRaw && maxitRaw !== true ? translateExpression(maxitRaw, ctx) : '5L';
+  if (optionValue(options, 'by')) {
+    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'mi impute by() requires group-specific chained-imputation objects and recombination; this pass does not silently approximate it.', rec.text)]);
+  }
+
+  ctx.features.add('mice');
+  const lines = [
+    `.__mi_data <- as.data.frame(${ctx.currentData})`,
+    '.__mi_method <- mice::make.method(.__mi_data)',
+    '.__mi_method[] <- ""',
+    '.__mi_pred <- mice::make.predictorMatrix(.__mi_data)',
+    '.__mi_pred[,] <- 0',
+    '.__mi_blots <- list()'
+  ];
+  const ds = [diag(rec.line, 'warning', 'Stata mi impute was mapped to mice. Random-number generators, initialization, iteration algorithms, perfect-prediction handling, and exact draws differ, so validate imputation diagnostics rather than expecting identical completed datasets.', rec.text)];
+  let hasReview = false;
+  if (imputeQualifiers.ifExpr || imputeQualifiers.inExpr) {
+    hasReview = true;
+    ds.push(diag(rec.line, 'review', 'Top-level mi impute if/in qualifiers are not reproduced automatically because subsetting the mice data would change the completed-data object outside the imputation sample. The qualifiers were excluded from the predictor list for safety.', rec.text));
+  }
+  if (weightedSpec.weight) {
+    hasReview = true;
+    ds.push(diag(rec.line, 'review', `mi impute ${weightedSpec.type} weights are not directly represented by the current mice mapping. The weight expression was excluded from the predictor list for safety.`, rec.text));
+  }
+  for (const opt of ['conditional', 'bootstrap', 'noconstant']) {
+    if (hasOption(options, opt)) {
+      hasReview = true;
+      ds.push(diag(rec.line, 'review', `mi impute ${opt}${opt === 'conditional' ? '()' : ''} is not reproduced by the current mice mapping.`, rec.text));
+    }
+  }
+  let visitArg = '';
+
+  if (method === 'chained') {
+    const parsed = parseMiChainedSpec(imputeCore);
+    if (!parsed) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'mi impute chained could not be parsed safely. Supported chained methods in this pass are regress, pmm, logit, ologit, and mlogit.', rec.text)]);
+    const predVars = factorUnderlyingVariables(parsed.predictors);
+    const targetVars = [...new Set(parsed.blocks.flatMap(block => block.vars))];
+    if (!predVars.length && targetVars.length < 2) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'mi impute chained needs at least one usable predictor, either another imputed variable or an independent variable after =.', rec.text)]);
+    for (const block of parsed.blocks) {
+      const mm = miceMethodForStata(block.method);
+      if (block.qualifier) {
+        hasReview = true;
+        ds.push(diag(rec.line, 'review', `Method-specific chained-equation qualifier "${block.qualifier}" is not reproduced; the corresponding ${block.method} equation is fit on the common imputation sample.`, rec.text));
+      }
+      const knnRaw = block.method === 'pmm' ? optionValue(block.options, 'knn') : null;
+      if (block.method === 'pmm' && (!knnRaw || knnRaw === true)) {
+        hasReview = true;
+        ds.push(diag(rec.line, 'review', 'Current Stata mi impute chained pmm specifications require knn(#); mice would otherwise use its own donor default. Add knn(#) to preserve the intended donor-pool size.', rec.text));
+      }
+      if (block.options && !(block.method === 'pmm' && /^\s*knn\s*\([^)]*\)\s*$/i.test(block.options))) {
+        hasReview = true;
+        ds.push(diag(rec.line, 'review', `Method-specific options in (${block.method}, ...) other than pmm knn(#) are not yet mapped.`, rec.text));
+      }
+      for (const v of block.vars) {
+        ctx.mi.imputed.add(v);
+        const predictors = [...new Set([...predVars, ...targetVars.filter(x => x !== v)])];
+        lines.push(`.__mi_method["${escapeRString(v)}"] <- "${mm}"`);
+        if (predictors.length) lines.push(`.__mi_pred["${escapeRString(v)}", intersect(c(${predictors.map(x => `"${escapeRString(x)}"`).join(', ')}), names(.__mi_data))] <- 1`);
+        lines.push(`.__mi_pred["${escapeRString(v)}", "${escapeRString(v)}"] <- 0`);
+        if (knnRaw && knnRaw !== true) {
+          const donors = /^\d+$/.test(String(knnRaw).trim()) ? `${Number(knnRaw)}L` : translateExpression(String(knnRaw), ctx);
+          lines.push(`.__mi_blots[["${escapeRString(v)}"]] <- alist(donors = ${donors})`);
+        }
+      }
+    }
+    visitArg = hasOption(options, 'orderasis')
+      ? `, visitSequence = c(${targetVars.map(x => `"${escapeRString(x)}"`).join(', ')})`
+      : ', visitSequence = "monotone"';
+  } else {
+    const mm = miceMethodForStata(method);
+    if (!mm) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', `mi impute ${method} is not mapped in this pass. Common regress, pmm, logit, ologit, mlogit, and chained forms are supported.`, rec.text)]);
+    const parts = splitWords(imputeCore);
+    const target = cleanIdentifier(parts.shift() || '', '');
+    if (!target) return null;
+    const predVars = factorUnderlyingVariables(parts.join(' '));
+    if (!predVars.length) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'mi impute needs at least one translatable predictor in the current mapping.', rec.text)]);
+    ctx.mi.imputed.add(target);
+    lines.push(`.__mi_method["${escapeRString(target)}"] <- "${mm}"`);
+    lines.push(`.__mi_pred["${escapeRString(target)}", intersect(c(${predVars.map(x => `"${escapeRString(x)}"`).join(', ')}), names(.__mi_data))] <- 1`);
+    lines.push(`.__mi_pred["${escapeRString(target)}", "${escapeRString(target)}"] <- 0`);
+    if (method === 'pmm') {
+      const knnRaw = optionValue(options, 'knn');
+      if (!knnRaw || knnRaw === true) {
+        hasReview = true;
+        ds.push(diag(rec.line, 'review', 'Current Stata mi impute pmm syntax requires knn(#); mice defaults to five donors. Add knn(#) so the translated donor pool is explicit.', rec.text));
+      } else {
+        const donors = /^\d+$/.test(String(knnRaw).trim()) ? `${Number(knnRaw)}L` : translateExpression(String(knnRaw), ctx);
+        lines.push(`.__mi_blots[["${escapeRString(target)}"]] <- alist(donors = ${donors})`);
+      }
+    }
+  }
+  lines.push(`${ctx.mi.object} <- mice::mice(.__mi_data, m = ${m}L, method = .__mi_method, predictorMatrix = .__mi_pred, blots = .__mi_blots${visitArg}, maxit = ${maxit}, seed = ${seed}, printFlag = FALSE)`);
+  lines.push('rm(.__mi_data, .__mi_method, .__mi_pred, .__mi_blots)');
+  return result(lines, hasReview ? 'review' : 'heuristic', ds);
+}
+
+function miAnalysisExpression(command, ctx, rec) {
+  const [main, options] = splitStataOptions(command);
+  const firstSpace = main.search(/\s/);
+  const rawCmd = firstSpace < 0 ? main : main.slice(0, firstSpace);
+  const cmd = normalizeCommand(rawCmd);
+  const rest = firstSpace < 0 ? '' : main.slice(firstSpace + 1).trim();
+  const ds = [];
+
+  if (['regress','logit','probit','poisson','nbreg','ologit','oprobit'].includes(cmd)) {
+    const core = parseModelCore(rest, ctx);
+    if (!core.dep) return null;
+    if (core.subset) ds.push(diag(rec.line, 'warning', 'mi estimate if/in qualifiers are carried into the complete-data model expression; verify that the estimation sample is consistent across imputations.', rec.text));
+    if (optionValue(options, 'vce')) ds.push(diag(rec.line, 'warning', 'mi estimate currently pools the model covariance exposed by the R estimator; Stata vce() variants inside the estimation command are not reproduced automatically.', rec.text));
+    const subset = core.subset ? `, subset = ${core.subset}` : '';
+    const weights = core.weight ? `, weights = ${core.weight}` : '';
+    const rhs = formulaTerms(core.rhs, ctx);
+    if (cmd === 'regress') return { cmd, expr: `stats::lm(${core.dep} ~ ${rhs}${subset}${weights})`, diagnostics: ds };
+    if (cmd === 'logit' || cmd === 'probit') return { cmd, expr: `stats::glm(${core.dep} ~ ${rhs}, family = stats::binomial(link = "${cmd === 'probit' ? 'probit' : 'logit'}")${subset}${weights})`, diagnostics: ds };
+    if (cmd === 'poisson') return { cmd, expr: `stats::glm(${core.dep} ~ ${rhs}, family = stats::poisson(link = "log")${subset}${weights})`, diagnostics: ds };
+    if (cmd === 'nbreg') { ctx.features.add('MASS'); return { cmd, expr: `MASS::glm.nb(${core.dep} ~ ${rhs}${subset}${weights})`, diagnostics: ds }; }
+    ctx.features.add('MASS');
+    return { cmd, expr: `MASS::polr(ordered(${core.dep}) ~ ${rhs}, method = "${cmd === 'ologit' ? 'logistic' : 'probit'}", Hess = TRUE${subset}${weights})`, diagnostics: ds };
+  }
+  return null;
+}
+
+function translateMiEstimatePrefix(text, ctx, rec) {
+  const [lhsRaw, command] = splitAtTopLevelColon(text);
+  if (!command || !/^mi\s+estimate\b/i.test(lhsRaw)) return null;
+  const lhsAfterMi = lhsRaw.replace(/^mi\s+estimate\b/i, '').trim();
+  const [spec, options] = splitStataOptions(lhsAfterMi);
+  if (spec.trim()) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+    [diag(rec.line, 'review', 'mi estimate transformed-parameter specs need Rubin pooling for nlcom-style transformations and are not yet inferred.', rec.text)]);
+  ctx.mi ||= { style: '', imputed: new Set(), regular: new Set(), object: '.do2r_mi' };
+  ctx.features.add('mice');
+  const analysis = miAnalysisExpression(command, ctx, rec);
+  if (!analysis) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+    [diag(rec.line, 'review', 'mi estimate currently maps common regress, logit, probit, poisson, nbreg, ologit, and oprobit analysis models.', rec.text)]);
+  const fitName = `.do2r_mi_fit_${ctx.modelCounter + 1}`;
+  const model = nextModel(ctx, 'mi_model');
+  ctx.lastModelKind = 'mi';
+  const ds = [diag(rec.line, 'warning', 'mi estimate was mapped to mice::with() followed by mice::pool(), which applies Rubin-style pooling. Compare small-sample degrees of freedom, estimator-specific VCEs, omitted coefficients, and transformed-parameter inference.', rec.text), ...analysis.diagnostics];
+  if (optionValue(options, 'nimputations') || optionValue(options, 'imputations')) ds.push(diag(rec.line, 'warning', 'nimputations()/imputations() selection is not applied; the translated mice::pool() uses all imputations in the mids object.', rec.text));
+  return result([
+    `${fitName} <- mice::with(${ctx.mi.object}, ${analysis.expr})`,
+    `${model} <- mice::pool(${fitName})`,
+    `summary(${model}, conf.int = TRUE)`
+  ], 'heuristic', ds);
+}
+
+function translateDynamicPanel(cmd, rest, options, ctx, rec) {
+  const panelId = ctx.panel?.id || '';
+  const timeId = ctx.panel?.time || '';
+  if (!panelId || !timeId) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+    [diag(rec.line, 'review', `${cmd} needs panel and time identifiers from xtset before translation to plm::pgmm().`, rec.text)]);
+  const core = parseModelCore(rest, ctx);
+  if (!core.dep) return null;
+  if (core.weight) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+    [diag(rec.line, 'review', `${cmd} weights need estimator-specific GMM moment weighting and are not silently mapped to pgmm().`, rec.text)]);
+  ctx.features.add('plm');
+  const pRaw = optionValue(options, 'lags');
+  const pNum = pRaw && pRaw !== true ? Number(pRaw) : 1;
+  const p = Number.isInteger(pNum) && pNum >= 1 ? pNum : 1;
+  const maxRaw = optionValue(options, 'maxldep');
+  const maxNum = maxRaw && maxRaw !== true ? Number(maxRaw) : 99;
+  const maxLag = Number.isInteger(maxNum) && maxNum >= 2 ? maxNum : 99;
+  const model = nextModel(ctx, cmd === 'xtdpdsys' ? 'system_gmm_model' : 'abond_model');
+  ctx.lastModelKind = 'dynamic_panel';
+  const lagDep = p === 1 ? `plm::lag(${core.dep}, 1)` : `plm::lag(${core.dep}, 1:${p})`;
+  const rhs0 = formulaTerms(core.rhs, ctx);
+  const rhs = rhs0 === '1' ? lagDep : `${lagDep} + ${rhs0}`;
+  const gmm = `plm::lag(${core.dep}, 2:${maxLag})`;
+  const effect = 'individual';
+  const modelType = hasOption(options, 'twostep') ? 'twosteps' : 'onestep';
+  const transformation = cmd === 'xtdpdsys' ? 'ld' : 'd';
+  const collapse = hasOption(options, 'collapse') ? 'TRUE' : 'FALSE';
+  const data = modelDataExpr(ctx, core.subset);
+  const ds = [diag(rec.line, 'warning', `${cmd} was mapped to plm::pgmm() (${transformation === 'ld' ? 'system' : 'difference'} GMM). Verify instrument counts, time effects, lag availability, finite-sample corrections, one/two-step VCE, and Stata's exact moment-condition construction.`, rec.text)];
+  if (optionValue(options, 'pre') || optionValue(options, 'endogenous') || optionValue(options, 'inst')) ds.push(diag(rec.line, 'review', 'pre()/endogenous()/inst() moment-condition options are not yet expanded into pgmm instrument blocks; only the dependent-variable GMM instruments plus ordinary exogenous regressors are translated.', rec.text));
+  if (hasOption(options, 'noconstant')) ds.push(diag(rec.line, 'warning', 'Stata noconstant affects the reported level-equation constant; pgmm effect="individual" removes panel effects in the transformed moment equations and has no identical noconstant switch. Review the constant convention.', rec.text));
+  if (optionValue(options, 'vce')) ds.push(diag(rec.line, 'warning', 'pgmm stores the estimator fit; request summary(model, robust=TRUE) for robust/Windmeijer-style reporting and compare it with the requested Stata vce().', rec.text));
+  return result(`${model} <- plm::pgmm(${core.dep} ~ ${rhs} | ${gmm}, data = ${data}, effect = "${effect}", model = "${modelType}", transformation = "${transformation}", collapse = ${collapse}, index = c("${escapeRString(panelId)}", "${escapeRString(timeId)}"))`, ds.some(d => d.level === 'review') ? 'review' : 'heuristic', ds);
+}
+
 function translateSurvival(cmd, rest, options, ctx, rec) {
   const dt = ctx.currentData;
   if (cmd === 'stset') {
@@ -3456,6 +3955,21 @@ function translatePostestimation(cmd, rest, options, ctx, rec) {
     return result(`fixest::wald(${ctx.lastModel}, ${rString(rest, ctx)})`, 'heuristic', [diag(rec.line, 'warning', `${cmd} hypothesis syntax is preserved as text and may need rewriting to R coefficient names.`, rec.text)]);
   }
   if (cmd === 'estat') {
+    const estatWords = splitWords(rest);
+    const sub = (estatWords.shift() || '').toLowerCase();
+    if (ctx.lastModelKind === 'dynamic_panel' && sub === 'abond') {
+      ctx.features.add('plm');
+      const artRaw = optionValue(options, 'artests');
+      const artNum = artRaw && artRaw !== true ? Number(artRaw) : 2;
+      const art = Number.isInteger(artNum) && artNum > 0 ? artNum : 2;
+      return result(`lapply(seq_len(${art}L), function(.order) plm::mtest(${ctx.lastModel}, order = .order))`, 'heuristic',
+        [diag(rec.line, 'warning', 'estat abond was mapped to plm::mtest() for sequential Arellano-Bond serial-correlation tests. Compare finite-sample and robust-covariance conventions.', rec.text)]);
+    }
+    if (ctx.lastModelKind === 'dynamic_panel' && sub === 'sargan') {
+      ctx.features.add('plm');
+      return result(`plm::sargan(${ctx.lastModel})`, 'heuristic',
+        [diag(rec.line, 'warning', 'estat sargan was mapped to plm::sargan(). Verify the weighting matrix, instrument set, and one/two-step convention against Stata.', rec.text)]);
+    }
     return result(`# TODO: Stata estat ${rest}\nsummary(${ctx.lastModel})`, 'review', [diag(rec.line, 'review', 'estat subcommands are estimator-specific; use the corresponding R model diagnostic or package method.', rec.text)]);
   }
   return null;
@@ -4476,6 +4990,19 @@ function translateStataLine(text, ctx, rec) {
     if (/^(noisily|noi)\s+/i.test(t)) { t = t.replace(/^(noisily|noi)\s+/i, ''); changed = true; }
   }
 
+  const miEstimate = translateMiEstimatePrefix(t, ctx, rec);
+  if (miEstimate) {
+    if (preLines.length) miEstimate.lines = [...preLines, ...miEstimate.lines];
+    if (quiet && !miEstimate.lines.every(x => /^\s*#/.test(x))) miEstimate.diagnostics.push(diag(rec.line, 'info', 'quietly/noisily affects display, not core computation.', rec.text));
+    if (capture) {
+      const inner = miEstimate.lines.map(x => `  ${x}`).join('\n');
+      miEstimate.lines = [`try({\n${inner}\n}, silent = TRUE)`];
+      if (miEstimate.confidence === 'exact') miEstimate.confidence = 'heuristic';
+      miEstimate.diagnostics.push(diag(rec.line, 'warning', 'capture was mapped to try(..., silent=TRUE); Stata return-code logic via _rc may need explicit R error handling.', rec.text));
+    }
+    return miEstimate;
+  }
+
   const repeated = translateResamplingPrefix(t, ctx, rec);
   if (repeated) {
     if (preLines.length) repeated.lines = [...preLines, ...repeated.lines];
@@ -4544,8 +5071,12 @@ function translateStataLine(text, ctx, rec) {
   else if (['arima','dfuller','corrgram','var','varsoc','vargranger','varlmar','varnorm','varstable','vec','vecrank','irf'].includes(cmd)) r = translateTimeSeriesModel(cmd, rest, options, ctx, rec);
   else if (['cross','joinby','fillin','split','separate','stack','xpose','range','insobs','ipolate','pctile','_pctile','xtile','mvencode','mvdecode','assertnested','ds','lookfor','compare','recast','compress','copy','rmdir','type','sysuse','webuse'].includes(cmd)) r = translateExtraData(cmd, rest, options, ctx, rec, by);
   else if (['xtlogit','xtprobit','xtpoisson','xtologit','xtoprobit','xtgee'].includes(cmd)) r = translatePanelModel(cmd, rest, options, ctx, rec);
+  else if (['xtabond','xtdpdsys'].includes(cmd)) r = translateDynamicPanel(cmd, rest, options, ctx, rec);
+  else if (['reghdfe','ivreghdfe','ppmlhdfe'].includes(cmd)) r = translateHdfeModel(cmd, rest, options, ctx, rec);
+  else if (['heckman','intreg','fracreg','zip','zinb'].includes(cmd)) r = translateAdvancedModel(cmd, rest, options, ctx, rec);
   else if (['regress','areg','xtreg','logit','probit','poisson','nbreg','qreg','tobit','ologit','oprobit','mlogit','clogit'].includes(cmd)) r = translateModel(cmd, rest, options, ctx, rec);
   else if (cmd === 'ivregress') r = translateIv(rest, options, ctx, rec);
+  else if (cmd === 'mi') r = translateMiCommand(rest, options, ctx, rec);
   else if (cmd === 'glm') {
     const core = parseModelCore(rest, ctx); const model = nextModel(ctx); const family = optionValue(options, 'family') || 'gaussian'; const link = optionValue(options, 'link') || 'identity';
     r = result(`${model} <- stats::glm(${core.dep} ~ ${formulaTerms(core.rhs, ctx)}, data = ${modelDataExpr(ctx, core.subset)}, family = stats::${cleanIdentifier(family, family)}(link = "${escapeRString(link)}")${core.weight ? `, weights = ${core.weight}` : ''})`, 'heuristic', [diag(rec.line, 'warning', 'glm family/link were mapped to R glm(); verify Stata-specific family parameters, dispersion, scale, and VCE.', rec.text)]);
@@ -4595,7 +5126,7 @@ function translateStataLine(text, ctx, rec) {
     r = result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `Command “${rawCmd}” is not translated safely. It may be community-contributed or require command-specific semantics.`, rec.text)]);
   }
 
-  const eClassCommands = new Set(['regress','areg','xtreg','xtlogit','xtprobit','xtpoisson','xtgee','logit','probit','poisson','nbreg','qreg','tobit','ologit','oprobit','mlogit','clogit','ivregress','glm','mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg','arima','stcox','streg']);
+  const eClassCommands = new Set(['regress','areg','xtreg','xtlogit','xtprobit','xtpoisson','xtgee','xtabond','xtdpdsys','reghdfe','ivreghdfe','ppmlhdfe','heckman','intreg','fracreg','zip','zinb','logit','probit','poisson','nbreg','qreg','tobit','ologit','oprobit','mlogit','clogit','ivregress','glm','mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg','arima','stcox','streg']);
   if (eClassCommands.has(cmd) && ctx.lastModel && r.confidence !== 'review') {
     ctx.features.add('results');
     r.lines = [...r.lines, `.do2r_e <- stata_e_from_model(${ctx.lastModel}, cmd = "${escapeRString(cmd)}")`];
@@ -6182,7 +6713,7 @@ function buildHeader(ctx) {
   const packages = new Set(['data.table']);
   const featurePackages = {
     haven: 'haven', glue: 'glue', fixest: 'fixest', plm: 'plm', MASS: 'MASS', quantreg: 'quantreg', AER: 'AER',
-    nnet: 'nnet', survival: 'survival', flexsurv: 'flexsurv', marginaleffects: 'marginaleffects', car: 'car', modelsummary: 'modelsummary', ggplot2: 'ggplot2', readxl: 'readxl', openxlsx: 'openxlsx', arrow: 'arrow', survey: 'survey', lme4: 'lme4', ordinal: 'ordinal', urca: 'urca', vars: 'vars', reticulate: 'reticulate', collapse: 'collapse', geepack: 'geepack', mFilter: 'mFilter'
+    nnet: 'nnet', survival: 'survival', flexsurv: 'flexsurv', marginaleffects: 'marginaleffects', car: 'car', modelsummary: 'modelsummary', ggplot2: 'ggplot2', readxl: 'readxl', openxlsx: 'openxlsx', arrow: 'arrow', survey: 'survey', lme4: 'lme4', ordinal: 'ordinal', urca: 'urca', vars: 'vars', reticulate: 'reticulate', collapse: 'collapse', geepack: 'geepack', mFilter: 'mFilter', mice: 'mice', pscl: 'pscl', sampleSelection: 'sampleSelection'
   };
   for (const [f, p] of Object.entries(featurePackages)) if (ctx.features.has(f)) packages.add(p);
   const lines = [
@@ -6224,7 +6755,7 @@ export function translateStata(source, options = {}) {
     stack: [],
     frames: new Set([defaultData]),
     preserveStack: [], preserveCounter: 0,
-    modelCounter: 0, lastModel: '', lastModelKind: '', tableCounter: 0, lastTable: '', lastMargins: '', lastIrf: '', panel: null, survival: null, survey: null,
+    modelCounter: 0, lastModel: '', lastModelKind: '', tableCounter: 0, lastTable: '', lastMargins: '', lastIrf: '', panel: null, survival: null, survey: null, mi: null,
     diagnostics: [], counts: { exact: 0, heuristic: 0, review: 0 }, statements: 0
   };
 

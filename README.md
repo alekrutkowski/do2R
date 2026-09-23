@@ -1,4 +1,4 @@
-# do2R v0.9.0
+# do2R v0.10.0
 
 **do2R** is a static, browser-only Stata/Mata → R translator intended for migration work on `.do`, `.ado`, and Mata code. It has no server component and can be hosted directly on GitHub Pages:
 
@@ -101,6 +101,14 @@ Coverage also includes `tsfill`, `tsappend, add()` plus endpoint `last()` / `tsf
 - Common modern `table`, `dtable`, and `etable` workflows are translated to tidy `data.table` summaries and `modelsummary` output.
 - Basic `collect clear` / `preview` / `export` state is preserved, with CSV/TSV/XLSX export. Advanced collection styling, `putdocx`, `putpdf`, and rich workbook formatting remain roadmap items.
 
+### Multiple imputation and high-dimensional estimation
+
+- Core `mi` workflows now cover `mi set`, `mi register`, `mi describe`, numbered `mi extract`, common univariate imputation methods, chained equations, and `mi estimate:` pooling for common regression/count/ordered-response models.
+- Chained equations preserve the key predictor relationship among imputed variables, use a low-to-high missingness visit sequence by default, and map predictive-mean-matching `knn()` to MICE donor pools.
+- `xtabond` and `xtdpdsys` translate to `plm::pgmm()` for core difference-GMM and system-GMM specifications, with `estat abond` and `estat sargan` postestimation mappings.
+- Widely used high-dimensional fixed-effect commands `reghdfe`, `ivreghdfe`, and `ppmlhdfe` translate to `fixest`, including categorical FE interactions, common heterogeneous-slope forms such as `state#c.time` / `state##c.time`, clustered VCE, and exposure/offset workflows.
+- `heckman`, `intreg`, fractional-response `fracreg`, and zero-inflated `zip` / `zinb` have package-backed mappings with explicit diagnostics where likelihood or VCE conventions differ.
+
 ### More model coverage and postestimation
 
 The current translator includes common mappings for:
@@ -158,10 +166,10 @@ The in-app coverage map is the canonical roadmap. The next high-impact groups ar
 4. **Deeper time-series models** – double-exponential/Holt-Winters smoothing, additional filters, ARCH/GARCH, richer VAR/VEC diagnostics, structural VARs, and forecasting. HP filtering, Johansen VEC/rank workflows, and common IRF creation/plot/table paths are now covered.
 5. **Advanced resampling semantics** – BC/BCa intervals, `reject()`, custom weights and `idcluster`, jackknife MSE/pseudovalues, exact permutation enumeration, and fuller `rolling` save/window semantics.
 6. **Factor-variable edge/design semantics** – omitted/empty-cell fidelity, factor variables in every varlist-bearing option, coefficient-name fidelity, and `fvset design` effects in postestimation.
-7. **Panel estimator depth** – `xtnbreg`, `xtregar`, `xttobit`, `xtmlogit`, dynamic-panel estimators, and richer GEE semantics. Random-effects ordered logit/probit are now covered.
+7. **Panel estimator depth** – `xtnbreg`, `xtregar`, `xttobit`, `xtmlogit`, flexible `xtdpd` moment structures, `xtvar`, and richer GEE semantics. Core `xtabond` and `xtdpdsys` workflows are now covered.
 8. **Advanced calendars** – weekly dates, full `%t*` display behavior, and business calendars.
 9. **Advanced reporting/collections** – richer `collect` dimensions/styles/layouts, advanced `putexcel`, `putdocx`, and `putpdf`. Core `table`, `dtable`, `etable`, and basic collection export are now covered.
-10. **MI and deeper survival** – multiple imputation, competing risks, split/join survival data, richer curve scenarios, plus deep Mata, SEM/GSEM, and specialized estimator families.
+10. **MI depth and deeper survival** – passive/update/checking workflows, additional imputation families and grouped/conditional imputation, competing risks, split/join survival data, richer curve scenarios, plus deep Mata, SEM/GSEM, and specialized estimator families. Core MI setup, chained imputation, and pooled estimation are now covered.
 
 ## Run locally
 
@@ -210,6 +218,9 @@ do2R itself has no runtime JavaScript dependencies. Depending on the Stata sourc
 - `urca`
 - `vars`
 - `mFilter`
+- `mice`
+- `pscl`
+- `sampleSelection`
 - `AER`
 - `nnet`
 - `glue`

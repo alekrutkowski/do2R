@@ -508,6 +508,105 @@ irf create old`, { addHeader: false });
 assert.equal(staleIrfState.counts.review, 1);
 assert.match(staleIrfState.code, /TODO \[Stata line 4\]/);
 
+const multipleImputation = translateStata(`mi set mlong
+mi register imputed bmi smoke
+mi register regular age sex
+mi impute chained (pmm, knn(5)) bmi (logit) smoke = age sex, add(20) rseed(123)
+mi estimate: regress y bmi smoke age
+mi describe`);
+assert.equal(multipleImputation.counts.review, 0);
+assert.match(multipleImputation.code, /mice::make\.method/);
+assert.match(multipleImputation.code, /\.__mi_method\["bmi"\] <- "pmm"/);
+assert.match(multipleImputation.code, /\.__mi_method\["smoke"\] <- "logreg"/);
+assert.match(multipleImputation.code, /m = 20L/);
+assert.match(multipleImputation.code, /visitSequence = "monotone"/);
+assert.match(multipleImputation.code, /\.__mi_blots\[\["bmi"\]\] <- alist\(donors = 5L\)/);
+assert.match(multipleImputation.code, /intersect\(c\("age", "sex", "smoke"\)/);
+assert.match(multipleImputation.code, /seed = 123/);
+assert.match(multipleImputation.code, /mice::with\(\.do2r_mi, stats::lm\(y ~ bmi \+ smoke \+ age\)\)/);
+assert.match(multipleImputation.code, /mice::pool\(\.do2r_mi_fit_1\)/);
+assert.match(multipleImputation.code, /get0\("\.do2r_mi_registered_imputed"/);
+assert.match(multipleImputation.code, /Packages used: data\.table, mice/);
+
+const miSingleAndExtract = translateStata(`mi set wide
+mi register imputed income
+mi impute pmm income age educ, add(5) knn(3) rseed(7)
+mi extract 2`);
+assert.equal(miSingleAndExtract.counts.review, 0);
+assert.match(miSingleAndExtract.code, /\.__mi_method\["income"\] <- "pmm"/);
+assert.match(miSingleAndExtract.code, /\.__mi_blots\[\["income"\]\] <- alist\(donors = 3L\)/);
+assert.match(miSingleAndExtract.code, /mice::complete\(\.do2r_mi, action = 2L\)/);
+
+const miPmmNeedsKnn = translateStata(`mi set mlong
+mi impute pmm income age educ, add(5)`, { addHeader: false });
+assert.equal(miPmmNeedsKnn.counts.review, 1);
+assert.match(miPmmNeedsKnn.diagnostics.map(x => x.message).join(' '), /requires knn\(#\)/);
+
+const miOrderAsIs = translateStata(`mi set mlong
+mi impute chained (regress) x1 (logit) x2 = z, add(5) orderasis`, { addHeader: false });
+assert.equal(miOrderAsIs.counts.review, 0);
+assert.match(miOrderAsIs.code, /visitSequence = c\("x1", "x2"\)/);
+assert.match(miOrderAsIs.code, /\.__mi_pred\["x1", intersect\(c\("z", "x2"\)/);
+
+const miRestrictedSample = translateStata(`mi set mlong
+mi impute regress income age educ if female == 1 [pw = survey_w], add(5) conditional(age > 18) bootstrap`, { addHeader: false });
+assert.equal(miRestrictedSample.counts.review, 1);
+assert.match(miRestrictedSample.code, /intersect\(c\("age", "educ"\)/);
+assert.doesNotMatch(miRestrictedSample.code, /"if"|"female"|"survey_w"/);
+assert.match(miRestrictedSample.diagnostics.map(x => x.message).join(' '), /if\/in qualifiers/);
+assert.match(miRestrictedSample.diagnostics.map(x => x.message).join(' '), /pweight weights/);
+assert.match(miRestrictedSample.diagnostics.map(x => x.message).join(' '), /conditional\(\)/);
+assert.match(miRestrictedSample.diagnostics.map(x => x.message).join(' '), /bootstrap/);
+
+const dynamicPanel = translateStata(`xtset id year
+xtabond y x1 x2, lags(2) maxldep(5) twostep vce(robust)
+estat abond, artests(3)
+estat sargan
+xtdpdsys y x1 x2, lags(1)`);
+assert.equal(dynamicPanel.counts.review, 0);
+assert.match(dynamicPanel.code, /plm::pgmm/);
+assert.match(dynamicPanel.code, /y ~ plm::lag\(y, 1:2\) \+ x1 \+ x2 \| plm::lag\(y, 2:5\)/);
+assert.match(dynamicPanel.code, /effect = "individual"/);
+assert.doesNotMatch(dynamicPanel.code, /effect = "twoways"/);
+assert.match(dynamicPanel.code, /model = "twosteps"/);
+assert.match(dynamicPanel.code, /transformation = "d"/);
+assert.match(dynamicPanel.code, /plm::mtest\(abond_model_1, order = \.order\)/);
+assert.match(dynamicPanel.code, /plm::sargan\(abond_model_1\)/);
+assert.match(dynamicPanel.code, /transformation = "ld"/);
+
+const dynamicPanelAdvancedMoments = translateStata(`xtset id year
+xtabond y x, pre(z)`, { addHeader: false });
+assert.equal(dynamicPanelAdvancedMoments.counts.review, 1);
+assert.match(dynamicPanelAdvancedMoments.diagnostics.map(x => x.message).join(' '), /pre\(\)\/endogenous\(\)\/inst\(\)/);
+
+const advancedModels = translateStata(`heckman wage educ exper, select(work = age kids educ, noconstant) twostep
+intreg ylo yhi x1 x2
+fracreg logit share x1 i.g
+zip count x1, inflate(z1 z2, offset(zi_off)) exposure(pop)
+zinb count x1 x2, inflate(_cons) probit`);
+assert.equal(advancedModels.counts.review, 0);
+assert.match(advancedModels.code, /sampleSelection::selection/);
+assert.match(advancedModels.code, /work ~ 0 \+ age \+ kids \+ educ/);
+assert.match(advancedModels.code, /survival::Surv\(ylo, yhi, type = "interval2"\)/);
+assert.match(advancedModels.code, /stats::quasibinomial\(link = "logit"\)/);
+assert.match(advancedModels.code, /pscl::zeroinfl/);
+assert.match(advancedModels.code, /z1 \+ z2 \+ offset\(zi_off\)/);
+assert.match(advancedModels.code, /dist = "negbin", link = "probit"/);
+assert.match(advancedModels.code, /Packages used: data\.table, survival, pscl, sampleSelection/);
+
+const hdfeModels = translateStata(`reghdfe y x1 x2, absorb(firm year) vce(cluster firm)
+ivreghdfe y x1 (price = cost shock), absorb(firm year) vce(cluster firm)
+ppmlhdfe trade x1 x2, absorb(exporter importer year) exposure(pop)`);
+assert.equal(hdfeModels.counts.review, 0);
+assert.match(hdfeModels.code, /fixest::feols\(y ~ x1 \+ x2 \| firm \+ year, data = dt, cluster = ~ firm\)/);
+assert.match(hdfeModels.code, /fixest::feols\(y ~ x1 \| firm \+ year \| price ~ cost \+ shock, data = dt, cluster = ~ firm\)/);
+assert.match(hdfeModels.code, /fixest::fepois/);
+assert.match(hdfeModels.code, /trade ~ x1 \+ x2 \+ offset\(log\(pop\)\) \| exporter \+ importer \+ year/);
+
+const hdfeSlopes = translateStata(`reghdfe y x, absorb(firm#year state#c.time id##c.trend)`, { addHeader: false });
+assert.equal(hdfeSlopes.counts.review, 0);
+assert.match(hdfeSlopes.code, /\| firm\^year \+ state\[\[time\]\] \+ id\[trend\]/);
+
 const factorGrammar = translateStata(`fvset base last g
 reg y i.g##(i.h c.x) c.x#c.x ib(freq).region
 fvrevar i.g##i.h, stub(fv_)
@@ -587,8 +686,8 @@ assert.match(stylesCss, /\.active-code-line \{ display: none; \}/);
 assert.match(stylesCss, /--runtime-line-height/);
 assert.match(indexHtml, /id="optionsPanel"(?![^>]*hidden)/);
 assert.match(indexHtml, /Double-click either editor/);
-assert.match(indexHtml, /v0\.9\.0/);
-assert.match(appJs, /editor-utils\.js\?v=0\.9\.0/);
+assert.match(indexHtml, /v0\.10\.0/);
+assert.match(appJs, /editor-utils\.js\?v=0\.10\.0/);
 const highlightedRows = highlightCodeLines('gen x=1\n/* block\ncomment */\ngen y=2', 'stata');
 assert.equal(highlightedRows.length, 4);
 assert.match(highlightedRows[1], /tok-comment/);
@@ -628,6 +727,11 @@ assert.ok(COVERAGE_ROADMAP.added.some(x => /Reporting/.test(x.family) && /dtable
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Marginal analysis/.test(x.family) && /nlcom/.test(x.commands)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Survival/.test(x.family) && /streg/.test(x.commands)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Time-series data/.test(x.family) && /tsfilter hp/.test(x.commands) && /vec/.test(x.commands) && /irf/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Multiple imputation/.test(x.family) && /mi estimate/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Dynamic panel GMM/.test(x.family) && /xtabond/.test(x.commands) && /xtdpdsys/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /High-dimensional/.test(x.family) && /reghdfe/.test(x.commands) && /ppmlhdfe/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Selection/.test(x.family) && /heckman/.test(x.commands) && /zinb/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.next.some(x => /Panel estimator depth/.test(x.family) && !/xtabond\/xtdpd\/xtdpdsys/.test(x.commands)));
 assert.ok(COVERAGE_ROADMAP.next.some(x => /Advanced resampling semantics/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.next.some(x => /Factor-variable edge/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.next.some(x => x.family === 'Advanced survey designs' && x.priority === 'P1'));

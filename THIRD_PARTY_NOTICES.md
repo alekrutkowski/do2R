@@ -31,6 +31,9 @@ The current integration set includes:
 - **urca** – unit-root and cointegration-related mappings: https://cran.r-project.org/package=urca
 - **vars** – vector-autoregression, VEC postestimation, and IRF mappings: https://cran.r-project.org/package=vars
 - **mFilter** – Hodrick–Prescott time-series filtering: https://cran.r-project.org/package=mFilter
+- **mice** – multiple imputation, completed-data analysis, and pooled inference: https://amices.org/mice/
+- **pscl** – zero-inflated count-model mappings: https://cran.r-project.org/package=pscl
+- **sampleSelection** – Heckman sample-selection mappings: https://cran.r-project.org/package=sampleSelection
 - **arrow** – Parquet/Arrow I/O mappings: https://arrow.apache.org/docs/r/
 - **glue** – generated-code string interpolation where needed: https://glue.tidyverse.org/
 

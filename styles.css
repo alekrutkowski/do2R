@@ -104,13 +104,48 @@ code { font-family: "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mon
 }
 .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
 .brand-mark {
-  display: grid; place-items: center;
-  width: 42px; height: 42px; border-radius: 12px;
-  background: var(--green); color: var(--white);
-  font-family: Georgia, serif; font-weight: 700; letter-spacing: -.04em;
-  box-shadow: 0 5px 15px rgba(23,63,55,.18);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 62px;
+  height: 42px;
+  padding: 0 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,253,248,.10);
+  border-radius: 13px;
+  background: linear-gradient(145deg, #19483e 0%, #12372f 58%, #0f302a 100%);
+  box-shadow: 0 6px 18px rgba(23,63,55,.20), inset 0 1px 0 rgba(255,255,255,.08);
+  isolation: isolate;
 }
-.brand-mark span { color: #efb467; padding: 0 1px; }
+.brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 10%, rgba(255,255,255,.11), transparent 44%);
+  pointer-events: none;
+}
+.brand-letter,
+.brand-arrow { position: relative; z-index: 1; flex: 0 0 auto; }
+.brand-letter {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.025em;
+}
+.brand-letter-stata { color: #fffdf8; transform: translateY(-.5px); }
+.brand-letter-r { color: #dce9e3; transform: translateY(.3px); }
+.brand-arrow {
+  width: 17px;
+  height: 12px;
+  fill: none;
+  stroke: #efb467;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .brand-copy { display: flex; flex-direction: column; line-height: 1.05; }
 .brand-copy strong { font-size: 17px; letter-spacing: -.02em; }
 .brand-copy small { margin-top: 5px; color: var(--muted); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }

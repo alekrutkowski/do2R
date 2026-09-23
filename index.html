@@ -15,16 +15,23 @@
       } catch { document.documentElement.dataset.theme = 'light'; }
     })();
   </script>
-  <link rel="stylesheet" href="./styles.css?v=0.9.0">
+  <link rel="stylesheet" href="./styles.css?v=0.10.0-ui1">
 </head>
 <body>
   <div class="page-shell">
     <header class="site-header">
       <a class="brand" href="#" aria-label="do2R home">
-        <span class="brand-mark" aria-hidden="true">d<span>→</span>R</span>
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-letter brand-letter-stata">d</span>
+          <svg class="brand-arrow" viewBox="0 0 18 12" focusable="false">
+            <path d="M1.5 6h13"></path>
+            <path d="m10.5 2.5 4 3.5-4 3.5"></path>
+          </svg>
+          <span class="brand-letter brand-letter-r">R</span>
+        </span>
         <span class="brand-copy">
           <strong>do2R</strong>
-          <small>Stata → R translator · v0.9.0</small>
+          <small>Stata → R translator · v0.10.0</small>
         </span>
       </a>
       <nav class="header-actions" aria-label="Page actions">
@@ -262,6 +269,6 @@
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="./app.js?v=0.9.0"></script>
+  <script type="module" src="./app.js?v=0.10.0"></script>
 </body>
 </html>
