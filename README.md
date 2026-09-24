@@ -1,4 +1,4 @@
-# do2R v0.10.0
+# do2R v0.12.0
 
 **do2R** is a static, browser-only Stata/Mata → R translator intended for migration work on `.do`, `.ado`, and Mata code. It has no server component and can be hosted directly on GitHub Pages:
 
@@ -36,6 +36,7 @@ The translator favors readable and performant R, especially `data.table`, while 
 - Core `i.` / `c.` terms, `#` / `##`, parenthesized interactions, common `ib*.` / `b*.` base specifications, `fvset base`, and common `fvrevar` workflows are translated.
 - `bootstrap:`, `jackknife:` / `jknife:`, `permute:`, `simulate`, and `rolling:` now share a reusable repeated-command execution layer.
 - Common `_b`, `_se`, `r()`, and `e()` statistics are collected across replications.
+- `statsby` can also execute supported grouped model commands and collect full `_b` / `_se` vectors or named coefficient, standard-error, and scalar stored-result expressions.
 - Common replication counts, seeds, bootstrap strata/clusters/sample size, permutation variables, and rolling windows/step sizes are translated.
 - Advanced interval/rejection/weighting and exact-enumeration semantics remain explicit roadmap items rather than guessed behavior.
 
@@ -73,7 +74,15 @@ Stata numeric missing values are not globally replaced by R `Inf`, because doing
 - storage/arithmetic uses R missing values;
 - `.a`–`.z` use tagged missing values when needed;
 - comparison helpers reproduce Stata's ordering in which every numeric missing is greater than every finite number;
-- literal expressions such as `. > 3` therefore translate to `TRUE`.
+- literal expressions such as `. > 3` therefore translate to `TRUE`;
+- extended `mvencode` / `mvdecode` rule lists preserve system missing versus `.a`–`.z` tags, including `else=#`, numlists, `if` / `in`, and the `override` collision switch.
+
+### Data management and `egen` depth
+
+- `egen` row utilities now include `rowmedian()`, `rowsd()`, `rowpctile()`, `rowfirst()`, and `rowlast()`, with corrected all-missing behavior for `rowmin()` / `rowmax()`.
+- `egen seq()`, `anycount()`, `anymatch()`, `anyvalue()`, and common `concat(), punct()` workflows are translated. Storage-type requests are retained as diagnostics rather than forcing lossy R types.
+- `contract` now handles named frequency, cumulative-frequency, percentage, and cumulative-percentage variables, together with `zero`, `nomiss`, `if` / `in`, and Stata frequency weights.
+- Stata-specific display/value-label behavior in advanced `concat()` formatting remains explicit review material rather than being silently approximated.
 
 ### Time series
 
@@ -114,12 +123,22 @@ Coverage also includes `tsfill`, `tsappend, add()` plus endpoint `last()` / `tsf
 The current translator includes common mappings for:
 
 - OLS/GLM and many common single-equation estimators;
+- `logistic`, complementary-log-log `cloglog`, and `binreg` odds-ratio, risk-ratio, risk-difference, and health-ratio links, including grouped-binomial `n()`, offsets, and exposures;
+- `rreg` through an explicitly approximate `MASS::rlm()` biweight mapping, including `tune()` and `genwt()`, with diagnostics about Stata's additional Cook's-D and Huber stages;
+- `newey` as OLS with classic non-prewhitened Newey–West covariance and the finite-sample adjustment, using translated `tsset` time ordering when available;
+- regression postestimation for common `estat vif`, `estat hettest`, `estat ovtest`, `estat ic`, `estat vce`, `estat summarize`, and `linktest` workflows, plus `estimates restore` / `drop` model-state tracking;
 - common `xtlogit`, `xtprobit`, `xtpoisson`, and `xtgee` cases, plus random-effects ordered `xtologit` / `xtoprobit` through `ordinal::clmm`;
 - `mixed`, `melogit`, `meprobit`, `mecloglog`, `meologit`, `meoprobit`, `mepoisson`, `menbreg`, and common `meglm` family/link combinations;
 - basic survey declarations and common `svy:` estimation;
 - richer `margins` scenarios through `marginaleffects`, plus generic `marginsplot`, `lincom`, and `nlcom`;
 - survival declarations and common `stcox`, parametric `streg`, Kaplan–Meier `sts` / `stsum`, and `stcurve` workflows through `survival` and `flexsurv`;
 - many data-management, reshape, join, descriptive-statistics, testing, and graphics commands.
+
+### Variable discovery and metadata
+
+- `ds` supports ordinary varlists and their `not` complement, plus `alpha` ordering.
+- `has()` / `not()` property filters cover numeric/string classes, Stata `format.stata` patterns, variable-label patterns, and the presence of haven value-label mappings.
+- `insensitive` is preserved for label/format pattern matching. Exact Stata storage-width filters such as `byte`/`float` and named value-label filters remain review cases because those source metadata are not always retained by ordinary R vectors.
 
 ### Comments
 
@@ -212,6 +231,7 @@ do2R itself has no runtime JavaScript dependencies. Depending on the Stata sourc
 - `plm`
 - `quantreg`
 - `MASS`
+- `sandwich`
 - `readxl`
 - `openxlsx`
 - `reticulate`

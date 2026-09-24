@@ -19,6 +19,7 @@ The current integration set includes:
 - **flexsurv** – parametric survival-model mappings: https://cran.r-project.org/package=flexsurv
 - **quantreg** – quantile-regression mappings: https://cran.r-project.org/package=quantreg
 - **MASS** – negative-binomial and related model mappings: https://cran.r-project.org/package=MASS
+- **sandwich** – heteroskedasticity/autocorrelation-consistent covariance estimators used by `newey`: https://cran.r-project.org/package=sandwich
 - **AER** – Tobit mappings: https://cran.r-project.org/package=AER
 - **nnet** – multinomial-model mappings: https://cran.r-project.org/package=nnet
 - **marginaleffects** – margins/postestimation mappings: https://marginaleffects.com/

@@ -247,14 +247,19 @@ export const COVERAGE_ROADMAP = {
     { family: 'Multilevel & mixed GLMs', commands: 'mixed, melogit, meprobit, mecloglog, meologit, meoprobit, mepoisson, menbreg, plus common meglm family()/link() combinations' },
     { family: 'Common nonlinear panel models', commands: 'xtlogit, xtprobit, xtpoisson (RE/FE/PA where meaningful), xtologit/xtoprobit random-effects ordered models, and xtgee common families/correlation structures' },
     { family: 'Factor-variable grammar', commands: 'i./c., #/##, parenthesized interactions, ib(first/last/frequent/#), bn./ibn., fvset base/design/clear/report, fvrevar/list/stub()' },
-    { family: 'Repeated estimation', commands: 'bootstrap:, jackknife:/jknife:, permute:, simulate, rolling: with common r()/e()/_b/_se statistics, reps/seed/cluster/strata/window options' },
+    { family: 'Repeated estimation', commands: 'bootstrap:, jackknife:/jknife:, permute:, simulate, rolling:, plus statsby with grouped r()/e()/_b/_se collection and common reps/seed/cluster/strata/window options' },
     { family: 'Reporting & collections', commands: 'table, dtable, etable, collect clear/preview/export with common statistic()/by() workflows and CSV/TSV/XLSX output' },
     { family: 'Marginal analysis & coefficient combinations', commands: 'margins dydx()/at()/atmeans/over(), marginsplot, lincom, nlcom with common exponentiation/level options' },
     { family: 'Survival analysis', commands: 'stset failure()/time0()/scale(), stcox + strata(), streg common parametric distributions, sts graph/list, stsum, stcurve survival/failure/hazard/cumhaz' },
     { family: 'Multiple imputation core', commands: 'mi set/register/describe/extract, mi impute regress/pmm/logit/ologit/mlogit, chained equations with method-specific pmm knn(), mi estimate pooling for common models' },
     { family: 'Dynamic panel GMM', commands: 'xtabond, xtdpdsys, lags()/maxldep()/twostep/collapse, estat abond, estat sargan via plm::pgmm/mtest/sargan' },
     { family: 'High-dimensional fixed effects', commands: 'reghdfe, ivreghdfe common 2SLS form, ppmlhdfe with absorb(), clustered VCE, exposure()/offset() via fixest' },
-    { family: 'Selection, censored, fractional & zero-inflated models', commands: 'heckman, intreg, fracreg logit/probit, zip, zinb with common select()/inflate()/offset()/exposure() options' }
+    { family: 'Selection, censored, fractional & zero-inflated models', commands: 'heckman, intreg, fracreg logit/probit, zip, zinb with common select()/inflate()/offset()/exposure() options' },
+    { family: 'Missing-code recoding & variable discovery', commands: 'mvencode/mvdecode rule lists with ./.a–.z/else, mvencode override collision semantics, ds has()/not() for numeric/string type, Stata formats, variable labels, value-label presence, insensitive matching, varlist complement and alpha ordering' },
+    { family: 'Egen row, sequence & matching utilities', commands: 'rowmedian, rowsd, rowpctile, rowfirst, rowlast, corrected all-missing rowmin/rowmax, seq(), anycount(), anymatch(), anyvalue(), concat() punct(), optional egen storage types' },
+    { family: 'Frequency-data construction', commands: 'contract with freq()/cfreq()/percent()/cpercent(), zero, nomiss, if/in, and fweights' },
+    { family: 'Binomial, robust & HAC regression', commands: 'logistic, cloglog, binreg or/rr/rd/hr with n()/offset()/exposure(), rreg approximation with tune()/genwt(), newey lag() with attached Newey–West covariance' },
+    { family: 'Regression diagnostics & stored-model state', commands: 'estat vif/hettest/ovtest/ic/vce/summarize, linktest, estimates store/restore/drop, postestimation restored-model tracking' }
   ],
   next: [
     { priority: 'P1', family: 'Macro/parser edge cases', commands: 'remaining extended macro functions, positional `0`/call-line fidelity, compound-quote edge cases, gettoken Unicode/bind corner cases, delayed expansion across multiple parser passes', note: 'Common parsing functions such as word/count, strlen/length, copy, and subinstr are mapped; finish the remaining parser-level textual substitution edge cases before broadening rare estimators.' },
@@ -262,7 +267,7 @@ export const COVERAGE_ROADMAP = {
     { priority: 'P1', family: 'Frame-link depth', commands: 'fralias, frlink dir/describe/rebuild, metadata/label fidelity and multi-step link invalidation checks', note: 'Current frlink/frget mappings cover ordinary 1:1 and m:1 lookup workflows; live alias semantics and link lifecycle management need a deeper runtime model.' },
     { priority: 'P1', family: 'Advanced survey designs', commands: 'multistage svyset, brrweight(), bsrweight(), jkrweight(), sdrweight(), poststrata, calibrate/rake', note: 'Map replicate-weight and multistage designs to survey::svrepdesign()/svydesign() without losing variance-method semantics.' },
     { priority: 'P1', family: 'Time-series data mechanics & remaining models', commands: 'tssmooth double-exponential/Holt-Winters, additional tsfilter methods, arch/GARCH, SVAR, richer VAR/VEC diagnostics, forecast', note: 'HP filtering, Johansen rank/VEC models, IRFs, tsappend endpoint dates, single-exponential smoothing, lag selection, and core VAR diagnostics are now covered; continue with volatility models, structural systems, richer diagnostics, and forecasting.' },
-    { priority: 'P1', family: 'Advanced resampling semantics', commands: 'bootstrap BC/BCa/reject()/weights/idcluster, jackknife mse/pseudovalues/reject(), exact permute enumeration, rolling start()/end()/keep()/saving()', note: 'The reusable repeated-command layer now exists; finish Stata-specific replication, interval, rejection, and saved-result details.' },
+    { priority: 'P1', family: 'Advanced resampling semantics', commands: 'bootstrap BC/BCa/reject()/weights/idcluster, jackknife mse/pseudovalues/reject(), exact permute enumeration, rolling start()/end()/keep()/saving()', note: 'The reusable repeated-command layer and core statsby model collection now exist; finish Stata-specific replication, interval, rejection, statsby saving()/total/subsets, and saved-result details.' },
     { priority: 'P1', family: 'Factor-variable edge/design semantics', commands: 'full o./b./bn. omission rules, empty cells, factor variables inside every varlist/option, coefficient-name fidelity, fvset design effects in margins/contrast', note: 'The core grammar and base-level machinery are implemented; the remaining work is Stata-specific omitted-column/design-matrix fidelity across commands.' },
     { priority: 'P1', family: 'Panel estimator depth', commands: 'xtnbreg, xtregar, xttobit, xtmlogit, flexible xtdpd moment structures, xtvar, and richer xtgee structures', note: 'Arellano–Bond xtabond and system-GMM xtdpdsys core workflows are now mapped; extend the remaining xt families while preserving estimator-specific likelihood, moment, correlation, and VCE semantics.' },
     { priority: 'P1', family: 'Advanced date/time & calendars', commands: 'full datetime masks/top-year rules, weekly dates, %t display formats, bcal create/load, bofd()/dofb()', note: 'Finish Stata parsing/display semantics and business-calendar mappings beyond the common constructors now covered.' },
@@ -1105,11 +1110,12 @@ function translateGenerate(body, options, ctx, rec, by) {
 }
 
 function translateEgen(body, options, ctx, rec, byPrefix) {
-  const m = body.match(/^egen\s+([^\s=]+)\s*=\s*([A-Za-z_]\w*)\s*\((.*)\)\s*$/i);
+  const m = body.match(/^egen\s+(?:(byte|int|long|float|double|str\d*|strL)\s+)?([^\s=]+)\s*=\s*([A-Za-z_]\w*)\s*\((.*)\)\s*$/i);
   if (!m) return null;
-  const target = rTargetName(m[1], ctx);
-  const fun = m[2].toLowerCase();
-  const arg = m[3].trim();
+  const storage = m[1] || '';
+  const target = rTargetName(m[2], ctx);
+  const fun = m[3].toLowerCase();
+  const arg = m[4].trim();
   const byOpt = optionValue(options, 'by');
   const by = byPrefix || (byOpt && byOpt !== true ? byOpt : '');
   const byR = byClause(by, ctx);
@@ -1119,6 +1125,7 @@ function translateEgen(body, options, ctx, rec, byPrefix) {
   let extra = '';
   let confidence = 'exact';
   const ds = [];
+  const lines = [];
 
   if (['mean', 'max', 'min', 'median', 'sd'].includes(fun)) rhs = `${fun}(${x}, na.rm = TRUE)`;
   else if (['total', 'sum'].includes(fun)) rhs = `sum(${x}, na.rm = TRUE)`;
@@ -1131,15 +1138,70 @@ function translateEgen(body, options, ctx, rec, byPrefix) {
   } else if (fun === 'tag') {
     const groups = varListExpr(arg, ctx);
     return result(`${dt}[, ${target} := as.integer(seq_len(.N) == 1L), by = ${groups}]`, 'exact');
-  } else if (['rowtotal', 'rowsum', 'rowmean', 'rowmiss', 'rownonmiss', 'rowmax', 'rowmin'].includes(fun)) {
+  } else if (['rowtotal', 'rowsum', 'rowmean', 'rowmiss', 'rownonmiss', 'rowmax', 'rowmin', 'rowmedian', 'rowsd', 'rowpctile', 'rowfirst', 'rowlast'].includes(fun)) {
     const cols = varListExpr(arg, ctx);
-    if (fun === 'rowtotal' || fun === 'rowsum') rhs = 'rowSums(.SD, na.rm = TRUE)';
+    if (fun === 'rowtotal' || fun === 'rowsum') {
+      rhs = hasOption(options, 'missing')
+        ? 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else sum(.z, na.rm = TRUE))'
+        : 'rowSums(.SD, na.rm = TRUE)';
+    }
     if (fun === 'rowmean') rhs = 'rowMeans(.SD, na.rm = TRUE)';
     if (fun === 'rowmiss') rhs = 'rowSums(is.na(.SD))';
     if (fun === 'rownonmiss') rhs = 'rowSums(!is.na(.SD))';
-    if (fun === 'rowmax') rhs = 'do.call(pmax, c(.SD, na.rm = TRUE))';
-    if (fun === 'rowmin') rhs = 'do.call(pmin, c(.SD, na.rm = TRUE))';
+    if (fun === 'rowmax') rhs = 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else max(.z, na.rm = TRUE))';
+    if (fun === 'rowmin') rhs = 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else min(.z, na.rm = TRUE))';
+    if (fun === 'rowmedian') rhs = 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else stats::median(.z, na.rm = TRUE))';
+    if (fun === 'rowsd') rhs = 'apply(as.matrix(.SD), 1L, function(.z) if (sum(!is.na(.z)) < 2L) NA_real_ else stats::sd(.z, na.rm = TRUE))';
+    if (fun === 'rowpctile') {
+      const pRaw = optionValue(options, 'p');
+      const prob = pRaw && pRaw !== true ? `(${translateExpression(String(pRaw), ctx)}) / 100` : '0.5';
+      rhs = `apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else as.numeric(stats::quantile(.z, probs = ${prob}, na.rm = TRUE, names = FALSE, type = 2)))`;
+      confidence = 'heuristic';
+      ds.push(diag(rec.line, 'warning', 'egen rowpctile() is mapped to R quantile(type = 2). Check percentile interpolation at exact discontinuities against Stata for reproducibility-critical work.', rec.text));
+    }
+    if (fun === 'rowfirst') rhs = 'apply(as.matrix(.SD), 1L, function(.z) { .i <- which(!is.na(.z)); if (length(.i)) .z[.i[1L]] else NA })';
+    if (fun === 'rowlast') rhs = 'apply(as.matrix(.SD), 1L, function(.z) { .i <- which(!is.na(.z)); if (length(.i)) .z[.i[length(.i)]] else NA })';
     extra = `, .SDcols = ${cols}`;
+  } else if (fun === 'seq') {
+    const fromRaw = optionValue(options, 'from');
+    const toRaw = optionValue(options, 'to');
+    const blockRaw = optionValue(options, 'block');
+    const from = fromRaw && fromRaw !== true ? translateExpression(String(fromRaw), ctx) : '1';
+    const block = blockRaw && blockRaw !== true ? translateExpression(String(blockRaw), ctx) : '1';
+    if (toRaw && toRaw !== true) {
+      const to = translateExpression(String(toRaw), ctx);
+      rhs = `(${from}) + ifelse((${to}) >= (${from}), 1, -1) * ((((seq_len(.N) - 1L) %/% (${block}))) %% (abs((${to}) - (${from})) + 1))`;
+    } else {
+      rhs = `(${from}) + ((seq_len(.N) - 1L) %/% (${block}))`;
+    }
+  } else if (['anycount', 'anymatch', 'anyvalue'].includes(fun)) {
+    const valuesRaw = optionValue(options, 'values') || optionValue(options, 'v');
+    if (!valuesRaw || valuesRaw === true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `egen ${fun}() requires values() for a safe translation.`, rec.text)]);
+    ctx.features.add('numlist');
+    const valuesName = `.__egen_values_${rec.line}`;
+    lines.push(`${valuesName} <- stata_numlist(${rString(valuesRaw, ctx)})`);
+    if (fun === 'anyvalue') {
+      const v = cleanIdentifier(splitWords(arg)[0] || arg, arg);
+      rhs = `data.table::fifelse(${v} %in% ${valuesName}, ${v}, NA_real_)`;
+    } else {
+      const cols = varListExpr(arg, ctx);
+      const matches = `vapply(.SD, function(.x) .x %in% ${valuesName}, logical(.N))`;
+      rhs = fun === 'anycount' ? `rowSums(${matches})` : `as.integer(rowSums(${matches}) > 0L)`;
+      extra = `, .SDcols = ${cols}`;
+    }
+    lines.push(`${dt}[, ${target} := ${rhs}${byR ? `, ${byR}` : ''}${extra}]`);
+    lines.push(`rm(${valuesName})`);
+    if (storage) ds.push(diag(rec.line, 'info', `Stata storage type ${storage} is not forced; R will use its native vector type.`, rec.text));
+    return result(lines, 'heuristic', ds);
+  } else if (fun === 'concat') {
+    const cols = varListExpr(arg, ctx);
+    const punctRaw = optionValue(options, 'punct') || optionValue(options, 'p');
+    const sep = punctRaw && punctRaw !== true ? rString(punctRaw, ctx) : '""';
+    rhs = `do.call(paste, c(lapply(.SD, function(.x) { .z <- as.character(.x); .z[is.na(.z)] <- ""; .z }), sep = ${sep}))`;
+    extra = `, .SDcols = ${cols}`;
+    confidence = 'heuristic';
+    const concatOpts = ['decode', 'format', 'maxlength'].filter(name => hasOption(options, name));
+    if (concatOpts.length) ds.push(diag(rec.line, 'warning', `egen concat() option(s) ${concatOpts.join(', ')} need manual review; the translation preserves concatenation and punct() but not all Stata display/value-label formatting semantics.`, rec.text));
   } else if (fun === 'std' || fun === 'stdize') {
     rhs = `as.numeric(scale(${x}))`;
     confidence = 'heuristic';
@@ -1154,7 +1216,9 @@ function translateEgen(body, options, ctx, rec, byPrefix) {
     return result(`# TODO [Stata line ${rec.line}]: egen ${fun}()\n# ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `egen ${fun}() is not covered safely yet.`, rec.text)]);
   }
 
-  return result(`${dt}[, ${target} := ${rhs}${byR ? `, ${byR}` : ''}${extra}]`, confidence, ds);
+  if (storage) ds.push(diag(rec.line, 'info', `Stata storage type ${storage} is not forced; R will use its native vector type.`, rec.text));
+  lines.push(`${dt}[, ${target} := ${rhs}${byR ? `, ${byR}` : ''}${extra}]`);
+  return result(lines, confidence, ds);
 }
 
 function translateKeepDrop(cmd, rest, ctx, rec, by) {
@@ -2026,6 +2090,49 @@ function translateResamplingPrefix(text, ctx, rec) {
   return null;
 }
 
+function statsbyStatVectorExpr(spec, ctx) {
+  let specs = splitWords(String(spec || '').trim()).filter(Boolean);
+  if (!specs.length) return 'stata_collect_stored(.do2r_e, .do2r_r)';
+  const pieces = [];
+  let auto = 0;
+  for (const token of specs) {
+    if (/^_b$/i.test(token)) {
+      pieces.push(`local({ .__b <- unlist(.do2r_e[["b"]][1L, , drop = TRUE]); .__n <- names(.__b); .__n[.__n == "(Intercept)"] <- "_cons"; setNames(as.numeric(.__b), paste0("_b_", .__n)) })`);
+      continue;
+    }
+    if (/^_se$/i.test(token)) {
+      pieces.push(`local({ .__se <- sqrt(diag(.do2r_e[["V"]])); .__n <- names(.__se); .__n[.__n == "(Intercept)"] <- "_cons"; setNames(as.numeric(.__se), paste0("_se_", .__n)) })`);
+      continue;
+    }
+    const eq = (() => {
+      let depth = 0;
+      for (let i = 0; i < token.length; i += 1) {
+        const c = token[i];
+        if (c === '(' || c === '[') depth += 1;
+        else if (c === ')' || c === ']') depth -= 1;
+        else if (c === '=' && depth === 0) return i;
+      }
+      return -1;
+    })();
+    if (eq > 0) {
+      const name = cleanIdentifier(token.slice(0, eq), `stat${auto + 1}`);
+      const expr = translateResampleStatExpr(token.slice(eq + 1), ctx);
+      pieces.push(`c(${name} = as.numeric(${expr}))`);
+      continue;
+    }
+    auto += 1;
+    const expr = translateResampleStatExpr(token, ctx);
+    const bm = token.match(/^_b\[([^\]]+)\]$/i);
+    const sm = token.match(/^_se\[([^\]]+)\]$/i);
+    const em = token.match(/^[ers]\(([A-Za-z_]\w*)\)$/i);
+    const name = bm ? cleanIdentifier(bm[1] === '_cons' ? '_cons' : bm[1], `stat${auto}`)
+      : sm ? `se_${cleanIdentifier(sm[1] === '_cons' ? '_cons' : sm[1], `stat${auto}`)}`
+      : em ? cleanIdentifier(em[1], `stat${auto}`) : `stat${auto}`;
+    pieces.push(`c(${name} = as.numeric(${expr}))`);
+  }
+  return pieces.length === 1 ? pieces[0] : `c(${pieces.join(', ')})`;
+}
+
 function translateStatsbyPrefix(text, ctx, rec) {
   if (!/^statsby\b/i.test(text)) return null;
   const raw = text.replace(/^statsby\b/i, '').trim();
@@ -2044,40 +2151,83 @@ function translateStatsbyPrefix(text, ctx, rec) {
   const ws = bodyMain.search(/\s/);
   const bodyCmd = normalizeCommand(ws < 0 ? bodyMain : bodyMain.slice(0, ws));
   const bodyRest = ws < 0 ? '' : bodyMain.slice(ws + 1).trim();
-  if (bodyCmd !== 'summarize') {
-    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'statsby is currently translated directly for summarize; model-based _b/_se and arbitrary r()/e() commands are next in the prefix execution layer.', rec.text)]);
+
+  if (bodyCmd === 'summarize') {
+    const q = extractQualifiers(bodyRest);
+    const vars = splitWords(q.core);
+    if (vars.length === 1 && !q.ifExpr && !q.inExpr) {
+      ctx.features.add('summarize');
+      const detail = hasOption(bodyOptions, 'detail') ? 'TRUE' : 'FALSE';
+      let specs = splitWords(statsSpec).filter(Boolean);
+      if (!specs.length) specs = ['N=r(N)', 'mean=r(mean)', 'sd=r(sd)', 'min=r(min)', 'max=r(max)'];
+      const values = [];
+      let direct = true;
+      for (const spec of specs) {
+        const m = spec.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/);
+        if (!m) { direct = false; break; }
+        const rhs = translateExpression(m[2].replace(/^\((.*)\)$/, '$1'), ctx);
+        if (!/\.do2r_r\[\[/.test(rhs)) { direct = false; break; }
+        values.push(`${cleanIdentifier(m[1])} = ${rhs}`);
+      }
+      if (direct) {
+        const byVec = byOpt && byOpt !== true ? varListExpr(String(byOpt).replace(/,\s*missing\b/i, '').trim(), ctx) : 'character()';
+        const missingGroups = byOpt && byOpt !== true && /,\s*missing\b/i.test(String(byOpt));
+        const byCode = byOpt && byOpt !== true ? `, by = ${byVec}` : '';
+        const filterMissing = byOpt && byOpt !== true && !missingGroups ? `[stats::complete.cases(${ctx.currentData}[, .SD, .SDcols = ${byVec}])]` : '';
+        const source = `${ctx.currentData}${filterMissing}`;
+        const lines = [
+          `${ctx.currentData} <- ${source}[, {`,
+          `  .do2r_r <- stata_summarize(${cleanIdentifier(vars[0], vars[0])}, detail = ${detail})`,
+          `  .(${values.join(', ')})`,
+          `}${byCode}]`
+        ];
+        return result(lines, 'heuristic', [diag(rec.line, 'warning', 'statsby + summarize was translated to grouped data.table evaluation. Verify Stata quantile definitions and any omitted prefix options.', rec.text)]);
+      }
+    }
   }
 
-  const q = extractQualifiers(bodyRest);
-  const vars = splitWords(q.core);
-  if (vars.length !== 1 || q.ifExpr || q.inExpr) {
-    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'statsby + summarize currently requires one summarized variable without inner if/in qualifiers.', rec.text)]);
+  ctx.features.add('results');
+  ctx.features.add('resampling');
+  const inner = translateEmbeddedCommand(command, ctx, rec, '.do2r_sample');
+  if (!inner || inner.confidence === 'review') {
+    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [
+      ...(inner?.diagnostics || []),
+      diag(rec.line, 'review', 'statsby could not translate its repeated command safely.', rec.text)
+    ]);
   }
 
-  ctx.features.add('summarize');
-  const detail = hasOption(bodyOptions, 'detail') ? 'TRUE' : 'FALSE';
-  let specs = splitWords(statsSpec).filter(Boolean);
-  if (!specs.length) specs = ['N=r(N)', 'mean=r(mean)', 'sd=r(sd)', 'min=r(min)', 'max=r(max)'];
-  const values = [];
-  for (const spec of specs) {
-    const m = spec.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/);
-    if (!m) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'statsby expression lists currently require explicit newname=expression entries.', rec.text)]);
-    const rhs = translateExpression(m[2].replace(/^\((.*)\)$/, '$1'), ctx);
-    if (!/\.do2r_r\[\[/.test(rhs)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'statsby currently supports expressions built from summarize r() scalars.', rec.text)]);
-    values.push(`${cleanIdentifier(m[1])} = ${rhs}`);
-  }
+  const defaultToCoefficients = !statsSpec.trim() && inner.lines.some(x => /\.do2r_e\s*<-\s*stata_e_from_model/.test(x));
+  const stats = statsbyStatVectorExpr(defaultToCoefficients ? '_b' : statsSpec, ctx);
   const byVec = byOpt && byOpt !== true ? varListExpr(String(byOpt).replace(/,\s*missing\b/i, '').trim(), ctx) : 'character()';
   const missingGroups = byOpt && byOpt !== true && /,\s*missing\b/i.test(String(byOpt));
+  const sourceFilter = byOpt && byOpt !== true && !missingGroups ? `[stats::complete.cases(${ctx.currentData}[, .SD, .SDcols = ${byVec}])]` : '';
   const byCode = byOpt && byOpt !== true ? `, by = ${byVec}` : '';
-  const filterMissing = byOpt && byOpt !== true && !missingGroups ? `[stats::complete.cases(${ctx.currentData}[, .SD, .SDcols = ${byVec}])]` : '';
-  const source = `${ctx.currentData}${filterMissing}`;
   const lines = [
-    `${ctx.currentData} <- ${source}[, {`,
-    `  .do2r_r <- stata_summarize(${cleanIdentifier(vars[0], vars[0])}, detail = ${detail})`,
-    `  .(${values.join(', ')})`,
-    `}${byCode}]`
+    `.__do2r_statsby_source <- ${ctx.currentData}${sourceFilter}`,
+    `${ctx.currentData} <- .__do2r_statsby_source[, {`,
+    `  .do2r_sample <- data.table::copy(.__do2r_statsby_source[.I])`,
+    `  .do2r_r <- list(); .do2r_e <- list(); .do2r_s <- list()`,
+    ...inner.lines.map(x => `  ${x}`),
+    `  .__do2r_stats <- ${stats}`,
+    `  as.list(.__do2r_stats)`,
+    `}${byCode}]`,
+    `rm(.__do2r_statsby_source)`
   ];
-  return result(lines, 'heuristic', [diag(rec.line, 'warning', 'statsby + summarize was translated to grouped data.table evaluation. Verify Stata quantile definitions and any omitted prefix options.', rec.text)]);
+  return result(lines, 'heuristic', [
+    diag(rec.line, 'warning', 'statsby was mapped to grouped repeated command execution. Coefficients, standard errors, and scalar r()/e()/s() expressions are collected, but multi-equation coefficient naming and advanced statsby save/subset semantics still need validation.', rec.text),
+    ...inner.diagnostics
+  ]);
+}
+
+function splitMvRules(raw) {
+  return String(raw || '').split(/\\/).map(x => x.trim()).filter(Boolean);
+}
+
+function stataMissingCodeExpr(code) {
+  const z = String(code || '').trim().toLowerCase();
+  if (z === '.') return 'NA_real_';
+  const m = z.match(/^\.([a-z])$/);
+  return m ? `haven::tagged_na("${m[1]}")` : null;
 }
 
 function translateExtraData(cmd, rest, options, ctx, rec, by) {
@@ -2271,18 +2421,71 @@ function translateExtraData(cmd, rest, options, ctx, rec, by) {
     const q = extractQualifiers(rest);
     const mv = optionValue(options, 'mv');
     if (!mv || mv === true) return null;
-    if (/[=\\]/.test(String(mv))) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} extended missing-code rule lists are not translated yet; simple mv(#) / mv(numlist) forms are supported.`, rec.text)]);
     const cols = varListExpr(q.core, ctx);
     const subset = rowFilter(q.ifExpr, q.inExpr, ctx) || `rep(TRUE, nrow(${dt}))`;
+    const parts = splitMvRules(mv);
+    if (!parts.length) return null;
+    ctx.features.add('haven');
     const lines = [`.__mvcols <- Filter(function(.v) is.numeric(${dt}[[.v]]), ${cols})`];
+
     if (cmd === 'mvencode') {
-      lines.push(`${dt}[${subset}, (.__mvcols) := lapply(.SD, function(.x) { .x[is.na(.x)] <- ${translateExpression(String(mv), ctx)}; .x }), .SDcols = .__mvcols]`);
-    } else {
-      ctx.features.add('numlist');
-      lines.push(`.__mvvalues <- stata_numlist(${rString(String(mv), ctx)})`, `${dt}[${subset}, (.__mvcols) := lapply(.SD, function(.x) { .x[.x %in% .__mvvalues] <- NA_real_; .x }), .SDcols = .__mvcols]`, 'rm(.__mvvalues)');
+      const rules = [];
+      if (parts.length === 1 && !parts[0].includes('=')) {
+        rules.push({ code: 'else', value: translateExpression(parts[0], ctx) });
+      } else {
+        for (const part of parts) {
+          const eq = part.indexOf('=');
+          if (eq < 1) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'mvencode rule lists must use mvc=# entries separated by backslashes, optionally ending in else=#.', rec.text)]);
+          const code = part.slice(0, eq).trim().toLowerCase();
+          const rhs = part.slice(eq + 1).trim();
+          if (!(code === 'else' || /^\.[a-z]?$/i.test(code)) || !rhs) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `mvencode rule “${part}” is outside the supported Stata missing-code grammar.`, rec.text)]);
+          if (code === 'else' && part !== parts[parts.length - 1]) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'mvencode else=# must be the final transformation rule.', rec.text)]);
+          rules.push({ code, value: translateExpression(rhs, ctx) });
+        }
+      }
+      const targets = rules.map(x => x.value);
+      lines.push(`.__mvtargets <- unique(c(${targets.join(', ')}))`);
+      if (!hasOption(options, 'override')) {
+        lines.push(`if (length(.__mvtargets) && any(vapply(.__mvcols, function(.v) any(${dt}[[.v]] %in% .__mvtargets, na.rm = TRUE), logical(1L)))) stop("mvencode target value already occurs in the data; add override only if that collision is intentional", call. = FALSE)`);
+      }
+      const body = [
+        '.__orig_missing <- is.na(.x)',
+        '.__tagged <- haven::is_tagged_na(.x)',
+        '.__tag <- rep("", length(.x))',
+        'if (any(.__tagged)) .__tag[.__tagged] <- haven::na_tag(.x[.__tagged])',
+        '.__used <- rep(FALSE, length(.x))'
+      ];
+      for (const rule of rules) {
+        if (rule.code === 'else') body.push(`.__hit <- .__orig_missing & !.__used; .x[.__hit] <- ${rule.value}; .__used[.__hit] <- TRUE`);
+        else if (rule.code === '.') body.push(`.__hit <- .__orig_missing & !.__tagged & !.__used; .x[.__hit] <- ${rule.value}; .__used[.__hit] <- TRUE`);
+        else body.push(`.__hit <- .__tag == "${rule.code.slice(1)}" & !.__used; .x[.__hit] <- ${rule.value}; .__used[.__hit] <- TRUE`);
+      }
+      body.push('.x');
+      lines.push(`${dt}[${subset}, (.__mvcols) := lapply(.SD, function(.x) { ${body.join('; ')} }), .SDcols = .__mvcols]`);
+      lines.push('rm(.__mvcols, .__mvtargets)');
+      return result(lines, 'heuristic', [diag(rec.line, 'warning', 'mvencode now preserves distinctions among system and tagged missing values and enforces Stata-style target-value collision protection unless override is specified. Value-label definitions are not rewritten automatically.', rec.text)]);
     }
-    lines.push('rm(.__mvcols)');
-    return result(lines, 'heuristic', [diag(rec.line, 'warning', `${cmd} supports the common simple mv() form. Extended .a–.z mappings and override semantics are kept for the next missing-value pass.`, rec.text)]);
+
+    ctx.features.add('numlist');
+    const rules = [];
+    if (parts.length === 1 && !parts[0].includes('=')) {
+      rules.push({ values: parts[0], code: '.' });
+    } else {
+      for (const part of parts) {
+        const eq = part.lastIndexOf('=');
+        if (eq < 1) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'mvdecode rule lists must use numlist=mvc entries separated by backslashes.', rec.text)]);
+        const values = part.slice(0, eq).trim();
+        const code = part.slice(eq + 1).trim().toLowerCase();
+        if (!values || !stataMissingCodeExpr(code)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `mvdecode rule “${part}” is outside the supported numlist=missing-code grammar.`, rec.text)]);
+        rules.push({ values, code });
+      }
+    }
+    rules.forEach((rule, i) => lines.push(`.__mvvalues${i + 1} <- stata_numlist(${rString(rule.values, ctx)})`));
+    const body = rules.map((rule, i) => `.x[.x %in% .__mvvalues${i + 1}] <- ${stataMissingCodeExpr(rule.code)}`);
+    body.push('.x');
+    lines.push(`${dt}[${subset}, (.__mvcols) := lapply(.SD, function(.x) { ${body.join('; ')} }), .SDcols = .__mvcols]`);
+    lines.push(`rm(.__mvcols${rules.map((_, i) => `, .__mvvalues${i + 1}`).join('')})`);
+    return result(lines, 'heuristic', [diag(rec.line, 'warning', 'mvdecode now supports Stata numlists mapped to system or .a–.z tagged missing values. Existing value labels are not rewritten automatically.', rec.text)]);
   }
 
   if (cmd === 'assertnested') {
@@ -2294,14 +2497,46 @@ function translateExtraData(cmd, rest, options, ctx, rec, by) {
   if (cmd === 'ds') {
     ctx.features.add('varlist');
     let expr = rest.trim() ? `stata_vars(${dt}, ${rString(rest, ctx)})` : `names(${dt})`;
-    const hasType = optionValue(options, 'has');
-    if (hasType && hasType !== true && /^type\s+(numeric|string)$/i.test(String(hasType))) {
-      const typ = String(hasType).match(/^type\s+(numeric|string)$/i)[1].toLowerCase();
-      expr = `Filter(function(.v) ${typ === 'numeric' ? 'is.numeric' : 'is.character'}(${dt}[[.v]]), ${expr})`;
-    } else if (options.trim()) {
-      return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'ds property filters beyond has(type numeric|string) still need translation.', rec.text)]);
+    const hasRaw = optionValue(options, 'has');
+    const notRaw = optionValue(options, 'not');
+    const negateList = notRaw === true && hasRaw === null;
+    const propertyRaw = hasRaw && hasRaw !== true ? String(hasRaw) : notRaw && notRaw !== true ? String(notRaw) : '';
+    const negateProperty = Boolean(notRaw && notRaw !== true);
+    const insensitive = hasOption(options, 'insensitive');
+    const ds = [];
+
+    if (hasRaw === true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'ds, has requires a property specification such as has(type numeric).', rec.text)]);
+    if (hasRaw && notRaw) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'Stata permits only one has() or not() property selector at a time.', rec.text)]);
+    if (negateList) expr = `setdiff(names(${dt}), ${expr})`;
+
+    if (propertyRaw) {
+      const bits = splitWords(propertyRaw);
+      const kindRaw = (bits.shift() || '').toLowerCase();
+      const kind = kindRaw === 'varl' ? 'varlabel' : kindRaw === 'vall' ? 'vallabel' : kindRaw;
+      const args = bits.join(' ');
+      if (kind === 'type') {
+        const types = bits.map(x => x.toLowerCase());
+        if (!types.length || types.some(x => !['numeric','string'].includes(x))) {
+          return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'ds type filters currently preserve numeric/string classes; Stata storage-width filters such as byte/int/float/double/str# need original storage metadata that ordinary R vectors may not retain.', rec.text)]);
+        }
+      } else if (kind === 'format') {
+        if (!args) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'ds has(format ...) / not(format ...) requires at least one Stata glob pattern.', rec.text)]);
+      } else if (kind === 'varlabel') {
+        // Empty pattern means any defined variable label, matching Stata.
+      } else if (kind === 'vallabel') {
+        if (args) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'Named value-label filters cannot be reproduced reliably because haven-labelled vectors preserve label mappings but not always the original Stata value-label name.', rec.text)]);
+      } else {
+        return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `ds ${negateProperty ? 'not' : 'has'}(${propertyRaw}) needs Stata metadata not yet represented by the translator runtime.`, rec.text)]);
+      }
+      ctx.features.add('dsmeta');
+      expr = `stata_ds_property(${dt}, ${expr}, ${rString(propertyRaw, ctx)}, negate = ${negateProperty ? 'TRUE' : 'FALSE'}, insensitive = ${insensitive ? 'TRUE' : 'FALSE'})`;
     }
-    return result([`.__ds <- ${expr}`, `.do2r_r <- list(varlist = paste(.__ds, collapse = " "))`, `.__ds`], 'heuristic');
+
+    if (hasOption(options, 'alpha')) expr = `sort(${expr})`;
+    if (hasOption(options, 'detail')) ds.push(diag(rec.line, 'info', 'ds, detail affects printed describe-style output only; the translation preserves the selected variable list and r(varlist).', rec.text));
+    if (optionValue(options, 'varwidth') || optionValue(options, 'skip') || optionValue(options, 'indent')) ds.push(diag(rec.line, 'info', 'ds display-width/indent options are omitted because they do not change r(varlist).', rec.text));
+    if (insensitive && !propertyRaw) ds.push(diag(rec.line, 'info', 'ds, insensitive only affects has()/not() pattern matching; without a property pattern it has no effect.', rec.text));
+    return result([`.__ds <- ${expr}`, `.do2r_r <- list(varlist = paste(.__ds, collapse = " "))`, `.__ds`], 'heuristic', ds);
   }
 
   if (cmd === 'lookfor') {
@@ -2904,12 +3139,90 @@ function translateModel(cmd, rest, options, ctx, rec) {
   const weightArg = core.weight ? `, weights = ~ ${core.weight}` : '';
   if (core.weight) ds.push(diag(rec.line, 'warning', `${core.weightType} semantics differ across Stata and R estimators; verify the intended weighting interpretation.`, rec.text));
 
+  if (cmd === 'logistic' || cmd === 'cloglog' || cmd === 'binreg') {
+    let link = cmd === 'cloglog' ? 'cloglog' : 'logit';
+    let family = `stats::binomial(link = "${link}")`;
+    let report = cmd === 'logistic' ? 'odds ratios' : 'coefficients';
+    if (cmd === 'binreg') {
+      if (hasOption(options, 'rr')) { link = 'log'; report = 'risk ratios'; }
+      else if (hasOption(options, 'hr')) { link = 'log-complement'; report = 'health ratios'; }
+      else if (hasOption(options, 'rd')) { link = 'identity'; report = 'risk differences'; }
+      else { link = 'logit'; report = 'odds ratios'; }
+      if (link === 'log-complement') {
+        ctx.features.add('binreg');
+        family = 'stats::binomial(link = stata_log_complement_link())';
+      } else family = `stats::binomial(link = "${link}")`;
+    }
+    const offsetRaw = optionValue(options, 'offset');
+    const exposureRaw = optionValue(options, 'exposure');
+    const off = exposureRaw && exposureRaw !== true ? ` + offset(log(${cleanIdentifier(exposureRaw, exposureRaw)}))` :
+      offsetRaw && offsetRaw !== true ? ` + offset(${cleanIdentifier(offsetRaw, offsetRaw)})` : '';
+    const rhs2 = `${hasOption(options, 'noconstant') ? '0 + ' : ''}${rhs}${off}`;
+    const trialsRaw = cmd === 'binreg' ? optionValue(options, 'n') : null;
+    const response = trialsRaw && trialsRaw !== true
+      ? `cbind(${core.dep}, (${translateExpression(String(trialsRaw), ctx)}) - ${core.dep})`
+      : core.dep;
+    ctx.lastModelKind = 'binomial';
+    const ds2 = [diag(rec.line, 'warning', `${cmd} was mapped to stats::glm() with a binomial ${link} link. Stata's ${report} are a reporting parameterization; R stores coefficients on the link scale. Verify VCE, weights, separation, and optimization details.`, rec.text), ...ds];
+    if (hasOption(options, 'vce') || optionValue(options, 'vce')) ds2.push(diag(rec.line, 'warning', `${cmd} vce() is not yet attached to the glm covariance matrix in this mapping; use sandwich/clustered covariance tools if the Stata model requests non-default VCE.`, rec.text));
+    if (cmd === 'binreg' && ['log', 'identity', 'log-complement'].includes(link)) ds2.push(diag(rec.line, 'warning', `binreg with the ${link} link can require parameter-space constraints to keep fitted probabilities in [0,1]; base R glm() may converge differently from Stata near the boundary.`, rec.text));
+    return result(`${model} <- stats::glm(${response} ~ ${rhs2}, data = ${data}, family = ${family}${core.weight ? `, weights = ${core.weight}` : ''})`, 'heuristic', ds2);
+  }
+  if (cmd === 'rreg') {
+    ctx.features.add('MASS');
+    ctx.lastModelKind = 'robust_linear';
+    const tuneRaw = optionValue(options, 'tune');
+    const tune = tuneRaw && tuneRaw !== true ? translateExpression(String(tuneRaw), ctx) : '7';
+    const iterRaw = optionValue(options, 'iterate');
+    const tolRaw = optionValue(options, 'tolerance');
+    const maxit = iterRaw && iterRaw !== true ? `, maxit = ${translateExpression(String(iterRaw), ctx)}` : '';
+    const acc = tolRaw && tolRaw !== true ? `, acc = ${translateExpression(String(tolRaw), ctx)}` : '';
+    const genwtRaw = optionValue(options, 'genwt');
+    const ds2 = [diag(rec.line, 'warning', 'rreg is approximated with MASS::rlm() using Tukey biweight. Stata first screens Cook D > 1, then runs Huber iterations followed by biweight iterations, so coefficients, weights, and standard errors can differ.', rec.text), ...ds];
+    if (core.weight) ds2.push(diag(rec.line, 'review', 'Stata rreg does not use ordinary estimation weights; remove or manually reinterpret the translated weight expression.', rec.text));
+    const formula = `${core.dep} ~ ${rhs}`;
+    if (genwtRaw && genwtRaw !== true) {
+      const genwt = rTargetName(genwtRaw, ctx);
+      const sourceRows = core.subset ? `which(${core.subset})` : `seq_len(nrow(${ctx.currentData}))`;
+      return result([
+        `.__rreg_data <- as.data.frame(${data})`,
+        `.__rreg_rows <- ${sourceRows}`,
+        `rownames(.__rreg_data) <- .__rreg_rows`,
+        `${model} <- MASS::rlm(${formula}, data = .__rreg_data, psi = MASS::psi.bisquare, c = 4.685 * (${tune}) / 7, method = "M", model = TRUE${maxit}${acc})`,
+        `${ctx.currentData}[, ${genwt} := NA_real_]`,
+        `.__rreg_used <- suppressWarnings(as.integer(rownames(${model}$model)))`,
+        `${ctx.currentData}[.__rreg_used[!is.na(.__rreg_used)], ${genwt} := as.numeric(${model}$w)[!is.na(.__rreg_used)]]`,
+        'rm(.__rreg_data, .__rreg_rows, .__rreg_used)'
+      ], 'heuristic', ds2);
+    }
+    return result(`${model} <- MASS::rlm(${formula}, data = ${data}, psi = MASS::psi.bisquare, c = 4.685 * (${tune}) / 7, method = "M"${maxit}${acc})`, 'heuristic', ds2);
+  }
+  if (cmd === 'newey') {
+    const lagRaw = optionValue(options, 'lag');
+    if (!lagRaw || lagRaw === true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'newey requires lag(#), matching Stata syntax.', rec.text)]);
+    ctx.features.add('sandwich');
+    ctx.lastModelKind = 'newey';
+    const lag = translateExpression(String(lagRaw), ctx);
+    const rhs2 = `${hasOption(options, 'noconstant') ? '0 + ' : ''}${rhs}`;
+    const lines = [`${model} <- stats::lm(${core.dep} ~ ${rhs2}, data = ${data}${core.weight ? `, weights = ${core.weight}` : ''})`];
+    let orderArg = '';
+    if (ctx.panel?.time && !ctx.panel?.id) orderArg = `, order.by = ~ ${ctx.panel.time}, data = ${data}`;
+    lines.push(`attr(${model}, ".do2r_vcov") <- sandwich::NeweyWest(${model}, lag = ${lag}${orderArg}, prewhite = FALSE, adjust = TRUE)`);
+    const ds2 = [diag(rec.line, 'warning', 'newey is mapped to OLS plus sandwich::NeweyWest(prewhite = FALSE, adjust = TRUE), matching the classic Bartlett Newey-West form and Stata finite-sample adjustment. Verify gaps in the time index and exact degrees-of-freedom/reporting conventions.', rec.text), ...ds];
+    if (!ctx.panel?.time) ds2.push(diag(rec.line, 'review', 'Stata requires tsset before newey. No translated time variable is known, so sandwich::NeweyWest() will use the current estimation-sample order.', rec.text));
+    if (ctx.panel?.id) ds2.push(diag(rec.line, 'review', 'newey is a single-time-series estimator; translated panel metadata include an id variable. Check whether the original Stata command is valid for this data declaration.', rec.text));
+    if (core.weight && core.weightType !== 'aweight') ds2.push(diag(rec.line, 'review', 'Stata newey allows aweights; verify or remove the translated non-aweight specification.', rec.text));
+    return result(lines, 'heuristic', ds2);
+  }
+
   if (cmd === 'regress') {
     ctx.features.add('fixest');
+    ctx.lastModelKind = 'linear';
     return result(`${model} <- fixest::feols(${core.dep} ~ ${rhs}, data = ${data}${weightArg}${vcovArgs(options, ctx)})`, 'heuristic', [diag(rec.line, 'warning', 'OLS formula translated to fixest::feols(); verify factor-variable base levels, omitted collinearity, small-sample corrections, and VCE defaults.', rec.text), ...ds]);
   }
   if (cmd === 'areg') {
     ctx.features.add('fixest');
+    ctx.lastModelKind = 'linear';
     const absorb = optionValue(options, 'absorb');
     if (!absorb || absorb === true) return null;
     return result(`${model} <- fixest::feols(${core.dep} ~ ${rhs} | ${formulaTerms(absorb, ctx)}, data = ${data}${weightArg}${vcovArgs(options, ctx)})`, 'heuristic', [diag(rec.line, 'warning', 'areg was mapped to absorbed fixed effects in fixest; verify degrees-of-freedom and VCE choices.', rec.text), ...ds]);
@@ -3885,7 +4198,7 @@ function translatePostestimation(cmd, rest, options, ctx, rec) {
     ctx.features.add('marginsplot');
     return result(`stata_marginsplot(${ctx.lastMargins})`, 'heuristic', [diag(rec.line, 'warning', 'marginsplot is mapped to a generic ggplot of the translated marginaleffects result. Stata plotdimension(), recast(), legend, and graph styling options require manual adjustment.', rec.text)]);
   }
-  if (!ctx.lastModel && ['predict', 'margins', 'lincom', 'nlcom', 'test', 'testnl', 'estat'].includes(cmd)) {
+  if (!ctx.lastModel && ['predict', 'margins', 'lincom', 'nlcom', 'test', 'testnl', 'estat', 'linktest'].includes(cmd)) {
     return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} needs a preceding translated estimation command.`, rec.text)]);
   }
   if (cmd === 'predict') {
@@ -3895,8 +4208,32 @@ function translatePostestimation(cmd, rest, options, ctx, rec) {
     return result(`${ctx.currentData}[, ${target} := as.numeric(stats::predict(${ctx.lastModel}, newdata = ${ctx.currentData}, type = "response"))]`, 'heuristic', [diag(rec.line, 'warning', 'predict option semantics vary by estimator; verify the requested prediction scale/statistic.', rec.text)]);
   }
   if (cmd === 'estimates' && /^store\s+/i.test(rest)) {
+    if (!ctx.lastModel) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'estimates store needs a preceding translated estimation command.', rec.text)]);
     const name = cleanIdentifier(rest.replace(/^store\s+/i, '').trim());
+    ctx.storedModels.set(name, ctx.lastModelKind || '');
     return result(`${name} <- ${ctx.lastModel}`, 'exact');
+  }
+  if (cmd === 'estimates' && /^restore\s+/i.test(rest)) {
+    const name = cleanIdentifier(rest.replace(/^restore\s+/i, '').trim());
+    ctx.lastModel = name;
+    ctx.lastModelKind = ctx.storedModels.get(name) || '';
+    return result(`# estimates restore ${name}: subsequent translated postestimation uses ${name}`, 'heuristic', ctx.storedModels.has(name) ? [] : [diag(rec.line, 'warning', `estimates restore ${name} refers to a model name not seen in this source; the generated R assumes that object already exists.`, rec.text)]);
+  }
+  if (cmd === 'estimates' && /^drop\s+/i.test(rest)) {
+    const names = splitWords(rest.replace(/^drop\s+/i, '')).map(x => cleanIdentifier(x, x)).filter(Boolean);
+    for (const name of names) ctx.storedModels.delete(name);
+    if (names.includes(ctx.lastModel)) { ctx.lastModel = ''; ctx.lastModelKind = ''; }
+    return result(names.length ? `rm(list = intersect(c(${names.map(x => `"${escapeRString(x)}"`).join(', ')}), ls()))` : '# estimates drop: no model names found', names.length ? 'exact' : 'review');
+  }
+  if (cmd === 'linktest') {
+    ctx.features.add('regdiag');
+    ctx.features.add('results');
+    const name = nextTable(ctx, 'linktest');
+    return result([
+      `${name} <- stata_linktest(${ctx.lastModel})`,
+      `.do2r_r <- list(t = ${name}$t, df = ${name}$df)`,
+      `${name}$model`
+    ], 'heuristic', [diag(rec.line, 'warning', 'linktest is reconstructed from fitted values and a squared fitted-value term. The preceding Stata estimation results remain active, matching linktest, but exact prediction scales and VCE may differ for non-lm/glm model classes.', rec.text)]);
   }
   if (cmd === 'margins') {
     ctx.features.add('marginaleffects');
@@ -3957,6 +4294,38 @@ function translatePostestimation(cmd, rest, options, ctx, rec) {
   if (cmd === 'estat') {
     const estatWords = splitWords(rest);
     const sub = (estatWords.shift() || '').toLowerCase();
+    if (sub === 'vif') {
+      ctx.features.add('regdiag');
+      const ds = [diag(rec.line, 'info', 'estat vif is computed from the translated model matrix; factor-variable expansion may therefore produce coefficient-level VIF rows where Stata labels terms differently.', rec.text)];
+      if (!['linear', 'newey', 'robust_linear'].includes(ctx.lastModelKind)) ds.push(diag(rec.line, 'warning', 'Stata estat vif is a regress postestimation command; applying the translated VIF helper to this model class should be reviewed.', rec.text));
+      return result(`stata_vif(${ctx.lastModel}, uncentered = ${hasOption(options, 'uncentered') ? 'TRUE' : 'FALSE'})`, 'heuristic', ds);
+    }
+    if (sub === 'hettest') {
+      ctx.features.add('regdiag');
+      const type = hasOption(options, 'fstat') ? 'fstat' : (hasOption(options, 'iid') ? 'iid' : 'normal');
+      const rhs = hasOption(options, 'rhs');
+      const vars = estatWords.join(' ').trim();
+      const z = vars ? `${ctx.currentData}[, .SD, .SDcols = ${varListExpr(vars, ctx)}]` : 'NULL';
+      const ds = [diag(rec.line, 'warning', `estat hettest is mapped to a ${type} Breusch-Pagan/Cook-Weisberg auxiliary test. Verify estimation-sample alignment, weights, and finite-sample details.`, rec.text)];
+      if (vars) ds.push(diag(rec.line, 'warning', 'An explicit hettest varlist is taken from the current data and aligned by estimation-sample order; rows omitted by the fitted model may require manual filtering.', rec.text));
+      if (optionValue(options, 'mtest')) ds.push(diag(rec.line, 'warning', 'estat hettest mtest() multiplicity adjustment is not reproduced by the current helper.', rec.text));
+      return result(`stata_hettest(${ctx.lastModel}, z = ${z}, rhs = ${rhs ? 'TRUE' : 'FALSE'}, type = "${type}")`, 'heuristic', ds);
+    }
+    if (sub === 'ovtest') {
+      ctx.features.add('regdiag');
+      return result(`stata_ovtest(${ctx.lastModel}, rhs = ${hasOption(options, 'rhs') ? 'TRUE' : 'FALSE'}, powers = 2:4)`, 'heuristic', [diag(rec.line, 'warning', 'estat ovtest is mapped to a Ramsey RESET F test using Stata-style 0–1 normalization before powers 2 through 4; rhs excludes binary indicator columns. Verify rank handling for unusual factor-variable designs and aliased columns.', rec.text)]);
+    }
+    if (sub === 'ic') {
+      return result(`data.table::data.table(N = stats::nobs(${ctx.lastModel}), ll = as.numeric(stats::logLik(${ctx.lastModel})), df = attr(stats::logLik(${ctx.lastModel}), "df"), AIC = stats::AIC(${ctx.lastModel}), BIC = stats::BIC(${ctx.lastModel}))`, 'heuristic', [diag(rec.line, 'info', 'estat ic is mapped to R logLik/AIC/BIC methods. Information-criterion constants and sample-size conventions can differ across estimator classes.', rec.text)]);
+    }
+    if (sub === 'vce') {
+      ctx.features.add('results');
+      return result(`stata_model_vcov(${ctx.lastModel})`, 'heuristic', [diag(rec.line, 'info', 'estat vce is mapped to the covariance matrix attached to the translated model, including do2R custom HAC covariance when present.', rec.text)]);
+    }
+    if (sub === 'summarize') {
+      ctx.features.add('regdiag');
+      return result(`summary(as.data.frame(stata_regression_parts(${ctx.lastModel})$X))`, 'heuristic', [diag(rec.line, 'warning', 'estat summarize is approximated with summaries of the estimation model matrix; transformed/factor columns can differ from Stata variable-level summaries.', rec.text)]);
+    }
     if (ctx.lastModelKind === 'dynamic_panel' && sub === 'abond') {
       ctx.features.add('plm');
       const artRaw = optionValue(options, 'artests');
@@ -4082,8 +4451,47 @@ function translateDataUtility(cmd, rest, options, ctx, rec, by) {
     return result(`${dt} <- ${dt}[rep(seq_len(.N), times = ${times})]`, 'heuristic');
   }
   if (cmd === 'contract') {
-    const freq = optionValue(options, 'freq') || '_freq';
-    return result(`${dt} <- ${dt}[, .(${rTargetName(freq === true ? '_freq' : freq, ctx)} = .N), by = ${varListExpr(rest, ctx)}]`, 'exact');
+    const weighted = parseWeights(rest, ctx);
+    const q = extractQualifiers(weighted.text);
+    if (!q.core.trim()) return null;
+    const cols = varListExpr(q.core, ctx);
+    const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
+    const freqRaw = optionValue(options, 'freq');
+    const cfreqRaw = optionValue(options, 'cfreq');
+    const percentRaw = optionValue(options, 'percent');
+    const cpercentRaw = optionValue(options, 'cpercent');
+    const freq = rTargetName(freqRaw && freqRaw !== true ? freqRaw : '_freq', ctx);
+    const cfreq = cfreqRaw && cfreqRaw !== true ? rTargetName(cfreqRaw, ctx) : '';
+    const percent = percentRaw && percentRaw !== true ? rTargetName(percentRaw, ctx) : '';
+    const cpercent = cpercentRaw && cpercentRaw !== true ? rTargetName(cpercentRaw, ctx) : '';
+    const lines = [
+      `.__contract_vars <- ${cols}`,
+      `.__contract_source <- data.table::copy(${filter ? `${dt}[${filter}]` : dt})`
+    ];
+    if (hasOption(options, 'nomiss')) lines.push(`.__contract_source <- .__contract_source[stats::complete.cases(.__contract_source[, .SD, .SDcols = .__contract_vars])]`);
+    const freqExpr = weighted.weight ? `sum(${weighted.weight}, na.rm = TRUE)` : '.N';
+    lines.push(`.__contract <- .__contract_source[, .(${freq} = ${freqExpr}), by = .__contract_vars]`);
+    if (hasOption(options, 'zero')) {
+      lines.push(
+        `.__contract_levels <- lapply(.__contract_source[, .SD, .SDcols = .__contract_vars], unique)`,
+        `.__contract_grid <- do.call(data.table::CJ, c(.__contract_levels, list(unique = TRUE, sorted = TRUE)))`,
+        `.__contract <- merge(.__contract_grid, .__contract, by = .__contract_vars, all.x = TRUE, sort = TRUE)`,
+        `.__contract[is.na(${freq}), ${freq} := 0]`
+      );
+    } else lines.push(`data.table::setorderv(.__contract, .__contract_vars)`);
+    if (cfreq) lines.push(`.__contract[, ${cfreq} := cumsum(${freq})]`);
+    if (percent) lines.push(`.__contract[, ${percent} := 100 * ${freq} / sum(${freq})]`);
+    if (cpercent) lines.push(`.__contract[, ${cpercent} := 100 * cumsum(${freq}) / sum(${freq})]`);
+    lines.push(`${dt} <- .__contract`, `rm(.__contract, .__contract_source, .__contract_vars${hasOption(options, 'zero') ? ', .__contract_levels, .__contract_grid' : ''})`);
+    const ds = [];
+    if (weighted.weight) {
+      if (weighted.type !== 'fweight') ds.push(diag(rec.line, 'review', `contract officially allows fweights; translated ${weighted.type} should be checked manually.`, rec.text));
+      else ds.push(diag(rec.line, 'info', 'contract fweights are summed within each covariate pattern.', rec.text));
+    }
+    if (hasOption(options, 'zero')) ds.push(diag(rec.line, 'info', 'contract, zero is mapped to the Cartesian product of values observed in each contracted variable, matching Stata covariate-pattern expansion for ordinary vectors.', rec.text));
+    if (hasOption(options, 'float')) ds.push(diag(rec.line, 'info', 'R numeric vectors are double precision; contract, float storage compression is not forced.', rec.text));
+    if (hasOption(options, 'format')) ds.push(diag(rec.line, 'info', 'Stata display format metadata from contract, format() is not imposed on R numeric columns.', rec.text));
+    return result(lines, weighted.weight && weighted.type !== 'fweight' ? 'heuristic' : 'exact', ds);
   }
   if (cmd === 'sample') {
     const n = rest.trim();
@@ -5074,7 +5482,7 @@ function translateStataLine(text, ctx, rec) {
   else if (['xtabond','xtdpdsys'].includes(cmd)) r = translateDynamicPanel(cmd, rest, options, ctx, rec);
   else if (['reghdfe','ivreghdfe','ppmlhdfe'].includes(cmd)) r = translateHdfeModel(cmd, rest, options, ctx, rec);
   else if (['heckman','intreg','fracreg','zip','zinb'].includes(cmd)) r = translateAdvancedModel(cmd, rest, options, ctx, rec);
-  else if (['regress','areg','xtreg','logit','probit','poisson','nbreg','qreg','tobit','ologit','oprobit','mlogit','clogit'].includes(cmd)) r = translateModel(cmd, rest, options, ctx, rec);
+  else if (['regress','areg','xtreg','logit','logistic','probit','cloglog','binreg','poisson','nbreg','qreg','rreg','newey','tobit','ologit','oprobit','mlogit','clogit'].includes(cmd)) r = translateModel(cmd, rest, options, ctx, rec);
   else if (cmd === 'ivregress') r = translateIv(rest, options, ctx, rec);
   else if (cmd === 'mi') r = translateMiCommand(rest, options, ctx, rec);
   else if (cmd === 'glm') {
@@ -5083,7 +5491,7 @@ function translateStataLine(text, ctx, rec) {
   }
   else if (['summarize','tabulate','tabstat','correlate','pwcorr'].includes(cmd)) r = translateSummaries(cmd, rest, options, ctx, rec);
   else if (['ttest','ranksum','oneway','anova'].includes(cmd)) r = translateTests(cmd, rest, options, ctx, rec);
-  else if (['predict','margins','marginsplot','lincom','nlcom','test','testnl','estat','estimates'].includes(cmd)) r = translatePostestimation(cmd, rest, options, ctx, rec);
+  else if (['predict','margins','marginsplot','lincom','nlcom','test','testnl','estat','estimates','linktest'].includes(cmd)) r = translatePostestimation(cmd, rest, options, ctx, rec);
   else if (['histogram','kdensity','scatter','line','twoway','graph'].includes(cmd)) r = translateGraph(cmd, rest, options, ctx, rec);
   else if (['clear','rename','sort','gsort','order','clonevar','count','assert','isid','duplicates','expand','contract','sample','describe','codebook','inspect','list','recode','encode','decode','destring','tostring','label','format'].includes(cmd)) r = translateDataUtility(cmd, rest, options, ctx, rec, by);
   else if (['frame','frget','frlink','fralias'].includes(cmd)) r = translateFrames(cmd, rest, options, ctx, rec);
@@ -5126,7 +5534,7 @@ function translateStataLine(text, ctx, rec) {
     r = result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `Command “${rawCmd}” is not translated safely. It may be community-contributed or require command-specific semantics.`, rec.text)]);
   }
 
-  const eClassCommands = new Set(['regress','areg','xtreg','xtlogit','xtprobit','xtpoisson','xtgee','xtabond','xtdpdsys','reghdfe','ivreghdfe','ppmlhdfe','heckman','intreg','fracreg','zip','zinb','logit','probit','poisson','nbreg','qreg','tobit','ologit','oprobit','mlogit','clogit','ivregress','glm','mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg','arima','stcox','streg']);
+  const eClassCommands = new Set(['regress','areg','xtreg','xtlogit','xtprobit','xtpoisson','xtgee','xtabond','xtdpdsys','reghdfe','ivreghdfe','ppmlhdfe','heckman','intreg','fracreg','zip','zinb','logit','logistic','probit','cloglog','binreg','poisson','nbreg','qreg','rreg','newey','tobit','ologit','oprobit','mlogit','clogit','ivregress','glm','mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg','arima','stcox','streg']);
   if (eClassCommands.has(cmd) && ctx.lastModel && r.confidence !== 'review') {
     ctx.features.add('results');
     r.lines = [...r.lines, `.do2r_e <- stata_e_from_model(${ctx.lastModel}, cmd = "${escapeRString(cmd)}")`];
@@ -5749,6 +6157,122 @@ stata_factor <- function(x, base = "first", position = NULL) {
   )
   stats::relevel(f, ref = ref)
 }`);
+  if (features.has('regdiag')) blocks.push(`stata_regression_parts <- function(model) {
+  X <- tryCatch(stats::model.matrix(model), error = function(e) NULL)
+  fit <- tryCatch(as.numeric(stats::fitted(model)), error = function(e) NULL)
+  res <- tryCatch(as.numeric(stats::residuals(model)), error = function(e) NULL)
+  if (is.null(X) || is.null(fit) || is.null(res)) stop("Model does not expose the matrix/fitted/residual methods needed for translated regression diagnostics.", call. = FALSE)
+  n <- min(nrow(X), length(fit), length(res))
+  X <- X[seq_len(n), , drop = FALSE]; fit <- fit[seq_len(n)]; res <- res[seq_len(n)]
+  list(X = X, fitted = fit, residuals = res, y = fit + res)
+}
+stata_vif <- function(model, uncentered = FALSE) {
+  z <- stata_regression_parts(model); X <- z$X
+  cn <- colnames(X); if (is.null(cn)) cn <- paste0("x", seq_len(ncol(X)))
+  intercept <- which(cn %in% c("(Intercept)", "Intercept"))
+  vars <- setdiff(seq_len(ncol(X)), intercept)
+  if (!length(vars)) return(data.table::data.table(variable = character(), VIF = numeric(), tolerance = numeric()))
+  vif <- vapply(vars, function(j) {
+    y <- X[, j]
+    keep <- setdiff(seq_len(ncol(X)), j)
+    Z <- X[, keep, drop = FALSE]
+    if (!uncentered && !length(intercept)) Z <- cbind(1, Z)
+    rss <- sum(stats::lm.fit(Z, y)$residuals^2)
+    tss <- if (uncentered) sum(y^2) else sum((y - mean(y))^2)
+    r2 <- if (tss > 0) 1 - rss / tss else NA_real_
+    if (is.na(r2) || r2 >= 1) Inf else 1 / (1 - r2)
+  }, numeric(1L))
+  data.table::data.table(variable = cn[vars], VIF = vif, tolerance = 1 / vif)
+}
+stata_hettest <- function(model, z = NULL, rhs = FALSE, type = c("normal", "iid", "fstat")) {
+  type <- match.arg(type); p <- stata_regression_parts(model); n <- length(p$residuals)
+  if (is.null(z)) {
+    if (rhs) Z <- p$X else Z <- cbind(1, fitted = p$fitted)
+  } else {
+    Z <- as.matrix(z)
+    if (nrow(Z) != n) Z <- Z[seq_len(min(nrow(Z), n)), , drop = FALSE]
+    n <- min(n, nrow(Z)); Z <- Z[seq_len(n), , drop = FALSE]
+    if (!any(colnames(Z) %in% c("(Intercept)", "Intercept"))) Z <- cbind(1, Z)
+    p$residuals <- p$residuals[seq_len(n)]
+  }
+  e <- p$residuals; sigma2 <- mean(e^2)
+  if (type == "normal") {
+    f <- e^2 / sigma2 - 1
+    aux <- stats::lm.fit(Z, f)
+    stat <- 0.5 * sum(aux$fitted.values^2)
+    df <- max(0, aux$rank - 1L)
+    return(structure(list(statistic = c(chi2 = stat), parameter = c(df = df), p.value = stats::pchisq(stat, df, lower.tail = FALSE), method = "Breusch-Pagan/Cook-Weisberg test"), class = "htest"))
+  }
+  if (type == "iid") {
+    w <- e^2 - sigma2
+    aux <- stats::lm.fit(Z, w)
+    stat <- n * sum(aux$fitted.values^2) / sum(w^2)
+    df <- max(0, aux$rank - 1L)
+    return(structure(list(statistic = c(chi2 = stat), parameter = c(df = df), p.value = stats::pchisq(stat, df, lower.tail = FALSE), method = "Studentized Breusch-Pagan/Cook-Weisberg score test"), class = "htest"))
+  }
+  aux <- stats::lm.fit(Z, e^2)
+  q <- max(0, aux$rank - 1L); df2 <- n - aux$rank
+  tss <- sum((e^2 - mean(e^2))^2); rss <- sum(aux$residuals^2)
+  stat <- if (q > 0 && df2 > 0 && rss > 0) ((tss - rss) / q) / (rss / df2) else NA_real_
+  structure(list(statistic = c(F = stat), parameter = c(df1 = q, df2 = df2), p.value = stats::pf(stat, q, df2, lower.tail = FALSE), method = "Auxiliary-regression F test for heteroskedasticity"), class = "htest")
+}
+stata_ovtest <- function(model, rhs = FALSE, powers = 2:4) {
+  p <- stata_regression_parts(model); X <- p$X; y <- p$y; n <- length(y)
+  intercept <- which(colnames(X) %in% c("(Intercept)", "Intercept"))
+  scale01 <- function(z) {
+    ok <- is.finite(z); if (!any(ok)) return(rep(NA_real_, length(z)))
+    lo <- min(z[ok]); hi <- max(z[ok])
+    if (hi <= lo) return(rep(0, length(z)))
+    (z - lo) / (hi - lo)
+  }
+  if (rhs) {
+    base <- X[, setdiff(seq_len(ncol(X)), intercept), drop = FALSE]
+    if (ncol(base)) {
+      is_dummy <- vapply(seq_len(ncol(base)), function(j) {
+        z <- unique(base[is.finite(base[, j]), j]); length(z) <= 2L && all(z %in% c(0, 1))
+      }, logical(1L))
+      base <- base[, !is_dummy, drop = FALSE]
+    }
+    scaled <- if (ncol(base)) apply(base, 2L, scale01) else matrix(numeric(), nrow = n, ncol = 0L)
+    if (is.null(dim(scaled))) scaled <- matrix(scaled, ncol = 1L)
+    add <- if (ncol(scaled)) do.call(cbind, lapply(powers, function(k) scaled^k)) else matrix(numeric(), nrow = n, ncol = 0L)
+  } else {
+    fitted01 <- scale01(p$fitted)
+    add <- do.call(cbind, lapply(powers, function(k) fitted01^k))
+  }
+  X1 <- cbind(X, add)
+  fit1 <- stats::lm.fit(X1, y)
+  rss0 <- sum(p$residuals^2); rss1 <- sum(fit1$residuals^2)
+  rank0 <- qr(X)$rank; q <- max(0, fit1$rank - rank0); df2 <- n - fit1$rank
+  stat <- if (q > 0 && df2 > 0 && rss1 > 0) ((rss0 - rss1) / q) / (rss1 / df2) else NA_real_
+  structure(list(statistic = c(F = stat), parameter = c(df1 = q, df2 = df2), p.value = stats::pf(stat, q, df2, lower.tail = FALSE), method = "Ramsey RESET test"), class = "htest")
+}
+stata_linktest <- function(model) {
+  mf <- tryCatch(stats::model.frame(model), error = function(e) NULL)
+  y <- if (!is.null(mf)) tryCatch(stats::model.response(mf), error = function(e) NULL) else NULL
+  if (is.null(y)) {
+    p <- stata_regression_parts(model); y <- p$y
+  }
+  hat <- if (inherits(model, "glm")) tryCatch(as.numeric(stats::predict(model, type = "link")), error = function(e) as.numeric(stats::fitted(model))) else as.numeric(stats::fitted(model))
+  n <- min(length(y), length(hat)); d <- data.frame(.y = y[seq_len(n)], .hat = hat[seq_len(n)])
+  fit <- if (inherits(model, "glm")) stats::glm(.y ~ .hat + I(.hat^2), data = d, family = model$family) else stats::lm(.y ~ .hat + I(.hat^2), data = d)
+  tab <- summary(fit)$coefficients
+  row <- grep("I\\(\\.hat\\^2\\)", rownames(tab), value = TRUE)[1L]
+  statistic <- if (length(row) && !is.na(row)) unname(tab[row, 3L]) else NA_real_
+  df <- if (inherits(fit, "lm")) stats::df.residual(fit) else NA_real_
+  list(model = fit, t = statistic, df = df)
+}`);
+  if (features.has('binreg')) blocks.push(`stata_log_complement_link <- function() {
+  linkfun <- function(mu) log1p(-mu)
+  linkinv <- function(eta) {
+    out <- 1 - exp(eta)
+    pmax(.Machine$double.eps, pmin(1 - .Machine$double.eps, out))
+  }
+  mu.eta <- function(eta) -exp(eta)
+  valideta <- function(eta) all(is.finite(eta) & eta < 0)
+  structure(list(linkfun = linkfun, linkinv = linkinv, mu.eta = mu.eta,
+                 valideta = valideta, name = "log-complement"), class = "link-glm")
+}`);
   if (features.has('results')) blocks.push(`if (!exists(".do2r_r", inherits = FALSE)) .do2r_r <- list()
 if (!exists(".do2r_e", inherits = FALSE)) .do2r_e <- list()
 if (!exists(".do2r_s", inherits = FALSE)) .do2r_s <- list()
@@ -5776,10 +6300,15 @@ stata_c_list <- function(DT = NULL) list(
   level = stata_c("level", DT), current_date = stata_c("current_date", DT),
   current_time = stata_c("current_time", DT), stata_version = stata_c("stata_version", DT)
 )
+stata_model_vcov <- function(model) {
+  V <- attr(model, ".do2r_vcov", exact = TRUE)
+  if (!is.null(V)) return(V)
+  tryCatch(stats::vcov(model), error = function(e) NULL)
+}
 stata_e_from_model <- function(model, cmd = NULL) {
   sm <- tryCatch(summary(model), error = function(e) NULL)
   b <- tryCatch(stats::coef(model), error = function(e) NULL)
-  V <- tryCatch(stats::vcov(model), error = function(e) NULL)
+  V <- stata_model_vcov(model)
   n <- tryCatch(stats::nobs(model), error = function(e) NA_integer_)
   r2 <- if (!is.null(sm) && !is.null(sm$r.squared)) unname(sm$r.squared) else NA_real_
   ar2 <- if (!is.null(sm) && !is.null(sm$adj.r.squared)) unname(sm$adj.r.squared) else NA_real_
@@ -5950,6 +6479,40 @@ stata_missing_compare <- function(x, op, tag = "") {
   switch(op, "<" = xr < target, "<=" = xr <= target, ">" = xr > target,
          ">=" = xr >= target, "==" = xr == target, "!=" = xr != target,
          stop("unknown comparison"))
+}`);
+  if (features.has('dsmeta')) blocks.push(`stata_ds_property <- function(DT, vars, spec, negate = FALSE, insensitive = FALSE) {
+  vars <- intersect(as.character(vars), names(DT))
+  src <- trimws(as.character(spec)[1L])
+  toks <- regmatches(src, gregexpr('"[^"]*"|[^[:space:]]+', src, perl = TRUE))[[1L]]
+  toks <- gsub('^"|"$', '', toks)
+  if (!length(toks)) return(vars)
+  kind <- tolower(toks[1L])
+  if (kind == "varl") kind <- "varlabel"
+  if (kind == "vall") kind <- "vallabel"
+  pats <- toks[-1L]
+  glob_hit <- function(value) {
+    if (!length(pats)) return(nzchar(value))
+    any(vapply(pats, function(p) grepl(utils::glob2rx(p), value, ignore.case = insensitive, perl = TRUE), logical(1L)))
+  }
+  hit <- vapply(vars, function(v) {
+    x <- DT[[v]]
+    if (kind == "type") {
+      wanted <- tolower(pats)
+      return(("numeric" %in% wanted && is.numeric(x)) || ("string" %in% wanted && is.character(x)))
+    }
+    if (kind == "format") {
+      z <- attr(x, "format.stata", exact = TRUE)
+      return(glob_hit(if (is.null(z)) "" else as.character(z)[1L]))
+    }
+    if (kind == "varlabel") {
+      z <- attr(x, "label", exact = TRUE)
+      return(glob_hit(if (is.null(z)) "" else as.character(z)[1L]))
+    }
+    if (kind == "vallabel") return(!is.null(attr(x, "labels", exact = TRUE)))
+    FALSE
+  }, logical(1L))
+  if (isTRUE(negate)) hit <- !hit
+  vars[hit]
 }`);
   if (features.has('varlist')) blocks.push(`stata_vars <- function(DT, spec) {
   nms <- names(DT)
@@ -6713,7 +7276,7 @@ function buildHeader(ctx) {
   const packages = new Set(['data.table']);
   const featurePackages = {
     haven: 'haven', glue: 'glue', fixest: 'fixest', plm: 'plm', MASS: 'MASS', quantreg: 'quantreg', AER: 'AER',
-    nnet: 'nnet', survival: 'survival', flexsurv: 'flexsurv', marginaleffects: 'marginaleffects', car: 'car', modelsummary: 'modelsummary', ggplot2: 'ggplot2', readxl: 'readxl', openxlsx: 'openxlsx', arrow: 'arrow', survey: 'survey', lme4: 'lme4', ordinal: 'ordinal', urca: 'urca', vars: 'vars', reticulate: 'reticulate', collapse: 'collapse', geepack: 'geepack', mFilter: 'mFilter', mice: 'mice', pscl: 'pscl', sampleSelection: 'sampleSelection'
+    nnet: 'nnet', survival: 'survival', flexsurv: 'flexsurv', marginaleffects: 'marginaleffects', car: 'car', modelsummary: 'modelsummary', ggplot2: 'ggplot2', readxl: 'readxl', openxlsx: 'openxlsx', arrow: 'arrow', survey: 'survey', lme4: 'lme4', ordinal: 'ordinal', urca: 'urca', vars: 'vars', reticulate: 'reticulate', collapse: 'collapse', geepack: 'geepack', mFilter: 'mFilter', mice: 'mice', pscl: 'pscl', sampleSelection: 'sampleSelection', sandwich: 'sandwich'
   };
   for (const [f, p] of Object.entries(featurePackages)) if (ctx.features.has(f)) packages.add(p);
   const lines = [
@@ -6755,7 +7318,7 @@ export function translateStata(source, options = {}) {
     stack: [],
     frames: new Set([defaultData]),
     preserveStack: [], preserveCounter: 0,
-    modelCounter: 0, lastModel: '', lastModelKind: '', tableCounter: 0, lastTable: '', lastMargins: '', lastIrf: '', panel: null, survival: null, survey: null, mi: null,
+    modelCounter: 0, lastModel: '', lastModelKind: '', storedModels: new Map(), tableCounter: 0, lastTable: '', lastMargins: '', lastIrf: '', panel: null, survival: null, survey: null, mi: null,
     diagnostics: [], counts: { exact: 0, heuristic: 0, review: 0 }, statements: 0
   };
 

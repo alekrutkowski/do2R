@@ -285,8 +285,22 @@ assert.match(statsby.code, /by = c\("g"\)/);
 assert.match(statsby.code, /mean = \.do2r_r\[\["mean"\]\]/);
 
 const statsbyModel = translateStata(`statsby _b _se, by(g): regress y x`);
-assert.equal(statsbyModel.counts.review, 1);
-assert.match(statsbyModel.code, /TODO/);
+assert.equal(statsbyModel.counts.review, 0);
+assert.match(statsbyModel.code, /fixest::feols\(y ~ x, data = \.do2r_sample\)/);
+assert.match(statsbyModel.code, /paste0\("_b_", \.__(?:n|do2r_n)\)/);
+assert.match(statsbyModel.code, /paste0\("_se_", \.__(?:n|do2r_n)\)/);
+assert.match(statsbyModel.code, /by = c\("g"\)/);
+
+const statsbyDefaultModel = translateStata(`statsby, by(g): regress y x`);
+assert.equal(statsbyDefaultModel.counts.review, 0);
+assert.match(statsbyDefaultModel.code, /paste0\("_b_",/);
+
+const statsbyNamedModel = translateStata(`statsby bx=_b[x] sx=_se[x] r2=e(r2), by(g, missing): regress y x`);
+assert.equal(statsbyNamedModel.counts.review, 0);
+assert.match(statsbyNamedModel.code, /bx = as\.numeric\(\.do2r_e\[\["b"\]\]\[1L, "x"\]\)/);
+assert.match(statsbyNamedModel.code, /sx = as\.numeric\(sqrt\(diag\(\.do2r_e\[\["V"\]\]\)\)\[\["x"\]\]\)/);
+assert.match(statsbyNamedModel.code, /r2 = as\.numeric\(\.do2r_e\[\["r2"\]\]\)/);
+assert.match(statsbyNamedModel.code, /\.__do2r_statsby_source <- dt/);
 
 const setObs = translateStata(`clear
 set obs 5
@@ -297,8 +311,29 @@ assert.match(setObs.code, /stata_set_obs\(dt, 5\)/);
 assert.match(setObs.code, /id := \.I/);
 assert.match(setObs.code, /set\.seed\(1234\)/);
 
-const unsupportedMvRules = translateStata(`mvencode x, mv(.a=99 \\ .b=98)`);
-assert.equal(unsupportedMvRules.counts.review, 1);
+const extendedMvRules = translateStata(`mvencode x, mv(.a=99 \\ .b=98 \\ else=97)`);
+assert.equal(extendedMvRules.counts.review, 0);
+assert.match(extendedMvRules.code, /haven::na_tag/);
+assert.match(extendedMvRules.code, /target value already occurs in the data/);
+assert.match(extendedMvRules.code, /\.__tag == "a"/);
+
+const extendedMvDecode = translateStata(`mvdecode x, mv(99=.a \\ 100\/102=.b)`);
+assert.equal(extendedMvDecode.counts.review, 0);
+assert.match(extendedMvDecode.code, /stata_numlist\("100\/102"\)/);
+assert.match(extendedMvDecode.code, /haven::tagged_na\("a"\)/);
+assert.match(extendedMvDecode.code, /haven::tagged_na\("b"\)/);
+
+const dsProperties = translateStata(`ds, has(format %t*)
+ds, has(varlabel *weight*) insensitive
+ds x*, not
+ds, not(type string)
+ds, has(vallabel)`);
+assert.equal(dsProperties.counts.review, 0);
+assert.match(dsProperties.code, /stata_ds_property\(dt, names\(dt\), "format %t\*"/);
+assert.match(dsProperties.code, /"varlabel \*weight\*", negate = FALSE, insensitive = TRUE/);
+assert.match(dsProperties.code, /setdiff\(names\(dt\), stata_vars\(dt, "x\*"\)\)/);
+assert.match(dsProperties.code, /"type string", negate = TRUE/);
+assert.match(dsProperties.code, /"vallabel", negate = FALSE/);
 
 const unsupported = translateStata(`foobar x y, mysterious`);
 assert.equal(unsupported.counts.review, 1);
@@ -634,6 +669,89 @@ assert.match(repeatedEstimation.code, /stata_rolling\(/);
 assert.match(repeatedEstimation.code, /strsplit\(trimws\(cluster\), "\\\\s\+"\)/);
 assert.doesNotMatch(repeatedEstimation.code, /strsplit\([^\n]+, "\\s\+"\)/);
 
+const egenDepth = translateStata(`egen rmed = rowmedian(x1 x2 x3)
+egen rsd = rowsd(x1 x2 x3)
+egen rp = rowpctile(x1 x2 x3), p(75)
+egen first = rowfirst(x1 x2)
+egen last = rowlast(x1 x2)
+egen s = seq(), from(2) to(4) block(2)
+egen hits = anycount(x1 x2 x3), values(1 3/5)
+egen any = anymatch(x1 x2), values(0 2)
+egen val = anyvalue(x1), values(1/4)
+egen cat = concat(a b), punct("-")`, { addHeader: false });
+assert.equal(egenDepth.counts.review, 0);
+assert.match(egenDepth.code, /stats::median\(\.z, na\.rm = TRUE\)/);
+assert.match(egenDepth.code, /stats::sd\(\.z, na\.rm = TRUE\)/);
+assert.match(egenDepth.code, /stats::quantile\(\.z, probs = \(75\) \/ 100/);
+assert.match(egenDepth.code, /which\(!is\.na\(\.z\)\)/);
+assert.match(egenDepth.code, /seq_len\(\.N\).*%\/% \(2\)/s);
+assert.match(egenDepth.code, /stata_numlist\("1 3\/5"\)/);
+assert.match(egenDepth.code, /rowSums\(vapply\(\.SD/);
+assert.match(egenDepth.code, /fifelse\(x1 %in%/);
+assert.match(egenDepth.code, /sep = "-"/);
+
+const contractDepth = translateStata(`contract foreign rep78 [fw=w] if use==1, freq(n) cfreq(cn) percent(p) cpercent(cp) zero nomiss`, { addHeader: false });
+assert.equal(contractDepth.counts.review, 0);
+assert.match(contractDepth.code, /complete\.cases/);
+assert.match(contractDepth.code, /n = sum\(w, na\.rm = TRUE\)/);
+assert.match(contractDepth.code, /data\.table::CJ/);
+assert.match(contractDepth.code, /cn := cumsum\(n\)/);
+assert.match(contractDepth.code, /p := 100 \* n \/ sum\(n\)/);
+assert.match(contractDepth.code, /cp := 100 \* cumsum\(n\) \/ sum\(n\)/);
+
+const modelDepth = translateStata(`logistic y x1 i.g
+cloglog y x1, noconstant offset(off)
+binreg y x, rr
+binreg cases x, n(trials) hr
+rreg y x1 x2, tune(8) genwt(rw)
+tsset t
+newey y x1 x2, lag(4)`);
+assert.equal(modelDepth.counts.review, 0);
+assert.match(modelDepth.code, /stats::binomial\(link = "logit"\)/);
+assert.match(modelDepth.code, /stats::binomial\(link = "cloglog"\)/);
+assert.match(modelDepth.code, /stats::binomial\(link = "log"\)/);
+assert.match(modelDepth.code, /cbind\(cases, \(trials\) - cases\)/);
+assert.match(modelDepth.code, /stata_log_complement_link\(\)/);
+assert.match(modelDepth.code, /MASS::rlm\(/);
+assert.match(modelDepth.code, /c = 4\.685 \* \(8\) \/ 7/);
+assert.match(modelDepth.code, /rw := as\.numeric\(model_5\$w\)/);
+assert.match(modelDepth.code, /sandwich::NeweyWest\(model_6, lag = 4, order\.by = ~ t, data = dt, prewhite = FALSE, adjust = TRUE\)/);
+assert.match(modelDepth.code, /Packages used: data\.table,[^\n]*MASS,[^\n]*sandwich/);
+
+const regressionDiagnostics = translateStata(`regress y x1 x2
+estat vif
+estat vif, uncentered
+estat hettest
+estat hettest, rhs iid
+estat ovtest
+estat ovtest, rhs
+estat ic
+estat vce
+estat summarize
+linktest
+estimates store base
+logit z x
+estimates restore base
+estat vif
+predict yhat
+estimates drop base`);
+assert.equal(regressionDiagnostics.counts.review, 0);
+assert.match(regressionDiagnostics.code, /stata_vif\(model_1, uncentered = FALSE\)/);
+assert.match(regressionDiagnostics.code, /stata_vif\(model_1, uncentered = TRUE\)/);
+assert.match(regressionDiagnostics.code, /stata_hettest\(model_1, z = NULL, rhs = FALSE, type = "normal"\)/);
+assert.match(regressionDiagnostics.code, /stata_hettest\(model_1, z = NULL, rhs = TRUE, type = "iid"\)/);
+assert.match(regressionDiagnostics.code, /stata_ovtest\(model_1, rhs = FALSE, powers = 2:4\)/);
+assert.match(regressionDiagnostics.code, /stata_ovtest\(model_1, rhs = TRUE, powers = 2:4\)/);
+assert.match(regressionDiagnostics.code, /AIC = stats::AIC\(model_1\)/);
+assert.match(regressionDiagnostics.code, /stata_model_vcov\(model_1\)/);
+assert.match(regressionDiagnostics.code, /summary\(as\.data\.frame\(stata_regression_parts\(model_1\)\$X\)\)/);
+assert.match(regressionDiagnostics.code, /stata_linktest\(model_1\)/);
+assert.match(regressionDiagnostics.code, /base <- model_1/);
+assert.match(regressionDiagnostics.code, /subsequent translated postestimation uses base/);
+assert.match(regressionDiagnostics.code, /stata_vif\(base, uncentered = FALSE\)/);
+assert.match(regressionDiagnostics.code, /stats::predict\(base,/);
+assert.match(regressionDiagnostics.code, /rm\(list = intersect\(c\("base"\), ls\(\)\)\)/);
+
 const mapped = translateStata(`gen x = 1 ///
  + 2
 summarize x`, { addHeader: false });
@@ -686,8 +804,8 @@ assert.match(stylesCss, /\.active-code-line \{ display: none; \}/);
 assert.match(stylesCss, /--runtime-line-height/);
 assert.match(indexHtml, /id="optionsPanel"(?![^>]*hidden)/);
 assert.match(indexHtml, /Double-click either editor/);
-assert.match(indexHtml, /v0\.10\.0/);
-assert.match(appJs, /editor-utils\.js\?v=0\.10\.0/);
+assert.match(indexHtml, /v0\.12\.0/);
+assert.match(appJs, /editor-utils\.js\?v=0\.12\.0/);
 const highlightedRows = highlightCodeLines('gen x=1\n/* block\ncomment */\ngen y=2', 'stata');
 assert.equal(highlightedRows.length, 4);
 assert.match(highlightedRows[1], /tok-comment/);
@@ -723,6 +841,12 @@ assert.ok(COVERAGE_ROADMAP.added.some(x => /Frame links/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /nonlinear panel/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Factor-variable grammar/.test(x.family)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Repeated estimation/.test(x.family)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Repeated estimation/.test(x.family) && /statsby/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Missing-code recoding/.test(x.family) && /mvencode/.test(x.commands) && /ds has/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Egen row/.test(x.family) && /rowmedian/.test(x.commands) && /anycount/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Frequency-data/.test(x.family) && /contract/.test(x.commands) && /cpercent/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Binomial, robust/.test(x.family) && /binreg/.test(x.commands) && /newey/.test(x.commands)));
+assert.ok(COVERAGE_ROADMAP.added.some(x => /Regression diagnostics/.test(x.family) && /hettest/.test(x.commands) && /linktest/.test(x.commands)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Reporting/.test(x.family) && /dtable/.test(x.commands) && /etable/.test(x.commands)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Marginal analysis/.test(x.family) && /nlcom/.test(x.commands)));
 assert.ok(COVERAGE_ROADMAP.added.some(x => /Survival/.test(x.family) && /streg/.test(x.commands)));

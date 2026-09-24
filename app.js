@@ -1,5 +1,5 @@
-import { translateStata, EXAMPLES, COVERAGE_ROADMAP } from './translator.js?v=0.10.0';
-import { highlightCodeLines, lineAtOffset, lineStartOffset, mapLine, mapVisualPosition } from './editor-utils.js?v=0.10.0';
+import { translateStata, EXAMPLES, COVERAGE_ROADMAP } from './translator.js?v=0.12.0';
+import { highlightCodeLines, lineAtOffset, lineStartOffset, mapLine, mapVisualPosition } from './editor-utils.js?v=0.12.0';
 
 const $ = id => document.getElementById(id);
 const input = $('stataInput');

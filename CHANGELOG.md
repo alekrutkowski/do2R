@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.12.0 – 2026-09-24
+
+- Expand `egen` with `rowmedian()`, `rowsd()`, `rowpctile()`, `rowfirst()`, `rowlast()`, corrected all-missing `rowmin()` / `rowmax()`, `seq()`, `anycount()`, `anymatch()`, `anyvalue()`, `concat(), punct()`, and optional storage-type parsing.
+- Deepen `contract` with `freq()`, `cfreq()`, `percent()`, `cpercent()`, `zero`, `nomiss`, `if` / `in`, and fweight-aware frequency construction.
+- Add `logistic`, `cloglog`, and `binreg` mappings, including odds-ratio, risk-ratio, risk-difference, and health-ratio links, grouped-binomial `n()`, offsets, exposures, and explicit convergence/VCE diagnostics.
+- Add approximate `rreg` translation through `MASS::rlm()`, including `tune()`, iteration/tolerance controls, and `genwt()`, while warning about Stata's Cook's-D screening plus Huber/biweight algorithm.
+- Add `newey` as OLS with `sandwich::NeweyWest(prewhite = FALSE, adjust = TRUE)`, `lag()`, `noconstant`, time ordering from `tsset`, and covariance propagation into translated `e(V)`.
+- Add common regression diagnostics and model-state postestimation: `estat vif`, `estat hettest`, `estat ovtest`, `estat ic`, `estat vce`, `estat summarize`, `linktest`, and `estimates restore` / `drop`.
+- Add reusable generated-R helpers for diagnostics, custom binomial log-complement links, and model covariance access; extend regression coverage tests and refresh roadmap, documentation, dependency notices, and release metadata.
+
+## 0.11.0 – 2026-09-23
+
+- Extend `statsby` beyond direct `summarize` handling: grouped model commands can now collect full `_b` / `_se` vectors, named coefficient and standard-error expressions, and scalar `r()` / `e()` / `s()` results through the reusable repeated-command layer.
+- Add extended `mvencode` / `mvdecode` rules, including system missing and `.a`–`.z` tagged missing values, `else=#`, numlist-to-missing mappings, `if` / `in`, and `mvencode, override` collision semantics.
+- Expand `ds` with `has()` / `not()` support for numeric/string type classes, Stata display-format patterns, variable-label patterns, value-label presence, `insensitive`, varlist complement via `not`, and `alpha` ordering.
+- Add regression tests for the new grouped-statistics, missing-code, and variable-discovery paths; refresh the in-app coverage map and release metadata.
+
 ## 0.10.0 – 2026-09-22
 
 - Add core multiple-imputation translation with `mi set`, `mi register`, `mi describe`, numbered `mi extract`, common univariate/chained imputations through `mice`, and `mi estimate:` pooling for common model families.
