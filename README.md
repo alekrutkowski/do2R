@@ -1,4 +1,4 @@
-# do2R v0.12.0
+# do2R v0.14.0
 
 **do2R** is a static, browser-only Stata/Mata → R translator intended for migration work on `.do`, `.ado`, and Mata code. It has no server component and can be hosted directly on GitHub Pages:
 
@@ -79,10 +79,30 @@ Stata numeric missing values are not globally replaced by R `Inf`, because doing
 
 ### Data management and `egen` depth
 
-- `egen` row utilities now include `rowmedian()`, `rowsd()`, `rowpctile()`, `rowfirst()`, and `rowlast()`, with corrected all-missing behavior for `rowmin()` / `rowmax()`.
+- `egen` supports `if` / `in` qualifiers across translated functions and now covers common statistics including `iqr()`, `mad()`, `mdev()`, `skew()`, `kurt()`, `pctile()`, `mode()`, `pc()`, and `std()` with `mean()` / `sd()` controls.
+- Grouping and ordering workflows include `group()`, `tag()`, `rank()` tie modes, and `cut()` with `at()` or `group()`, with Stata-like missing-value handling where it materially affects the result.
+- Row utilities include `rowmedian()`, `rowsd()`, `rowpctile()`, `rowfirst()`, and `rowlast()`, with corrected all-missing behavior for `rowmin()` / `rowmax()`.
 - `egen seq()`, `anycount()`, `anymatch()`, `anyvalue()`, and common `concat(), punct()` workflows are translated. Storage-type requests are retained as diagnostics rather than forcing lossy R types.
-- `contract` now handles named frequency, cumulative-frequency, percentage, and cumulative-percentage variables, together with `zero`, `nomiss`, `if` / `in`, and Stata frequency weights.
+- `contract` handles named frequency, cumulative-frequency, percentage, and cumulative-percentage variables, together with `zero`, `nomiss`, `if` / `in`, and Stata frequency weights.
 - Stata-specific display/value-label behavior in advanced `concat()` formatting remains explicit review material rather than being silently approximated.
+
+### Tabulations, tests, reliability, and missingness
+
+- One-way `tabulate` supports `if` / `in`, `by:`, weights, `missing`, `sort`, `generate()`, `plot`, and matrix saves; two-way tables add row/column/cell percentages, expected counts, per-cell chi-square contributions, Pearson and likelihood-ratio chi-square tests, Fisher exact tests, Cramér's V, Goodman–Kruskal gamma, Kendall's tau-b, sorting, and matrix outputs.
+- `tab1` produces a named collection of one-way tables across variables, while `tab2` produces all variable-pair two-way tables with common sorting, missing-value, exact-test, weight, qualifier, and `by:` workflows.
+- `spearman`, `ranksum`, `signrank`, `signtest`, and `kwallis` cover common nonparametric workflows, including the principal qualifiers and exact-test switches where their R analogues are well defined.
+- `alpha` maps common reliability workflows to `psych::alpha()`, including standardized items, reversal controls, minimum item counts, casewise handling, and generated scale scores.
+- `misstable summarize` and `misstable patterns` cover common missing-data diagnostics, including generated missingness flags and haven tagged-missing awareness.
+
+### Matrix and Mata programming
+
+- Stata `matrix` programming now covers assignment and `input`, row/column joins, transpose and matrix multiplication, Kronecker products, common subscripts, `matrix list` / `dir` / `drop` / `rename`, and row/column plus equation-name metadata.
+- Common matrix functions include `nullmat()`, `corr()`, `invsym()` / `inv()`, `rowsof()`, `colsof()`, `trace()`, `vecdiag()`, and `det()`.
+- Dataset↔matrix workflows now include `mkmat`, `svmat`, `matrix accum`, `matrix vecaccum`, and `matrix score`, with explicit diagnostics for factor-variable/time-series coefficient names or storage conventions that cannot be reconstructed safely.
+- Mata translation now recognizes typed scalar/vector/matrix declarations, typed functions, matrix literals and joins, slices, transpose, matrix versus scalar multiplication, ternary expressions, `if` / `while`, C-style numeric `for` loops, `continue` / `break`, same-line scalar `if`, slice assignment, increments, and compound assignment.
+- Common Mata matrix/numerical helpers cover identity/fill matrices, diagonals, selection/sorting/unique rows, reshaping, block diagonals, triangles/symmetrization, inversion/pseudoinverse/Cholesky/linear solves, cross-products, running/quad sums, missing/nonmissing counts, row/column/overall min-max helpers, `editmissing()`, string helpers, tokenization, and random-number generation.
+- The Mata↔Stata bridge covers common `st_data()` / `st_sdata()`, copied approximations of `st_view()` / `st_sview()`, explicit `st_store()` / `st_sstore()` writeback, adding/dropping observations and variables, variable metadata helpers, `st_matrix()`, `st_numscalar()`, local/global macro access, macro expansion, and returned-result clearing.
+- `putmata` / `getmata` translate common vector/matrix transfer lists, `if` / `in`, `omitmissing`, `replace` / `update`, `id()` matching, `force`, generated stub names, and key returned counts. Mata live views remain copies in R, and Stata's ordered extended-missing semantics are warned about where R `NA` cannot reproduce them exactly.
 
 ### Time series
 
@@ -93,7 +113,7 @@ Stata time-series operators now preferentially target the **collapse** package:
 - repeated/combined operators and common lag-range forms are supported;
 - `tsset` / `xtset` metadata is supplied to grouped/panel operations when available.
 
-Coverage also includes `tsfill`, `tsappend, add()` plus endpoint `last()` / `tsfmt()`, `tssmooth ma` and single-exponential smoothing, Hodrick–Prescott `tsfilter hp`, `arima`, `dfuller`, `corrgram`, ordinary consecutive-lag `var`, `varsoc` lag selection, pairwise `vargranger` Wald tests, core `varlmar` / `varnorm` / `varstable` diagnostics, Johansen `vecrank` / `vec`, and common `irf create` / `graph` / `table` workflows.
+Coverage also includes `tsfill`, `tsappend, add()` plus endpoint `last()` / `tsfmt()`, `tssmooth ma` and single-exponential smoothing, Hodrick–Prescott `tsfilter hp`, `arima`, augmented Dickey–Fuller `dfuller`, DF-GLS `dfgls`, Phillips–Perron `pperron`, Ljung–Box `wntestq`, `corrgram`, ordinary consecutive-lag `var`, `varsoc` lag selection, pairwise `vargranger` Wald tests, core `varlmar` / `varnorm` / `varstable` diagnostics, Johansen `vecrank` / `vec`, and common `irf create` / `graph` / `table` workflows.
 
 ### Frames
 
@@ -127,7 +147,7 @@ The current translator includes common mappings for:
 - `rreg` through an explicitly approximate `MASS::rlm()` biweight mapping, including `tune()` and `genwt()`, with diagnostics about Stata's additional Cook's-D and Huber stages;
 - `newey` as OLS with classic non-prewhitened Newey–West covariance and the finite-sample adjustment, using translated `tsset` time ordering when available;
 - regression postestimation for common `estat vif`, `estat hettest`, `estat ovtest`, `estat ic`, `estat vce`, `estat summarize`, and `linktest` workflows, plus `estimates restore` / `drop` model-state tracking;
-- common `xtlogit`, `xtprobit`, `xtpoisson`, and `xtgee` cases, plus random-effects ordered `xtologit` / `xtoprobit` through `ordinal::clmm`;
+- common `xtlogit`, `xtprobit`, `xtcloglog`, `xtpoisson`, and `xtgee` cases, including random-effects and population-averaged complementary-log-log models, plus random-effects ordered `xtologit` / `xtoprobit` through `ordinal::clmm`;
 - `mixed`, `melogit`, `meprobit`, `mecloglog`, `meologit`, `meoprobit`, `mepoisson`, `menbreg`, and common `meglm` family/link combinations;
 - basic survey declarations and common `svy:` estimation;
 - richer `margins` scenarios through `marginaleffects`, plus generic `marginsplot`, `lincom`, and `nlcom`;
@@ -182,13 +202,13 @@ The in-app coverage map is the canonical roadmap. The next high-impact groups ar
 1. **Macro/parser edge cases** – remaining extended macro functions, positional `0` / call-line fidelity, compound quotes, Unicode/bind corner cases, and delayed expansion across multiple preprocessing passes.
 2. **Python/sfi depth** – map common `sfi.Data`, `Frame`, `Macro`, `Scalar`, `Matrix`, and `ValueLabel` interactions to R objects and `reticulate` exchange rather than merely executing Python source.
 3. **Advanced survey designs** – multistage and replicate-weight designs.
-4. **Deeper time-series models** – double-exponential/Holt-Winters smoothing, additional filters, ARCH/GARCH, richer VAR/VEC diagnostics, structural VARs, and forecasting. HP filtering, Johansen VEC/rank workflows, and common IRF creation/plot/table paths are now covered.
+4. **Deeper time-series models** – double-exponential/Holt-Winters smoothing, additional filters, ARCH/GARCH, richer VAR/VEC diagnostics, structural VARs, and forecasting. HP filtering, Johansen VEC/rank workflows, common IRF creation/plot/table paths, and common unit-root/white-noise tests are now covered.
 5. **Advanced resampling semantics** – BC/BCa intervals, `reject()`, custom weights and `idcluster`, jackknife MSE/pseudovalues, exact permutation enumeration, and fuller `rolling` save/window semantics.
 6. **Factor-variable edge/design semantics** – omitted/empty-cell fidelity, factor variables in every varlist-bearing option, coefficient-name fidelity, and `fvset design` effects in postestimation.
-7. **Panel estimator depth** – `xtnbreg`, `xtregar`, `xttobit`, `xtmlogit`, flexible `xtdpd` moment structures, `xtvar`, and richer GEE semantics. Core `xtabond` and `xtdpdsys` workflows are now covered.
+7. **Panel estimator depth** – `xtnbreg`, `xtregar`, `xttobit`, `xtmlogit`, flexible `xtdpd` moment structures, `xtvar`, and richer GEE semantics. Core `xtabond`, `xtdpdsys`, and common `xtcloglog` random-effects/population-averaged workflows are now covered.
 8. **Advanced calendars** – weekly dates, full `%t*` display behavior, and business calendars.
 9. **Advanced reporting/collections** – richer `collect` dimensions/styles/layouts, advanced `putexcel`, `putdocx`, and `putpdf`. Core `table`, `dtable`, `etable`, and basic collection export are now covered.
-10. **MI depth and deeper survival** – passive/update/checking workflows, additional imputation families and grouped/conditional imputation, competing risks, split/join survival data, richer curve scenarios, plus deep Mata, SEM/GSEM, and specialized estimator families. Core MI setup, chained imputation, and pooled estimation are now covered.
+10. **MI depth, deeper survival, and remaining Mata runtime semantics** – passive/update/checking workflows, additional imputation families and grouped/conditional imputation, competing risks, split/join survival data, richer curve scenarios, plus Mata structs/classes/pointers, `optimize()` / `moptimize()`, associative arrays, panel utilities, file I/O, callbacks, and library/object-file workflows. Core Mata matrix/control/data-bridge programming is now covered; the remaining Mata work needs a fuller runtime model.
 
 ## Run locally
 
@@ -228,6 +248,7 @@ do2R itself has no runtime JavaScript dependencies. Depending on the Stata sourc
 - `survival`
 - `flexsurv`
 - `geepack`
+- `psych`
 - `plm`
 - `quantreg`
 - `MASS`

@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.14.0 – 2026-09-25
+
+- Deepen Mata translation from basic matrix expressions into a practical programming subset: typed declarations and functions, matrix literals/joins/slices, matrix-aware multiplication, ternary expressions, `if` / `while`, C-style numeric `for`, same-line `if`, `continue` / `break`, element/slice assignment, increments, compound assignment, and common expression statements.
+- Add common Mata matrix, linear-algebra, string, random-number, missing-value, and min/max helpers, including `J()`, `I()`, `diag()`, selection/sorting/reshaping utilities, block/triangle helpers, inverses/pseudoinverse/Cholesky/solves, cross-products, token/string functions, RNG helpers, `missing()` / `nonmissing()` families, `rowmin()` / `rowmax()` families, `minmax()`, and `editmissing()`.
+- Expand the Mata↔Stata bridge with `st_data()` / `st_sdata()`, copied `st_view()` / `st_sview()` approximations, `st_store()` / `st_sstore()`, observation/variable mutation and metadata helpers, `st_matrix()`, `st_numscalar()`, temp names, local/global macros, macro expansion, result clearing, plus `mata clear`, `mata drop`, `mata rename`, and `mata describe`.
+- Add `putmata` and `getmata` for common vector/matrix transfers, qualifiers, `omitmissing`, `replace` / `update`, `id()` matching, `force`, stub expansion, and returned transfer counts.
+- Add a Stata matrix-programming layer covering matrix assignment/input, joins, transpose/multiplication/Kronecker products/subscripts, row/column and equation metadata, `matrix list` / `dir` / `drop` / `rename`, common matrix functions, `matrix accum`, `matrix vecaccum`, `matrix score`, `mkmat`, `svmat`, and data↔matrix helpers.
+- Add `tab1` and `tab2` translation for multi-variable frequency-table workflows, including common qualifiers, weights, sorting, missing-value handling, exact tests, `by:`, and tidy list outputs.
+- Fix nested string-placeholder restoration in Mata special-call translation so quoted arguments to bridge functions such as `st_sstore()` survive recursive expression rewriting.
+- Add regression coverage for the new Mata, matrix, and data-bridge features; refresh the in-app roadmap, README, cache/version metadata, and release package.
+
+## 0.13.0 – 2026-09-25
+
+- Deepen `egen` with `if` / `in` qualifiers and widely used statistics/grouping utilities including `iqr()`, `mad()`, `mdev()`, `skew()`, `kurt()`, `pctile()`, `mode()`, `pc()`, `std()`, `rank()` tie modes, `cut()`, and more faithful `group()` / `tag()` missing-value behavior.
+- Expand one-way and two-way `tabulate` with qualifiers, `by:`, weights, missing/sort/generate/plot workflows, row/column/cell percentages, expected counts, cell chi-square contributions, Pearson and likelihood-ratio tests, Fisher exact, Cramér's V, gamma, tau-b, and matrix saves.
+- Add `dfgls`, `pperron`, and `wntestq` time-series diagnostics, including an explicit zero-lag Phillips–Perron fallback rather than relying on an unsafe `urca::ur.pp(use.lag = 0)` path.
+- Add `xtcloglog` random-effects and population-averaged mappings through `lme4::glmer()` and `geepack::geeglm()`.
+- Add or deepen common diagnostics and nonparametrics: `spearman`, `ranksum`, `signrank`, `signtest`, `kwallis`, `alpha` through `psych::alpha()`, and `misstable summarize` / `patterns`.
+- Add regression coverage for the new translations and refresh documentation, dependency notices, the in-app roadmap, and release metadata.
+
 ## 0.12.0 – 2026-09-24
 
 - Expand `egen` with `rowmedian()`, `rowsd()`, `rowpctile()`, `rowfirst()`, `rowlast()`, corrected all-missing `rowmin()` / `rowmax()`, `seq()`, `anycount()`, `anymatch()`, `anyvalue()`, `concat(), punct()`, and optional storage-type parsing.

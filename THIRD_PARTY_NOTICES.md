@@ -15,6 +15,7 @@ The current integration set includes:
 - **lme4** – mixed-effects model mappings: https://cran.r-project.org/package=lme4
 - **ordinal** – cumulative-link mixed models: https://cran.r-project.org/package=ordinal
 - **geepack** – GEE mappings: https://cran.r-project.org/package=geepack
+- **psych** – reliability analysis and Cronbach alpha mappings: https://cran.r-project.org/package=psych
 - **survival** – Cox and survival-model mappings: https://cran.r-project.org/package=survival
 - **flexsurv** – parametric survival-model mappings: https://cran.r-project.org/package=flexsurv
 - **quantreg** – quantile-regression mappings: https://cran.r-project.org/package=quantreg

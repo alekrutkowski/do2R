@@ -240,12 +240,12 @@ export const COVERAGE_ROADMAP = {
     { family: 'Python integration', commands: 'python: ... end, python script, python query -> reticulate' },
     { family: 'Date/time core', commands: 'date()/daily(), clock(), mdy()/dmy()/ymd(), year/month/day/dow/doy, monthly/quarterly/half-year/year conversions' },
     { family: 'Time-series operators', commands: 'L./F./D./S., repeated and combined operators, L(0/2).x, L(0/2).(x y) -> collapse::flag()/fdiff(); tsset/xtset metadata' },
-    { family: 'Time-series data & estimation', commands: 'tsfill, tsappend add(#)/last()+tsfmt(), tssmooth ma/exponential, tsfilter hp, arima, dfuller, corrgram, var, varsoc, vargranger, varlmar, varnorm, varstable, vecrank, vec, irf create/graph/table' },
+    { family: 'Time-series data & estimation', commands: 'tsfill, tsappend add(#)/last()+tsfmt(), tssmooth ma/exponential, tsfilter hp, arima, dfuller, dfgls, pperron, wntestq, corrgram, var, varsoc, vargranger, varlmar, varnorm, varstable, vecrank, vec, irf create/graph/table' },
     { family: 'Frame links', commands: 'frlink 1:1/m:1, frget, simple frval() via integer link metadata' },
     { family: 'Excel I/O & reporting basics', commands: 'import excel, export excel, putexcel set/cell/matrix/formula/image using readxl/openxlsx' },
     { family: 'Survey basics', commands: 'svyset; svy: mean/total/proportion/tabulate/regress/logit/probit/poisson; subpop()' },
     { family: 'Multilevel & mixed GLMs', commands: 'mixed, melogit, meprobit, mecloglog, meologit, meoprobit, mepoisson, menbreg, plus common meglm family()/link() combinations' },
-    { family: 'Common nonlinear panel models', commands: 'xtlogit, xtprobit, xtpoisson (RE/FE/PA where meaningful), xtologit/xtoprobit random-effects ordered models, and xtgee common families/correlation structures' },
+    { family: 'Common nonlinear panel models', commands: 'xtlogit, xtprobit, xtcloglog, xtpoisson (RE/FE/PA where meaningful), xtologit/xtoprobit random-effects ordered models, and xtgee common families/correlation structures' },
     { family: 'Factor-variable grammar', commands: 'i./c., #/##, parenthesized interactions, ib(first/last/frequent/#), bn./ibn., fvset base/design/clear/report, fvrevar/list/stub()' },
     { family: 'Repeated estimation', commands: 'bootstrap:, jackknife:/jknife:, permute:, simulate, rolling:, plus statsby with grouped r()/e()/_b/_se collection and common reps/seed/cluster/strata/window options' },
     { family: 'Reporting & collections', commands: 'table, dtable, etable, collect clear/preview/export with common statistic()/by() workflows and CSV/TSV/XLSX output' },
@@ -256,26 +256,30 @@ export const COVERAGE_ROADMAP = {
     { family: 'High-dimensional fixed effects', commands: 'reghdfe, ivreghdfe common 2SLS form, ppmlhdfe with absorb(), clustered VCE, exposure()/offset() via fixest' },
     { family: 'Selection, censored, fractional & zero-inflated models', commands: 'heckman, intreg, fracreg logit/probit, zip, zinb with common select()/inflate()/offset()/exposure() options' },
     { family: 'Missing-code recoding & variable discovery', commands: 'mvencode/mvdecode rule lists with ./.a–.z/else, mvencode override collision semantics, ds has()/not() for numeric/string type, Stata formats, variable labels, value-label presence, insensitive matching, varlist complement and alpha ordering' },
-    { family: 'Egen row, sequence & matching utilities', commands: 'rowmedian, rowsd, rowpctile, rowfirst, rowlast, corrected all-missing rowmin/rowmax, seq(), anycount(), anymatch(), anyvalue(), concat() punct(), optional egen storage types' },
+    { family: 'Egen row, statistics, grouping & matching utilities', commands: 'if/in qualifiers; group(), tag(), iqr(), mad(), mdev(), skew(), kurt(), pctile(), mode(), pc(), std(), rank tie modes, cut() at()/group(); rowmedian, rowsd, rowpctile, rowfirst, rowlast, corrected all-missing rowmin/rowmax; seq(), anycount(), anymatch(), anyvalue(), concat() punct(), optional storage types' },
     { family: 'Frequency-data construction', commands: 'contract with freq()/cfreq()/percent()/cpercent(), zero, nomiss, if/in, and fweights' },
     { family: 'Binomial, robust & HAC regression', commands: 'logistic, cloglog, binreg or/rr/rd/hr with n()/offset()/exposure(), rreg approximation with tune()/genwt(), newey lag() with attached Newey–West covariance' },
-    { family: 'Regression diagnostics & stored-model state', commands: 'estat vif/hettest/ovtest/ic/vce/summarize, linktest, estimates store/restore/drop, postestimation restored-model tracking' }
+    { family: 'Regression diagnostics & stored-model state', commands: 'estat vif/hettest/ovtest/ic/vce/summarize, linktest, estimates store/restore/drop, postestimation restored-model tracking' },
+    { family: 'Frequency tables & association tests', commands: 'tabulate one-way/two-way plus tab1/tab2 with if/in, by:, weights, missing/sort/generate()/plot, row/column/cell percentages, expected/cchi2/clrchi2, chi2/exact/lrchi2/V/gamma/taub, matrix saves' },
+    { family: 'Rank tests, reliability & missingness diagnostics', commands: 'spearman with pw/exact/Bonferroni/Sidak, ranksum qualifiers, signrank, signtest, kwallis, alpha std/reverse/min/casewise/generate, misstable summarize/patterns with generate()/exok/bypatterns' },
+    { family: 'Stata matrix programming & data bridge', commands: 'matrix assignment/input/list/dir/drop/rename, rownames/colnames/roweq/coleq, matrix multiplication/transposition/Kronecker/subscripts, nullmat()/corr()/invsym()/rowsof()/colsof()/trace()/vecdiag()/det(), matrix accum/vecaccum/score, mkmat, svmat' },
+    { family: 'Mata matrix programming & Stata bridge', commands: 'typed declarations/functions, matrix literals/joins/slices/products, if/while/C-style for/continue/break/ternary, common linear algebra/matrix/string/RNG/missing/minmax utilities, st_data()/st_sdata()/st_view()/st_sview()/st_store()/st_sstore(), st_addvar()/st_addobs()/st_dropvar(), variable metadata, st_matrix()/st_numscalar(), st_local()/st_global()/st_macroexpand()/st_rclear(), mata clear/drop/rename/describe, putmata/getmata' }
   ],
   next: [
     { priority: 'P1', family: 'Macro/parser edge cases', commands: 'remaining extended macro functions, positional `0`/call-line fidelity, compound-quote edge cases, gettoken Unicode/bind corner cases, delayed expansion across multiple parser passes', note: 'Common parsing functions such as word/count, strlen/length, copy, and subinstr are mapped; finish the remaining parser-level textual substitution edge cases before broadening rare estimators.' },
     { priority: 'P1', family: 'Python/sfi bridge depth', commands: 'sfi.Data, Frame, Macro, Scalar, Matrix, ValueLabel and callbacks', note: 'Map common Stata Function Interface operations to data.table objects and reticulate data exchange rather than only preserving Python source.' },
     { priority: 'P1', family: 'Frame-link depth', commands: 'fralias, frlink dir/describe/rebuild, metadata/label fidelity and multi-step link invalidation checks', note: 'Current frlink/frget mappings cover ordinary 1:1 and m:1 lookup workflows; live alias semantics and link lifecycle management need a deeper runtime model.' },
     { priority: 'P1', family: 'Advanced survey designs', commands: 'multistage svyset, brrweight(), bsrweight(), jkrweight(), sdrweight(), poststrata, calibrate/rake', note: 'Map replicate-weight and multistage designs to survey::svrepdesign()/svydesign() without losing variance-method semantics.' },
-    { priority: 'P1', family: 'Time-series data mechanics & remaining models', commands: 'tssmooth double-exponential/Holt-Winters, additional tsfilter methods, arch/GARCH, SVAR, richer VAR/VEC diagnostics, forecast', note: 'HP filtering, Johansen rank/VEC models, IRFs, tsappend endpoint dates, single-exponential smoothing, lag selection, and core VAR diagnostics are now covered; continue with volatility models, structural systems, richer diagnostics, and forecasting.' },
+    { priority: 'P1', family: 'Time-series data mechanics & remaining models', commands: 'tssmooth double-exponential/Holt-Winters, additional tsfilter methods, arch/GARCH, SVAR, richer VAR/VEC diagnostics, forecast', note: 'HP filtering, Johansen rank/VEC models, IRFs, tsappend endpoint dates, single-exponential smoothing, common unit-root/white-noise tests, lag selection, and core VAR diagnostics are now covered; continue with volatility models, structural systems, richer diagnostics, and forecasting.' },
     { priority: 'P1', family: 'Advanced resampling semantics', commands: 'bootstrap BC/BCa/reject()/weights/idcluster, jackknife mse/pseudovalues/reject(), exact permute enumeration, rolling start()/end()/keep()/saving()', note: 'The reusable repeated-command layer and core statsby model collection now exist; finish Stata-specific replication, interval, rejection, statsby saving()/total/subsets, and saved-result details.' },
     { priority: 'P1', family: 'Factor-variable edge/design semantics', commands: 'full o./b./bn. omission rules, empty cells, factor variables inside every varlist/option, coefficient-name fidelity, fvset design effects in margins/contrast', note: 'The core grammar and base-level machinery are implemented; the remaining work is Stata-specific omitted-column/design-matrix fidelity across commands.' },
-    { priority: 'P1', family: 'Panel estimator depth', commands: 'xtnbreg, xtregar, xttobit, xtmlogit, flexible xtdpd moment structures, xtvar, and richer xtgee structures', note: 'Arellano–Bond xtabond and system-GMM xtdpdsys core workflows are now mapped; extend the remaining xt families while preserving estimator-specific likelihood, moment, correlation, and VCE semantics.' },
+    { priority: 'P1', family: 'Panel estimator depth', commands: 'xtnbreg, xtregar, xttobit, xtmlogit, flexible xtdpd moment structures, xtvar, and richer xtgee structures', note: 'Arellano–Bond xtabond, system-GMM xtdpdsys, and common xtcloglog RE/PA workflows are now mapped; extend the remaining xt families while preserving estimator-specific likelihood, moment, correlation, and VCE semantics.' },
     { priority: 'P1', family: 'Advanced date/time & calendars', commands: 'full datetime masks/top-year rules, weekly dates, %t display formats, bcal create/load, bofd()/dofb()', note: 'Finish Stata parsing/display semantics and business-calendar mappings beyond the common constructors now covered.' },
     { priority: 'P2', family: 'Advanced reporting & collections', commands: 'collect dimensions/layout/style/labels, advanced table/dtable/etable statistics/tests, putexcel formatting, putdocx, putpdf', note: 'Core tables, estimation tables, basic collection state, and CSV/TSV/XLSX export are mapped; finish Stata-specific presentation state and document outputs.' },
     { priority: 'P2', family: 'MI depth & deeper survival', commands: 'mi passive/update/misstable, monotone/mvn/count/truncated imputation, by()/conditional() imputation, richer mi estimate/postestimation, stcrreg, stsplit/stjoin, richer stcurve at()/CI/range()', note: 'Core mice-backed MI setup, common univariate/chained imputation, Rubin pooling, Cox/parametric survival, Kaplan–Meier, and curve output are mapped; finish Stata-specific MI data management, additional imputation models, competing risks, and advanced risk-set semantics.' },
     { priority: 'P2', family: 'Remaining multilevel outcomes', commands: 'meintreg, metobit, mestreg, menl, multilevel postestimation and richer covariance()/integration structures', note: 'Extend the shared random-effects parser while preserving censoring, survival, nonlinear, covariance, and quadrature semantics.' },
     { priority: 'P2', family: 'Advanced estimators', commands: 'gmm, heckprobit, frontier, truncreg, hurdle models, multivariate censored/selection systems', note: 'Heckman selection, interval regression, fractional-response logit/probit, ZIP, and ZINB are now mapped; the remaining estimators require explicit package selection and careful likelihood/parameterization warnings.' },
-    { priority: 'P3', family: 'Deep Mata/runtime language', commands: 'structs/classes/pointers, optimize(), associative arrays, file I/O, callbacks', note: 'Needs a more complete parser and runtime-model emulation rather than command-by-command regexes.' },
+    { priority: 'P2', family: 'Deep Mata/runtime language', commands: 'structs/classes/pointers, optimize()/moptimize(), associative arrays, panelsetup()/panelsubmatrix(), file I/O, callbacks, full complex-number semantics, live st_view() aliasing, Mata libraries/object files', note: 'Core matrix syntax, control flow, common utilities, Stata data/result bridges, and putmata/getmata are now mapped. The remaining pieces need a fuller parser/runtime model rather than regex-level translation.' },
     { priority: 'P3', family: 'Specialized model families', commands: 'sem/gsem, teffects/etregress, choice, bayes:, lasso/elasticnet, spatial, meta, irt, fmm', note: 'Large dedicated Stata subsystems should follow once the cross-cutting parser and repeated-estimation layers are stronger.' }
   ]
 };
@@ -668,7 +672,7 @@ function protectStrings(expr, ctx) {
     store.push(rString(raw, ctx));
     out += token;
   }
-  return { text: out, restore: x => x.replace(/__STR_(\d+)__/g, (_, n) => store[Number(n)]) };
+  return { text: out, restore: x => x.replace(/__STR_(\d+)__/g, (tok, n) => store[Number(n)] === undefined ? tok : store[Number(n)]) };
 }
 
 function macroType(ctx, name) {
@@ -1110,44 +1114,136 @@ function translateGenerate(body, options, ctx, rec, by) {
 }
 
 function translateEgen(body, options, ctx, rec, byPrefix) {
-  const m = body.match(/^egen\s+(?:(byte|int|long|float|double|str\d*|strL)\s+)?([^\s=]+)\s*=\s*([A-Za-z_]\w*)\s*\((.*)\)\s*$/i);
-  if (!m) return null;
-  const storage = m[1] || '';
-  const target = rTargetName(m[2], ctx);
-  const fun = m[3].toLowerCase();
-  const arg = m[4].trim();
+  const head = body.match(/^egen\s+(?:(byte|int|long|float|double|str\d*|strL)\s+)?([^\s=]+)\s*=\s*([A-Za-z_]\w*)\s*\(/i);
+  if (!head) return null;
+  const open = head[0].lastIndexOf('(');
+  let depth = 0, quote = false, close = -1;
+  for (let i = open; i < body.length; i += 1) {
+    const c = body[i];
+    if (c === '"') quote = !quote;
+    if (quote) continue;
+    if (c === '(') depth += 1;
+    else if (c === ')') {
+      depth -= 1;
+      if (depth === 0) { close = i; break; }
+    }
+  }
+  if (close < 0) return null;
+
+  const storage = head[1] || '';
+  const target = rTargetName(head[2], ctx);
+  const fun = head[3].toLowerCase();
+  const arg = body.slice(open + 1, close).trim();
+  const tail = body.slice(close + 1).trim();
+  const q = extractQualifiers(tail ? ` ${tail}` : '');
+  if (q.core) return null;
+
   const byOpt = optionValue(options, 'by');
   const by = byPrefix || (byOpt && byOpt !== true ? byOpt : '');
   const byR = byClause(by, ctx);
   const dt = ctx.currentData;
   const x = translateExpression(arg, ctx, { grouped: Boolean(by), context: 'generate' });
+  const filter = rowFilter(q.ifExpr, q.inExpr, ctx, Boolean(by));
   let rhs = '';
   let extra = '';
   let confidence = 'exact';
   const ds = [];
   const lines = [];
 
-  if (['mean', 'max', 'min', 'median', 'sd'].includes(fun)) rhs = `${fun}(${x}, na.rm = TRUE)`;
-  else if (['total', 'sum'].includes(fun)) rhs = `sum(${x}, na.rm = TRUE)`;
-  else if (fun === 'count') rhs = `sum(!is.na(${x}))`;
-  else if (fun === 'first') rhs = `${x}[1L]`;
+  const noBy = (name) => {
+    if (!by) return null;
+    return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', `egen ${name}() may not be combined with by; do2R will not silently reinterpret the invalid Stata form.`, rec.text)]);
+  };
+
+  const assign = (value, suffix = '', prefill = null) => {
+    if (filter) {
+      if (prefill !== null) lines.push(`${dt}[, ${target} := ${prefill}]`);
+      if (by) {
+        const flag = `.__do2r_egen_ok_${rec.line}`;
+        lines.push(`${dt}[, ${flag} := ${filter}${byR ? `, ${byR}` : ''}]`);
+        lines.push(`${dt}[${flag} %in% TRUE, ${target} := ${value}${byR ? `, ${byR}` : ''}${suffix}]`);
+        lines.push(`${dt}[, ${flag} := NULL]`);
+      } else {
+        lines.push(`${dt}[${filter}, ${target} := ${value}${suffix}]`);
+      }
+    } else {
+      lines.push(`${dt}[, ${target} := ${value}${byR ? `, ${byR}` : ''}${suffix}]`);
+    }
+  };
+
+  if (fun === 'mean') rhs = `{ .z <- ${x}; if (all(is.na(.z))) NA_real_ else mean(.z, na.rm = TRUE) }`;
+  else if (fun === 'max') {
+    rhs = hasOption(options, 'missing')
+      ? `{ .z <- ${x}; if (any(is.na(.z))) NA_real_ else max(.z) }`
+      : `{ .z <- ${x}; if (all(is.na(.z))) NA_real_ else max(.z, na.rm = TRUE) }`;
+  } else if (fun === 'min') rhs = `{ .z <- ${x}; if (all(is.na(.z))) NA_real_ else min(.z, na.rm = TRUE) }`;
+  else if (fun === 'median') rhs = `{ .z <- ${x}; if (all(is.na(.z))) NA_real_ else stats::median(.z, na.rm = TRUE) }`;
+  else if (fun === 'sd') rhs = `stats::sd(${x}, na.rm = TRUE)`;
+  else if (['total', 'sum'].includes(fun)) {
+    rhs = hasOption(options, 'missing')
+      ? `{ .z <- ${x}; if (all(is.na(.z))) NA_real_ else sum(.z, na.rm = TRUE) }`
+      : `sum(${x}, na.rm = TRUE)`;
+  } else if (fun === 'count') rhs = `sum(!is.na(${x}))`;
+  else if (fun === 'iqr') {
+    rhs = `{ .z <- ${x}; if (all(is.na(.z))) NA_real_ else diff(stats::quantile(.z, probs = c(0.25, 0.75), na.rm = TRUE, names = FALSE, type = 2)) }`;
+    confidence = 'heuristic';
+    ds.push(diag(rec.line, 'warning', 'egen iqr() uses R quantile(type = 2), which closely matches Stata percentile rules but should be checked at discontinuities for exact reproducibility.', rec.text));
+  } else if (fun === 'mad') {
+    rhs = `{ .z <- ${x}; .z <- .z[!is.na(.z)]; if (!length(.z)) NA_real_ else stats::median(abs(.z - stats::median(.z))) }`;
+  } else if (fun === 'mdev') {
+    rhs = `{ .z <- ${x}; .z <- .z[!is.na(.z)]; if (!length(.z)) NA_real_ else mean(abs(.z - mean(.z))) }`;
+  } else if (fun === 'skew' || fun === 'kurt') {
+    ctx.features.add('egen');
+    rhs = `${fun === 'skew' ? 'stata_egen_skew' : 'stata_egen_kurt'}(${x})`;
+  } else if (fun === 'pctile') {
+    const pRaw = optionValue(options, 'p');
+    const prob = pRaw && pRaw !== true ? `(${translateExpression(String(pRaw), ctx)}) / 100` : '0.5';
+    rhs = `{ .z <- ${x}; if (all(is.na(.z))) NA_real_ else as.numeric(stats::quantile(.z, probs = ${prob}, na.rm = TRUE, names = FALSE, type = 2)) }`;
+    confidence = 'heuristic';
+    ds.push(diag(rec.line, 'warning', 'egen pctile() is mapped to R quantile(type = 2). Check boundary interpolation for exact reproducibility.', rec.text));
+  } else if (fun === 'mode') {
+    ctx.features.add('egen');
+    const nummodeRaw = optionValue(options, 'nummode');
+    const tie = hasOption(options, 'minmode') ? 'min' : hasOption(options, 'maxmode') ? 'max' : 'missing';
+    rhs = `stata_egen_mode(${x}, missing = ${hasOption(options, 'missing') ? 'TRUE' : 'FALSE'}, ties = "${tie}", nummode = ${nummodeRaw && nummodeRaw !== true ? translateExpression(String(nummodeRaw), ctx) : 'NULL'})`;
+    confidence = 'heuristic';
+    ds.push(diag(rec.line, 'warning', 'egen mode() tie handling is reproduced for ordinary numeric/string values; tagged numeric missings and locale-specific string ordering can still differ from Stata.', rec.text));
+  } else if (fun === 'pc') {
+    const scale = hasOption(options, 'prop') ? '1' : '100';
+    rhs = `{ .z <- ${x}; .den <- sum(.z, na.rm = TRUE); ifelse(is.na(.z) | .den == 0, NA_real_, (${scale}) * .z / .den) }`;
+  } else if (fun === 'first') rhs = `${x}[1L]`;
   else if (fun === 'last') rhs = `${x}[.N]`;
   else if (fun === 'group') {
+    const invalid = noBy('group'); if (invalid) return invalid;
+    ctx.features.add('egen');
     const groups = varListExpr(arg, ctx);
-    return result(`${dt}[, ${target} := .GRP, by = ${groups}]`, 'exact');
+    rhs = `stata_egen_group(.SD, missing = ${hasOption(options, 'missing') ? 'TRUE' : 'FALSE'})`;
+    extra = `, .SDcols = ${groups}`;
+    confidence = 'heuristic';
+    if (hasOption(options, 'label') || optionValue(options, 'label')) ds.push(diag(rec.line, 'warning', 'egen group(), label value-label metadata is not recreated; integer group codes are preserved.', rec.text));
+    if (hasOption(options, 'missing')) ds.push(diag(rec.line, 'warning', 'egen group(), missing treats ordinary R missing values as groups. Distinct Stata extended missing tags can collapse unless they remain distinguishable after import.', rec.text));
   } else if (fun === 'tag') {
+    const invalid = noBy('tag'); if (invalid) return invalid;
+    ctx.features.add('egen');
     const groups = varListExpr(arg, ctx);
-    return result(`${dt}[, ${target} := as.integer(seq_len(.N) == 1L), by = ${groups}]`, 'exact');
+    rhs = `stata_egen_tag(.SD, missing = ${hasOption(options, 'missing') ? 'TRUE' : 'FALSE'})`;
+    extra = `, .SDcols = ${groups}`;
+    assign(rhs, extra, '0L');
+    if (hasOption(options, 'missing')) ds.push(diag(rec.line, 'warning', 'egen tag(), missing includes ordinary R missing values as groups; distinct Stata extended missing tags may collapse after import.', rec.text));
+    if (storage) ds.push(diag(rec.line, 'info', `Stata storage type ${storage} is not forced; R will use its native vector type.`, rec.text));
+    return result(lines, 'heuristic', ds);
   } else if (['rowtotal', 'rowsum', 'rowmean', 'rowmiss', 'rownonmiss', 'rowmax', 'rowmin', 'rowmedian', 'rowsd', 'rowpctile', 'rowfirst', 'rowlast'].includes(fun)) {
+    const invalid = noBy(fun); if (invalid) return invalid;
     const cols = varListExpr(arg, ctx);
     if (fun === 'rowtotal' || fun === 'rowsum') {
       rhs = hasOption(options, 'missing')
         ? 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else sum(.z, na.rm = TRUE))'
         : 'rowSums(.SD, na.rm = TRUE)';
     }
-    if (fun === 'rowmean') rhs = 'rowMeans(.SD, na.rm = TRUE)';
-    if (fun === 'rowmiss') rhs = 'rowSums(is.na(.SD))';
-    if (fun === 'rownonmiss') rhs = 'rowSums(!is.na(.SD))';
+    if (fun === 'rowmean') rhs = 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else mean(.z, na.rm = TRUE))';
+    if (fun === 'rowmiss') rhs = 'rowSums(vapply(.SD, function(.x) if (is.character(.x)) is.na(.x) | .x == "" else is.na(.x), logical(.N)))';
+    if (fun === 'rownonmiss') rhs = 'rowSums(vapply(.SD, function(.x) if (is.character(.x)) !is.na(.x) & .x != "" else !is.na(.x), logical(.N)))';
     if (fun === 'rowmax') rhs = 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else max(.z, na.rm = TRUE))';
     if (fun === 'rowmin') rhs = 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else min(.z, na.rm = TRUE))';
     if (fun === 'rowmedian') rhs = 'apply(as.matrix(.SD), 1L, function(.z) if (all(is.na(.z))) NA_real_ else stats::median(.z, na.rm = TRUE))';
@@ -1171,29 +1267,27 @@ function translateEgen(body, options, ctx, rec, byPrefix) {
     if (toRaw && toRaw !== true) {
       const to = translateExpression(String(toRaw), ctx);
       rhs = `(${from}) + ifelse((${to}) >= (${from}), 1, -1) * ((((seq_len(.N) - 1L) %/% (${block}))) %% (abs((${to}) - (${from})) + 1))`;
-    } else {
-      rhs = `(${from}) + ((seq_len(.N) - 1L) %/% (${block}))`;
-    }
+    } else rhs = `(${from}) + ((seq_len(.N) - 1L) %/% (${block}))`;
   } else if (['anycount', 'anymatch', 'anyvalue'].includes(fun)) {
+    const invalid = noBy(fun); if (invalid) return invalid;
     const valuesRaw = optionValue(options, 'values') || optionValue(options, 'v');
     if (!valuesRaw || valuesRaw === true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `egen ${fun}() requires values() for a safe translation.`, rec.text)]);
     ctx.features.add('numlist');
     const valuesName = `.__egen_values_${rec.line}`;
     lines.push(`${valuesName} <- stata_numlist(${rString(valuesRaw, ctx)})`);
-    if (fun === 'anyvalue') {
-      const v = cleanIdentifier(splitWords(arg)[0] || arg, arg);
-      rhs = `data.table::fifelse(${v} %in% ${valuesName}, ${v}, NA_real_)`;
-    } else {
+    if (fun === 'anyvalue') rhs = `data.table::fifelse(${x} %in% ${valuesName}, ${x}, NA_real_)`;
+    else {
       const cols = varListExpr(arg, ctx);
       const matches = `vapply(.SD, function(.x) .x %in% ${valuesName}, logical(.N))`;
       rhs = fun === 'anycount' ? `rowSums(${matches})` : `as.integer(rowSums(${matches}) > 0L)`;
       extra = `, .SDcols = ${cols}`;
     }
-    lines.push(`${dt}[, ${target} := ${rhs}${byR ? `, ${byR}` : ''}${extra}]`);
+    assign(rhs, extra, fun === 'anyvalue' ? null : '0L');
     lines.push(`rm(${valuesName})`);
     if (storage) ds.push(diag(rec.line, 'info', `Stata storage type ${storage} is not forced; R will use its native vector type.`, rec.text));
     return result(lines, 'heuristic', ds);
   } else if (fun === 'concat') {
+    const invalid = noBy('concat'); if (invalid) return invalid;
     const cols = varListExpr(arg, ctx);
     const punctRaw = optionValue(options, 'punct') || optionValue(options, 'p');
     const sep = punctRaw && punctRaw !== true ? rString(punctRaw, ctx) : '""';
@@ -1202,25 +1296,46 @@ function translateEgen(body, options, ctx, rec, byPrefix) {
     confidence = 'heuristic';
     const concatOpts = ['decode', 'format', 'maxlength'].filter(name => hasOption(options, name));
     if (concatOpts.length) ds.push(diag(rec.line, 'warning', `egen concat() option(s) ${concatOpts.join(', ')} need manual review; the translation preserves concatenation and punct() but not all Stata display/value-label formatting semantics.`, rec.text));
+    assign(rhs, extra, filter ? '""' : null);
+    if (storage) ds.push(diag(rec.line, 'info', `Stata storage type ${storage} is not forced; R will use its native vector type.`, rec.text));
+    return result(lines, confidence, ds);
   } else if (fun === 'std' || fun === 'stdize') {
-    rhs = `as.numeric(scale(${x}))`;
-    confidence = 'heuristic';
+    const targetMeanRaw = optionValue(options, 'mean');
+    const targetSdRaw = optionValue(options, 'sd');
+    const targetMean = targetMeanRaw && targetMeanRaw !== true ? translateExpression(String(targetMeanRaw), ctx) : '0';
+    const targetSd = targetSdRaw && targetSdRaw !== true ? translateExpression(String(targetSdRaw), ctx) : '1';
+    rhs = `{ .z <- ${x}; .m <- mean(.z, na.rm = TRUE); .s <- stats::sd(.z, na.rm = TRUE); ifelse(is.na(.z) | is.na(.s) | .s == 0, NA_real_, (${targetMean}) + (${targetSd}) * (.z - .m) / .s) }`;
   } else if (fun === 'rank') {
-    rhs = `data.table::frank(${x}, ties.method = "average", na.last = "keep")`;
-    confidence = 'heuristic';
+    if (hasOption(options, 'field')) rhs = `data.table::frank(-(${x}), ties.method = "min", na.last = "keep")`;
+    else if (hasOption(options, 'track')) rhs = `data.table::frank(${x}, ties.method = "min", na.last = "keep")`;
+    else if (hasOption(options, 'unique')) {
+      rhs = `data.table::frank(${x}, ties.method = "first", na.last = "keep")`;
+      confidence = 'heuristic';
+      ds.push(diag(rec.line, 'warning', 'egen rank(), unique breaks ties arbitrarily in Stata; the translation breaks ties by current R row order.', rec.text));
+    } else rhs = `data.table::frank(${x}, ties.method = "average", na.last = "keep")`;
   } else if (fun === 'cut') {
-    rhs = `cut(${x}, breaks = "Sturges")`;
-    confidence = 'heuristic';
-    ds.push(diag(rec.line, 'warning', 'egen cut() options are not fully inferred; adjust R cut() breaks/labels.', rec.text));
+    const invalid = noBy('cut'); if (invalid) return invalid;
+    ctx.features.add('egen');
+    const atRaw = optionValues(options, 'at')[0] ?? null;
+    const groupRaw = optionValues(options, 'group')[0] ?? null;
+    if ((!atRaw || atRaw === true) === (!groupRaw || groupRaw === true)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'egen cut() requires exactly one of at() or group().', rec.text)]);
+    if (atRaw && atRaw !== true) {
+      ctx.features.add('numlist');
+      rhs = `stata_egen_cut(${x}, at = stata_numlist(${rString(atRaw, ctx)}), icodes = ${hasOption(options, 'icodes') || hasOption(options, 'label') ? 'TRUE' : 'FALSE'})`;
+    } else {
+      rhs = `stata_egen_cut(${x}, groups = ${translateExpression(String(groupRaw), ctx)}, icodes = TRUE)`;
+      confidence = 'heuristic';
+      ds.push(diag(rec.line, 'warning', 'egen cut(), group() is approximated with rank-based equal-frequency groups; tied values at group boundaries can be assigned differently from Stata.', rec.text));
+    }
+    if (hasOption(options, 'label')) ds.push(diag(rec.line, 'warning', 'egen cut(), label value-label metadata is not recreated; the integer group codes are generated.', rec.text));
   } else {
     return result(`# TODO [Stata line ${rec.line}]: egen ${fun}()\n# ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `egen ${fun}() is not covered safely yet.`, rec.text)]);
   }
 
   if (storage) ds.push(diag(rec.line, 'info', `Stata storage type ${storage} is not forced; R will use its native vector type.`, rec.text));
-  lines.push(`${dt}[, ${target} := ${rhs}${byR ? `, ${byR}` : ''}${extra}]`);
+  assign(rhs, extra);
   return result(lines, confidence, ds);
 }
-
 function translateKeepDrop(cmd, rest, ctx, rec, by) {
   const dt = ctx.currentData;
   const trimmed = rest.trim();
@@ -3096,17 +3211,89 @@ function translateTimeSeriesModel(cmd, rest, options, ctx, rec) {
     if (optionValue(options, 'amat') || /\b(?:dlabel|modlabel|nogrid|pgrid|addplot)\b/i.test(options)) ds.push(diag(rec.line, 'warning', 'Some varstable matrix/graph-formatting options are not reproduced; the translated result retains the eigenvalues and stability flag.', rec.text));
     return result(lines, 'heuristic', ds);
   }
-  if (cmd === 'dfuller') {
-    const q = extractQualifiers(rest); const v = splitWords(q.core)[0]; if (!v) return null;
-    ctx.features.add('urca');
+  if (['dfuller', 'dfgls', 'pperron', 'wntestq', 'corrgram'].includes(cmd)) {
+    const q = extractQualifiers(rest);
+    const v = splitWords(q.core)[0];
+    if (!v) return null;
+    const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
+    const source = filter ? `${dt}[${filter}]` : dt;
+    const seriesExpr = translateExpression(v, ctx, { context: 'generate' });
+    const series = /^[A-Za-z_]\w*$/.test(v) ? `${source}[["${escapeRString(cleanIdentifier(v, v))}"]]` : `${source}[, ${seriesExpr}]`;
+
+    if (cmd === 'dfuller') {
+      ctx.features.add('urca');
+      const lags = optionValue(options, 'lags');
+      const type = hasOption(options, 'trend') ? 'trend' : hasOption(options, 'noconstant') ? 'none' : 'drift';
+      return result(`urca::ur.df(${series}, type = "${type}", lags = ${lags && lags !== true ? translateExpression(String(lags), ctx) : '0L'}, selectlags = "Fixed")`, 'heuristic', [diag(rec.line, 'warning', 'dfuller was mapped to urca::ur.df(). Verify deterministic terms, lag construction, sample trimming, critical values, and test-statistic conventions.', rec.text)]);
+    }
+
+    if (cmd === 'dfgls') {
+      ctx.features.add('urca');
+      const maxlagRaw = optionValue(options, 'maxlag');
+      const modelType = hasOption(options, 'notrend') ? 'constant' : 'trend';
+      const xName = `.__do2r_dfgls_x_${rec.line}`;
+      const kName = `.__do2r_dfgls_k_${rec.line}`;
+      const resultName = `.__do2r_dfgls_${rec.line}`;
+      const lines = [
+        `${xName} <- stats::na.omit(${series})`,
+        `${kName} <- as.integer(${maxlagRaw && maxlagRaw !== true ? translateExpression(String(maxlagRaw), ctx) : `floor(12 * ((length(${xName}) + 1) / 100)^0.25)`})`,
+        `${resultName} <- urca::ur.ers(${xName}, type = "DF-GLS", model = "${modelType}", lag.max = ${kName})`,
+        `summary(${resultName})`,
+        `rm(${xName}, ${kName})`
+      ];
+      const ds = [diag(rec.line, 'warning', 'dfgls is mapped to urca::ur.ers(type = "DF-GLS"). Stata reports lag-specific DF-GLS statistics through maxlag(), while urca selects an internal lag order when lag.max > 1, so compare the selected lag and critical values.', rec.text)];
+      if (hasOption(options, 'ers')) ds.push(diag(rec.line, 'warning', "dfgls, ers changes Stata critical-value reporting; urca uses its own ERS critical-value implementation rather than Stata's interpolation table.", rec.text));
+      return result(lines, 'heuristic', ds);
+    }
+
+    if (cmd === 'pperron') {
+      if (hasOption(options, 'noconstant')) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'pperron, noconstant has no direct urca::ur.pp() model because urca supports constant and trend specifications only.', rec.text)]);
+      ctx.features.add('urca');
+      ctx.features.add('pperron');
+      const lagsRaw = optionValue(options, 'lags');
+      const modelType = hasOption(options, 'trend') ? 'trend' : 'constant';
+      const xName = `.__do2r_pp_x_${rec.line}`;
+      const kName = `.__do2r_pp_k_${rec.line}`;
+      const alphaName = `.__do2r_pp_alpha_${rec.line}`;
+      const tauName = `.__do2r_pp_tau_${rec.line}`;
+      const zeroName = `.__do2r_pp_zero_${rec.line}`;
+      const lines = [
+        `${xName} <- stats::na.omit(${series})`,
+        `${kName} <- as.integer(${lagsRaw && lagsRaw !== true ? translateExpression(String(lagsRaw), ctx) : `floor(4 * (length(${xName}) / 100)^(2 / 9))`})`,
+        `if (${kName} == 0L) {`,
+        `  ${zeroName} <- stata_pperron_zero(${xName}, model = "${modelType}")`,
+        `  .do2r_r <- list(Z_rho = ${zeroName}$Z_rho, Z_t = ${zeroName}$Z_t, lags = 0L)`,
+        hasOption(options, 'regress') ? `  summary(${zeroName}$regression)` : `  ${zeroName}`,
+        `} else {`,
+        `  ${alphaName} <- urca::ur.pp(${xName}, type = "Z-alpha", model = "${modelType}", use.lag = ${kName})`,
+        `  ${tauName} <- urca::ur.pp(${xName}, type = "Z-tau", model = "${modelType}", use.lag = ${kName})`,
+        `  .do2r_r <- list(Z_rho = as.numeric(${alphaName}@teststat), Z_t = as.numeric(${tauName}@teststat), lags = ${kName})`,
+        hasOption(options, 'regress') ? `  summary(${tauName}@testreg)` : `  list(Z_rho = ${alphaName}, Z_t = ${tauName})`,
+        `}`,
+        `rm(${xName}, ${kName})`
+      ];
+      return result(lines, 'heuristic', [diag(rec.line, 'warning', "pperron was mapped to paired urca::ur.pp() Z-alpha and Z-tau tests, using Stata's default Newey-West lag formula when lags() is omitted. A zero-lag PP statistic is computed directly because urca::ur.pp() does not handle use.lag = 0 safely. Verify finite-sample critical values and HAC conventions.", rec.text)]);
+    }
+
+    if (cmd === 'wntestq') {
+      const lagsRaw = optionValue(options, 'lags');
+      const xName = `.__do2r_wntestq_x_${rec.line}`;
+      const kName = `.__do2r_wntestq_k_${rec.line}`;
+      const testName = `.__do2r_wntestq_${rec.line}`;
+      const lines = [
+        `${xName} <- stats::na.omit(${series})`,
+        `${kName} <- as.integer(${lagsRaw && lagsRaw !== true ? translateExpression(String(lagsRaw), ctx) : `min(floor(length(${xName}) / 2) - 2L, 40L)`})`,
+        `${testName} <- stats::Box.test(${xName}, lag = ${kName}, type = "Ljung-Box")`,
+        `.do2r_r <- list(stat = unname(${testName}$statistic), df = unname(${testName}$parameter), p = ${testName}$p.value)`,
+        `${testName}`,
+        `rm(${xName}, ${kName})`
+      ];
+      return result(lines, 'heuristic', [diag(rec.line, 'warning', "wntestq was mapped to stats::Box.test(type = \"Ljung-Box\") with Stata's default lag-count formula. Stata requires a dense tsset sample; the translation omits R missing values, so verify gaps and sample selection.", rec.text)]);
+    }
+
     const lags = optionValue(options, 'lags');
-    const type = hasOption(options, 'trend') ? 'trend' : hasOption(options, 'noconstant') ? 'none' : 'drift';
-    return result(`urca::ur.df(${dt}[["${escapeRString(v)}"]], type = "${type}", lags = ${lags && lags !== true ? translateExpression(lags, ctx) : '0L'}, selectlags = "Fixed")`, 'heuristic', [diag(rec.line, 'warning', 'dfuller was mapped to urca::ur.df(). Verify deterministic terms, lag construction, sample trimming, critical values, and test-statistic conventions.', rec.text)]);
-  }
-  if (cmd === 'corrgram') {
-    const q = extractQualifiers(rest); const v = splitWords(q.core)[0]; if (!v) return null;
-    const lags = optionValue(options, 'lags'); const lagMax = lags && lags !== true ? translateExpression(lags, ctx) : 'NULL';
-    return result(`list(acf = stats::acf(${dt}[["${escapeRString(v)}"]], lag.max = ${lagMax}, na.action = stats::na.pass), pacf = stats::pacf(${dt}[["${escapeRString(v)}"]], lag.max = ${lagMax}, na.action = stats::na.pass))`, 'heuristic', [diag(rec.line, 'warning', 'corrgram was mapped to base R acf()/pacf(); Q statistics, confidence conventions, and missing-data behavior need comparison.', rec.text)]);
+    const lagMax = lags && lags !== true ? translateExpression(String(lags), ctx) : 'NULL';
+    return result(`list(acf = stats::acf(${series}, lag.max = ${lagMax}, na.action = stats::na.pass), pacf = stats::pacf(${series}, lag.max = ${lagMax}, na.action = stats::na.pass))`, 'heuristic', [diag(rec.line, 'warning', 'corrgram was mapped to base R acf()/pacf(); Q statistics, confidence conventions, and missing-data behavior need comparison.', rec.text)]);
   }
   if (cmd === 'arima') {
     const q = extractQualifiers(rest); const core = parseModelCore(q.core, ctx); if (!core.dep) return null;
@@ -3335,6 +3522,28 @@ function translatePanelModel(cmd, rest, options, ctx, rec) {
     ctx.features.add('lme4');
     return result(`${model} <- lme4::glmer(${core.dep} ~ ${rhs} + (1 | ${panelId}), data = ${data}, family = stats::binomial(link = "probit")${weightArg})`, 'heuristic',
       [diag(rec.line, 'warning', 'Default/RE xtprobit is mapped to a probit random-intercept GLMM. Compare Stata quadrature and random-effect conventions.', rec.text), ...ds]);
+  }
+
+  if (cmd === 'xtcloglog') {
+    if (fe) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review',
+      [diag(rec.line, 'review', 'xtcloglog supports random-effects and population-averaged models, not a fixed-effects estimator.', rec.text)]);
+    const offsetRaw = optionValue(options, 'offset');
+    const offset = offsetRaw && offsetRaw !== true ? ` + offset(${cleanIdentifier(offsetRaw, offsetRaw)})` : '';
+    const rhs2 = `${hasOption(options, 'noconstant') ? '0 + ' : ''}${rhs}${offset}`;
+    if (pa) return result(geeCall('binomial', 'cloglog', 'exchangeable', rhs2), 'heuristic',
+      [diag(rec.line, 'warning', 'xtcloglog, pa is mapped to binomial complementary-log-log GEE with exchangeable working correlation. Verify robust VCE and scale conventions.', rec.text), ...ds]);
+
+    ctx.features.add('lme4');
+    const intpointsRaw = optionValue(options, 'intpoints');
+    const parsedPoints = intpointsRaw && intpointsRaw !== true ? Number(intpointsRaw) : 12;
+    const intpoints = Number.isInteger(parsedPoints) && parsedPoints > 0 ? parsedPoints : 12;
+    const intmethod = String(optionValue(options, 'intmethod') || 'mvaghermite').trim().toLowerCase();
+    const ods = [diag(rec.line, 'warning', 'Default/RE xtcloglog is mapped to a random-intercept complementary-log-log GLMM via lme4::glmer(). Compare quadrature, random-effect likelihood normalization, weights, and VCE with Stata.', rec.text), ...ds];
+    if (intmethod === 'ghermite') ods.push(diag(rec.line, 'warning', 'Stata intmethod(ghermite) requests nonadaptive Gauss-Hermite quadrature; lme4::glmer() nAGQ uses adaptive quadrature for this random-intercept model, so the integration method is approximate.', rec.text));
+    if (!['mvaghermite', 'ghermite'].includes(intmethod)) ods.push(diag(rec.line, 'warning', `xtcloglog intmethod(${intmethod}) is not recognized by this mapping; adaptive glmer quadrature is used.`, rec.text));
+    if (intpointsRaw && intpointsRaw !== true && parsedPoints !== intpoints) ods.push(diag(rec.line, 'warning', `intpoints(${intpointsRaw}) could not be parsed as a positive integer, so 12 quadrature points are used.`, rec.text));
+    if (optionValue(options, 'vce') || optionValue(options, 'constraints')) ods.push(diag(rec.line, 'warning', 'xtcloglog vce()/constraints() options are not applied directly by the glmer() mapping and require estimator-specific postprocessing.', rec.text));
+    return result(`${model} <- lme4::glmer(${core.dep} ~ ${rhs2} + (1 | ${panelId}), data = ${data}, family = stats::binomial(link = "cloglog"), nAGQ = ${intpoints}L${weightArg})`, 'heuristic', ods);
   }
 
   if (cmd === 'xtologit' || cmd === 'xtoprobit') {
@@ -4118,10 +4327,100 @@ function translateReporting(cmd, rest, options, ctx, rec) {
   return null;
 }
 
-function translateSummaries(cmd, rest, options, ctx, rec) {
+function translateMisstable(rest, options, ctx, rec) {
+  const dt = ctx.currentData;
+  const words = splitWords(rest);
+  const sub = String(words.shift() || '').toLowerCase();
+  const tail = rest.replace(/^\s*\S+\s*/i, '');
+  const q = extractQualifiers(tail);
+  const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
+  const data = filter ? `${dt}[${filter}]` : dt;
+  const vars = q.core ? varListExpr(q.core, ctx) : `names(${data})`;
+  ctx.features.add('misstable');
+
+  if (['summarize', 'summary', 'sum'].includes(sub)) {
+    const outName = `.__do2r_misstable_${rec.line}`;
+    const all = hasOption(options, 'all');
+    const genRaw = optionValue(options, 'generate') || optionValue(options, 'gen');
+    const lines = [
+      `${outName} <- stata_misstable_summary(${data}, vars = ${vars}, all = ${all ? 'TRUE' : 'FALSE'})`,
+      `.do2r_r <- if (nrow(${outName})) as.list(${outName}[.N]) else list(vartype = "none")`
+    ];
+    const ds = [diag(rec.line, 'info', 'misstable summarize is returned as a tidy table with system-missing, extended-missing, nonmissing, unique-value, minimum, and maximum columns.', rec.text)];
+    if (genRaw && genRaw !== true) {
+      const bits = splitArgs(String(genRaw));
+      const stub = unquoteStata(bits[0] || '').trim();
+      const exok = bits.slice(1).some(x => /^exok$/i.test(String(x).trim()));
+      if (!stub) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'misstable summarize, generate() needs a nonempty stub.', rec.text)]);
+      const made = `.__do2r_misstable_generated_${rec.line}`;
+      lines.push(`${made} <- stata_misstable_generate(${dt}, vars = ${q.core ? varListExpr(q.core, ctx) : `names(${dt})`}, stub = "${escapeRString(stub)}", exok = ${exok ? 'TRUE' : 'FALSE'}, all = ${all ? 'TRUE' : 'FALSE'}${filter ? `, subset = ${dt}[, ${filter}]` : ''})`);
+      lines.push(`attr(${outName}, "generated") <- ${made}`);
+      lines.push(`rm(${made})`);
+      ds.push(diag(rec.line, 'warning', 'Generated missing indicators preserve ordinary versus haven tagged numeric missing values when haven is available. Imported extended missings that have already lost their tags cannot be reconstructed.', rec.text));
+    }
+    if (hasOption(options, 'showzeros')) ds.push(diag(rec.line, 'info', 'showzeros is a display-only option; zeros remain explicit in the tidy R result.', rec.text));
+    lines.push(`${outName}`);
+    return result(lines, 'heuristic', ds);
+  }
+
+  if (['patterns', 'pattern', 'pat'].includes(sub)) {
+    if (hasOption(options, 'replace')) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'misstable patterns, replace changes the dataset to Stata-specific pattern data. The translator preserves pattern reporting but does not replace the active data silently.', rec.text)]);
+    const outName = `.__do2r_mispatterns_${rec.line}`;
+    const lines = [
+      `${outName} <- stata_misstable_patterns(${data}, vars = ${vars}, exok = ${hasOption(options, 'exok') ? 'TRUE' : 'FALSE'}, bypatterns = ${hasOption(options, 'bypatterns') ? 'TRUE' : 'FALSE'})`,
+      `.do2r_r <- list(N_complete = attr(${outName}, "N_complete"), N_incomplete = attr(${outName}, "N_incomplete"), K = nrow(${outName}), vars = attr(${outName}, "vars"))`,
+      `${outName}`
+    ];
+    const ds = [diag(rec.line, 'info', 'misstable patterns is mapped to a tidy missingness-pattern frequency table. The result keeps both frequency and percent columns regardless of Stata display mode.', rec.text)];
+    if (hasOption(options, 'asis')) ds.push(diag(rec.line, 'info', 'asis variable order is naturally preserved by the translated varlist; without asis, Stata may choose a presentation order that differs from the R table.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
+
+  if (['tree', 'nested'].includes(sub)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `misstable ${sub} uses Stata-specific missing-pattern tree/nesting presentation and is not yet flattened into an R analogue. misstable summarize and patterns are translated.`, rec.text)]);
+  return null;
+}
+
+function translateSummaries(cmd, rest, options, ctx, rec, byPrefix = '') {
   const dt = ctx.currentData;
   const q = extractQualifiers(rest);
   const data = q.ifExpr || q.inExpr ? `${dt}[${rowFilter(q.ifExpr, q.inExpr, ctx)}]` : dt;
+  if (cmd === 'tab1' || cmd === 'tab2') {
+    const weighted = parseWeights(rest, ctx);
+    const tq = extractQualifiers(weighted.text);
+    if (!tq.core) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `${cmd} requires a variable list.`, rec.text)]);
+    const vars = varListExpr(tq.core, ctx);
+    const filterParts = [];
+    const baseFilter = rowFilter(tq.ifExpr, tq.inExpr, ctx, Boolean(byPrefix));
+    if (baseFilter) filterParts.push(baseFilter);
+    const subpop = optionValue(options, 'subpop');
+    if (subpop && subpop !== true) filterParts.push(`${cleanIdentifier(String(subpop), String(subpop))} != 0 & !is.na(${cleanIdentifier(String(subpop), String(subpop))})`);
+    const filter = filterParts.join(' & ');
+    const tabData = filter ? `${dt}[${filter}]` : dt;
+    const miss = hasOption(options, 'missing') ? 'TRUE' : 'FALSE';
+    const weight = weighted.weight ? `, weight = .__W__` : '';
+    ctx.features.add('tabulate');
+    const out = `.__do2r_${cmd}_${rec.line}`;
+    const ds = [diag(rec.line, 'info', `${cmd} is translated as a named list of tidy frequency-table results${cmd === 'tab2' ? ' for every variable pair' : ''}. Display-only options such as nofreq/nolabel are not needed in the returned data.`, rec.text)];
+    if (weighted.type && cmd === 'tab1' && weighted.type !== 'fw') ds.push(diag(rec.line, 'warning', 'Stata tab1 allows frequency weights; this translation will apply the supplied weight numerically, so non-fweight input should be checked.', rec.text));
+    if (hasOption(options, 'plot')) ds.push(diag(rec.line, 'info', `${cmd}, plot is not emitted automatically for a multi-table result; each returned tidy table is ready for ggplot2 or base plotting.`, rec.text));
+    if (byPrefix) {
+      const byR = byClause(byPrefix, ctx);
+      const wline = weighted.weight ? `.__W__ <- .SD[["${escapeRString(weighted.weight)}"]]; ` : `.__W__ <- NULL; `;
+      if (cmd === 'tab1') return result(`${tabData}[, .(result = list(local({ .__V__ <- ${vars}; ${wline}setNames(lapply(.__V__, function(.v) stata_tabulate_oneway(.SD, .v${weight}, missing = ${miss}, sort = ${hasOption(options, 'sort') ? 'TRUE' : 'FALSE'})), .__V__) }))), ${byR}]`, 'heuristic', ds);
+      return result(`${tabData}[, .(result = list(local({ .__V__ <- ${vars}; .__P__ <- utils::combn(.__V__, 2L, simplify = FALSE); ${wline}setNames(lapply(.__P__, function(.p) stata_tabulate_twoway(.SD, .p[1L], .p[2L]${weight}, missing = ${miss}, rowsort = ${hasOption(options, 'rowsort') ? 'TRUE' : 'FALSE'}, colsort = ${hasOption(options, 'colsort') ? 'TRUE' : 'FALSE'}, exact = ${hasOption(options, 'exact') ? 'TRUE' : 'FALSE'})), vapply(.__P__, paste, character(1L), collapse = " x ")) }))), ${byR}]`, 'heuristic', ds);
+    }
+    const lines = [`.__do2r_vars <- ${vars}`];
+    if (weighted.weight) lines.push(`.__do2r_weight <- ${tabData}[["${escapeRString(weighted.weight)}"]]`);
+    if (cmd === 'tab1') lines.push(`${out} <- setNames(lapply(.__do2r_vars, function(.v) stata_tabulate_oneway(${tabData}, .v${weighted.weight ? ', weight = .__do2r_weight' : ''}, missing = ${miss}, sort = ${hasOption(options, 'sort') ? 'TRUE' : 'FALSE'})), .__do2r_vars)`);
+    else {
+      lines.push('.__do2r_pairs <- utils::combn(.__do2r_vars, 2L, simplify = FALSE)');
+      lines.push(`${out} <- setNames(lapply(.__do2r_pairs, function(.p) stata_tabulate_twoway(${tabData}, .p[1L], .p[2L]${weighted.weight ? ', weight = .__do2r_weight' : ''}, missing = ${miss}, rowsort = ${hasOption(options, 'rowsort') ? 'TRUE' : 'FALSE'}, colsort = ${hasOption(options, 'colsort') ? 'TRUE' : 'FALSE'}, exact = ${hasOption(options, 'exact') ? 'TRUE' : 'FALSE'})), vapply(.__do2r_pairs, paste, character(1L), collapse = " x "))`);
+      lines.push(`if (length(${out})) .do2r_r <- ${out}[[length(${out})]]$tests`);
+    }
+    lines.push(out);
+    lines.push(`rm(.__do2r_vars${cmd === 'tab2' ? ', .__do2r_pairs' : ''}${weighted.weight ? ', .__do2r_weight' : ''})`);
+    return result(lines, 'heuristic', ds);
+  }
   if (cmd === 'summarize') {
     if (!q.core) return result(`summary(${data})`, 'heuristic');
     const cols = varListExpr(q.core, ctx);
@@ -4135,12 +4434,83 @@ function translateSummaries(cmd, rest, options, ctx, rec) {
     ], 'heuristic', [diag(rec.line, 'info', 'summarize is returned as named lists and also stored in .do2r_r so common r() references can be translated.', rec.text)]);
   }
   if (cmd === 'tabulate') {
-    const vars = splitWords(q.core);
-    if (vars.length === 1) return result(`${data}[, .N, by = ${cleanIdentifier(vars[0], vars[0])}][order(${cleanIdentifier(vars[0], vars[0])})]`, 'exact');
-    if (vars.length >= 2) {
-      const a = cleanIdentifier(vars[0], vars[0]), b = cleanIdentifier(vars[1], vars[1]);
-      return result(`data.table::dcast(${data}[, .N, by = .(${a}, ${b})], ${a} ~ ${b}, value.var = "N", fill = 0)`, 'exact');
+    const weighted = parseWeights(rest, ctx);
+    const tq = extractQualifiers(weighted.text);
+    const vars = splitWords(tq.core).filter(Boolean);
+    if (!vars.length || vars.length > 2 || vars.some(v => !/^[A-Za-z_]\w*$/.test(v))) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tabulate currently supports one or two plain variables; tab1/tab2-style multi-variable convenience forms and expression varlists remain for review.', rec.text)]);
+    const tabFilter = rowFilter(tq.ifExpr, tq.inExpr, ctx, Boolean(byPrefix));
+    const tabData = tabFilter ? `${dt}[${tabFilter}]` : dt;
+    const missing = hasOption(options, 'missing');
+    const sort = hasOption(options, 'sort');
+    const rowsort = hasOption(options, 'rowsort');
+    const colsort = hasOption(options, 'colsort');
+    const exact = hasOption(options, 'exact');
+    const all = hasOption(options, 'all');
+    ctx.features.add('tabulate');
+    const ds = [diag(rec.line, 'info', 'tabulate is returned as a tidy frequency table; requested row/column/cell percentages, expected counts, and test statistics remain available as columns or stored test results rather than Stata-formatted cells.', rec.text)];
+    if (hasOption(options, 'nolabel')) ds.push(diag(rec.line, 'info', 'nolabel is a presentation option. The translated table groups by underlying R values; imported Stata value-label display text is not substituted into the grouping keys.', rec.text));
+    if (hasOption(options, 'nofreq')) ds.push(diag(rec.line, 'info', 'nofreq affects display only; frequency is retained in the tidy translated result.', rec.text));
+    if (weighted.weight && !/^[A-Za-z_]\w*$/.test(weighted.weight) && byPrefix) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'by: tabulate with a compound weight expression needs group-scoped weight evaluation; plain weight variables are translated.', rec.text)]);
+    if (weighted.weight && weighted.type !== 'fweight') ds.push(diag(rec.line, 'warning', `${weighted.type} tabulation weights are mapped as weighted cell totals. Verify Stata's reporting and test restrictions for this weight type.`, rec.text));
+
+    if (vars.length === 1) {
+      const v = cleanIdentifier(vars[0], vars[0]);
+      const outName = `.__do2r_tab1_${rec.line}`;
+      const gen = optionValue(options, 'generate') || optionValue(options, 'gen');
+      if (byPrefix && gen && gen !== true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'by: tabulate with generate() can create group-dependent indicator sets and is left explicit for review.', rec.text)]);
+      if (byPrefix) {
+        const byR = byClause(byPrefix, ctx);
+        const weightArg = weighted.weight ? `.SD[["${escapeRString(weighted.weight)}"]]` : 'NULL';
+        return result(`${tabData}[, .(table = list(stata_tabulate_oneway(.SD, "${escapeRString(v)}", weight = ${weightArg}, missing = ${missing ? 'TRUE' : 'FALSE'}, sort = ${sort ? 'TRUE' : 'FALSE'}))), ${byR}]`, 'heuristic', ds);
+      }
+      const weightArg = weighted.weight ? `${tabData}[, ${weighted.weight}]` : 'NULL';
+      const lines = [
+        `${outName} <- stata_tabulate_oneway(${tabData}, "${escapeRString(v)}", weight = ${weightArg}, missing = ${missing ? 'TRUE' : 'FALSE'}, sort = ${sort ? 'TRUE' : 'FALSE'})`,
+        `.do2r_r <- list(N = sum(${outName}$frequency), r = nrow(${outName}), table = ${outName})`
+      ];
+      if (gen && gen !== true) {
+        const stub = unquoteStata(String(gen)).trim();
+        if (!/^[A-Za-z_]\w*$/.test(stub)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'tabulate, generate() currently requires a plain indicator-variable stub.', rec.text)]);
+        const subset = tabFilter ? `${dt}[, ${tabFilter}]` : `rep(TRUE, nrow(${dt}))`;
+        lines.push(`stata_tabulate_generate(${dt}, "${escapeRString(v)}", stub = "${escapeRString(stub)}", subset = ${subset}, missing = ${missing ? 'TRUE' : 'FALSE'})`);
+        ds.push(diag(rec.line, 'warning', 'tabulate, generate() creates 1/0 indicators in category order and leaves observations outside if/in as missing. Value-label ordering and extended-missing subcategories can require validation after import.', rec.text));
+      }
+      const matcell = optionValue(options, 'matcell');
+      const matrow = optionValue(options, 'matrow');
+      if (matcell && matcell !== true) lines.push(`${cleanIdentifier(matcell, 'tab_cell')} <- matrix(${outName}$frequency, ncol = 1L)`);
+      if (matrow && matrow !== true) lines.push(`${cleanIdentifier(matrow, 'tab_row')} <- matrix(${outName}$value, ncol = 1L)`);
+      if (hasOption(options, 'plot')) {
+        ctx.features.add('ggplot2');
+        lines.push(`ggplot2::ggplot(${outName}, ggplot2::aes(x = value, y = percent)) + ggplot2::geom_col() + ggplot2::labs(x = "${escapeRString(v)}", y = "Percent")`);
+      } else lines.push(outName);
+      return result(lines, 'heuristic', ds);
     }
+
+    const a = cleanIdentifier(vars[0], vars[0]);
+    const b = cleanIdentifier(vars[1], vars[1]);
+    const outName = `.__do2r_tab2_${rec.line}`;
+    const doExact = exact ? 'TRUE' : 'FALSE';
+    if (byPrefix) {
+      const byR = byClause(byPrefix, ctx);
+      const weightArg = weighted.weight ? `.SD[["${escapeRString(weighted.weight)}"]]` : 'NULL';
+      return result(`${tabData}[, .(result = list(stata_tabulate_twoway(.SD, "${escapeRString(a)}", "${escapeRString(b)}", weight = ${weightArg}, missing = ${missing ? 'TRUE' : 'FALSE'}, rowsort = ${rowsort ? 'TRUE' : 'FALSE'}, colsort = ${colsort ? 'TRUE' : 'FALSE'}, exact = ${doExact}))), ${byR}]`, 'heuristic', ds);
+    }
+    const weightArg = weighted.weight ? `${tabData}[, ${weighted.weight}]` : 'NULL';
+    const lines = [
+      `${outName} <- stata_tabulate_twoway(${tabData}, "${escapeRString(a)}", "${escapeRString(b)}", weight = ${weightArg}, missing = ${missing ? 'TRUE' : 'FALSE'}, rowsort = ${rowsort ? 'TRUE' : 'FALSE'}, colsort = ${colsort ? 'TRUE' : 'FALSE'}, exact = ${doExact})`,
+      `.do2r_r <- ${outName}$tests`
+    ];
+    const matcell = optionValue(options, 'matcell');
+    const matrow = optionValue(options, 'matrow');
+    const matcol = optionValue(options, 'matcol');
+    if (matcell && matcell !== true) lines.push(`${cleanIdentifier(matcell, 'tab_cell')} <- ${outName}$matrix`);
+    if (matrow && matrow !== true) lines.push(`${cleanIdentifier(matrow, 'tab_row')} <- matrix(${outName}$row_values, ncol = 1L)`);
+    if (matcol && matcol !== true) lines.push(`${cleanIdentifier(matcol, 'tab_col')} <- matrix(${outName}$col_values, ncol = 1L)`);
+    lines.push(`${outName}$table`);
+    if (hasOption(options, 'gamma') || all) ds.push(diag(rec.line, 'warning', "Goodman-Kruskal gamma is returned as a point estimate; Stata's asymptotic standard error is not reproduced.", rec.text));
+    if (hasOption(options, 'taub') || all) ds.push(diag(rec.line, 'warning', "Kendall tau-b is returned as a point estimate; Stata's asymptotic standard error is not reproduced.", rec.text));
+    if (exact) ds.push(diag(rec.line, 'warning', 'Fisher exact p-values are computed by stats::fisher.test(). For larger r x c tables, workspace limits and algorithm details can differ from Stata.', rec.text));
+    return result(lines, 'heuristic', ds);
   }
   if (cmd === 'tabstat') {
     const by = optionValue(options, 'by');
@@ -4152,10 +4522,77 @@ function translateSummaries(cmd, rest, options, ctx, rec) {
     const cols = varListExpr(q.core, ctx);
     return result(`stats::cor(as.data.frame(${data}[, .SD, .SDcols = ${cols}]), use = "pairwise.complete.obs")`, 'heuristic', [diag(rec.line, 'info', 'Pairwise-complete correlations can differ from listwise settings and Stata output formatting.', rec.text)]);
   }
+  if (cmd === 'spearman') {
+    ctx.features.add('spearman');
+    const cols = q.core ? varListExpr(q.core, ctx) : (byPrefix ? 'names(.SD)[vapply(.SD, is.numeric, logical(1L))]' : `names(${data})[vapply(${data}, is.numeric, logical(1L))]`);
+    const adjust = hasOption(options, 'bonferroni') ? 'bonferroni' : hasOption(options, 'sidak') ? 'sidak' : 'none';
+    const exact = hasOption(options, 'exact');
+    const outName = `.__do2r_spearman_${rec.line}`;
+    const lines = byPrefix ? [
+      `${outName} <- ${data}[, .(result = list(stata_spearman(.SD, vars = ${cols}, pairwise = ${hasOption(options, 'pw') ? 'TRUE' : 'FALSE'}, exact = ${exact ? 'TRUE' : 'FALSE'}, adjust = "${adjust}"))), ${byClause(byPrefix, ctx)}]`,
+      `${outName}`
+    ] : [
+      `${outName} <- stata_spearman(${data}, vars = ${cols}, pairwise = ${hasOption(options, 'pw') ? 'TRUE' : 'FALSE'}, exact = ${exact ? 'TRUE' : 'FALSE'}, adjust = "${adjust}")`,
+      `.do2r_r <- ${outName}`,
+      `${outName}`
+    ];
+    const ds = [diag(rec.line, 'warning', 'spearman is mapped to rank correlations and cor.test() p-values in R. Ties, exact-p algorithms, and display conventions can differ slightly from Stata, especially for exact tests.', rec.text)];
+    if (optionValue(options, 'print') || optionValue(options, 'star') || hasOption(options, 'matrix')) ds.push(diag(rec.line, 'info', 'spearman print()/star()/matrix options affect presentation only; the translated object retains rho, observation-count, and p-value matrices for downstream use.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
+  if (cmd === 'alpha') {
+    if (byPrefix) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'by: alpha requires group-specific reliability objects and generated-score alignment. The unprefixed alpha command is translated; grouped alpha is kept explicit for review.', rec.text)]);
+    if (!q.core) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'alpha requires a varlist containing at least two items.', rec.text)]);
+    const cols = varListExpr(q.core, ctx);
+    const gen = optionValue(options, 'generate') || optionValue(options, 'gen');
+    const reverseRaw = optionValue(options, 'reverse');
+    const minRaw = optionValue(options, 'min');
+    const std = hasOption(options, 'std');
+    const asis = hasOption(options, 'asis');
+    const dataName = `.__do2r_alpha_data_${rec.line}`;
+    const fitName = `.__do2r_alpha_fit_${rec.line}`;
+    const keepName = `.__do2r_alpha_keep_${rec.line}`;
+    const outName = `.__do2r_alpha_${rec.line}`;
+    ctx.features.add('psych');
+    const lines = [
+      `${dataName} <- as.data.frame(${data}[, .SD, .SDcols = ${cols}])`
+    ];
+    if (std) lines.push(`${dataName} <- as.data.frame(scale(${dataName}))`);
+    if (minRaw && minRaw !== true) {
+      lines.push(`${keepName} <- rowSums(!is.na(${dataName})) >= as.integer(${translateExpression(String(minRaw), ctx)})`);
+      lines.push(`${fitName} <- ${dataName}[${keepName}, , drop = FALSE]`);
+    } else {
+      lines.push(`${fitName} <- ${dataName}`);
+    }
+    const keys = reverseRaw && reverseRaw !== true ? varListExpr(String(reverseRaw), ctx) : 'NULL';
+    lines.push(`${outName} <- psych::alpha(${fitName}, keys = ${keys}, check.keys = ${!asis && !(reverseRaw && reverseRaw !== true) ? 'TRUE' : 'FALSE'}, use = "${hasOption(options, 'casewise') ? 'complete.obs' : 'pairwise.complete.obs'}", warnings = FALSE, discrete = FALSE)`);
+    lines.push(`.do2r_r <- list(alpha = as.numeric(${outName}$total$raw_alpha), average_interitem = as.numeric(${outName}$total$average_r), N = nrow(${fitName}), k = ncol(${fitName}))`);
+    if (gen && gen !== true) {
+      const target = rTargetName(gen, ctx);
+      const scoreName = `.__do2r_alpha_score_${rec.line}`;
+      if (minRaw && minRaw !== true) {
+        lines.push(`${scoreName} <- rep(NA_real_, nrow(${dataName}))`);
+        lines.push(`${scoreName}[${keepName}] <- as.numeric(${outName}$scores)`);
+      } else lines.push(`${scoreName} <- as.numeric(${outName}$scores)`);
+      if (q.ifExpr || q.inExpr) {
+        lines.push(`${dt}[, ${target} := NA_real_]`);
+        lines.push(`${dt}[${rowFilter(q.ifExpr, q.inExpr, ctx)}, ${target} := ${scoreName}]`);
+      } else lines.push(`${dt}[, ${target} := ${scoreName}]`);
+    }
+    lines.push(`${outName}`);
+    const cleanup = [dataName, fitName];
+    if (minRaw && minRaw !== true) cleanup.push(keepName);
+    if (gen && gen !== true) cleanup.push(`.__do2r_alpha_score_${rec.line}`);
+    lines.push(`rm(${cleanup.join(', ')})`);
+    const ds = [diag(rec.line, 'warning', 'alpha is mapped to psych::alpha(). Pairwise versus casewise covariance handling is preserved, but Stata and psych can choose different automatically reversed items because their empirical keying rules are not identical.', rec.text)];
+    if (reverseRaw && reverseRaw !== true && gen && gen !== true) ds.push(diag(rec.line, 'warning', 'psych reverse-key scoring reflects items around their observed range, whereas Stata describes reverse() as reversing item direction. Reliability is invariant to the additive shift, but generated scale levels can differ by a constant.', rec.text));
+    if (hasOption(options, 'label')) ds.push(diag(rec.line, 'info', 'alpha, label is a display-format option and is not reproduced in the R object.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
   return null;
 }
 
-function translateTests(cmd, rest, options, ctx, rec) {
+function translateTests(cmd, rest, options, ctx, rec, byPrefix = '') {
   const dt = ctx.currentData;
   if (cmd === 'ttest') {
     const by = optionValue(options, 'by');
@@ -4179,8 +4616,76 @@ function translateTests(cmd, rest, options, ctx, rec) {
   }
   if (cmd === 'ranksum') {
     const by = optionValue(options, 'by');
-    if (by && by !== true) return result(`stats::wilcox.test(${cleanIdentifier(rest.trim(), rest.trim())} ~ ${cleanIdentifier(by, by)}, data = ${dt}, exact = FALSE)`, 'heuristic',
-      [diag(rec.line, 'warning', 'ranksum was mapped to wilcox.test(); tie handling, exact/asymptotic choice, and continuity correction can differ from Stata.', rec.text)]);
+    const q = extractQualifiers(rest);
+    const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
+    const data = filter ? `${dt}[${filter}]` : dt;
+    if (by && by !== true) {
+      const value = cleanIdentifier(q.core.trim(), q.core.trim());
+      const group = cleanIdentifier(by, by);
+      if (byPrefix) {
+        const byR = byClause(byPrefix, ctx);
+        return result(`${data}[, .(test = list(stats::wilcox.test(${value} ~ factor(${group}), exact = FALSE, correct = FALSE))), ${byR}]`, 'heuristic',
+          [diag(rec.line, 'warning', 'by: ranksum is mapped to grouped wilcox.test() objects. Stata rank sums, z-statistic conventions, and porder output are not reproduced identically.', rec.text)]);
+      }
+      return result(`stats::wilcox.test(${value} ~ factor(${group}), data = ${data}, exact = FALSE, correct = FALSE)`, 'heuristic',
+        [diag(rec.line, 'warning', 'ranksum was mapped to wilcox.test() without a continuity correction. Tie handling, z-statistic conventions, and porder output can differ from Stata.', rec.text)]);
+    }
+  }
+  if (cmd === 'signrank') {
+    const q = extractQualifiers(rest);
+    const m = q.core.match(/^([^=]+)=([\s\S]+)$/);
+    if (!m) return null;
+    const filter = rowFilter(q.ifExpr, q.inExpr, ctx, Boolean(byPrefix));
+    const data = filter ? `${dt}[${filter}]` : dt;
+    const lhs = translateExpression(m[1].trim(), ctx, { grouped: Boolean(byPrefix), context: 'generate' });
+    const rhs = translateExpression(m[2].trim(), ctx, { grouped: Boolean(byPrefix), context: 'generate' });
+    const exact = hasOption(options, 'exact') ? 'TRUE' : 'FALSE';
+    if (byPrefix) {
+      const byR = byClause(byPrefix, ctx);
+      return result(`${data}[, .(test = list(stats::wilcox.test((${lhs}) - (${rhs}), mu = 0, exact = ${exact}, correct = FALSE))), ${byR}]`, 'heuristic',
+        [diag(rec.line, 'warning', 'signrank is mapped to a one-sample wilcox.test() on paired differences. Exact-p handling with ties and Stata small-sample defaults can differ.', rec.text)]);
+    }
+    return result(`stats::wilcox.test(with(${data}, (${lhs}) - (${rhs})), mu = 0, exact = ${exact}, correct = FALSE)`, 'heuristic',
+      [diag(rec.line, 'warning', 'signrank is mapped to a one-sample wilcox.test() on paired differences. Stata computes exact p-values automatically for some small samples, while this mapping requests them only with exact.', rec.text)]);
+  }
+  if (cmd === 'signtest') {
+    const q = extractQualifiers(rest);
+    const m = q.core.match(/^([^=]+)=([\s\S]+)$/);
+    if (!m) return null;
+    if (byPrefix) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'by: signtest needs grouped returned-result bookkeeping and is left explicit rather than flattening multiple exact binomial tests.', rec.text)]);
+    const filter = rowFilter(q.ifExpr, q.inExpr, ctx);
+    const data = filter ? `${dt}[${filter}]` : dt;
+    const lhs = translateExpression(m[1].trim(), ctx, { context: 'generate' });
+    const rhs = translateExpression(m[2].trim(), ctx, { context: 'generate' });
+    const d = `.__do2r_signtest_d_${rec.line}`;
+    const npos = `.__do2r_signtest_pos_${rec.line}`;
+    const nneg = `.__do2r_signtest_neg_${rec.line}`;
+    const n = `.__do2r_signtest_n_${rec.line}`;
+    const lines = [
+      `${d} <- with(${data}, (${lhs}) - (${rhs}))`,
+      `${d} <- ${d}[!is.na(${d})]`,
+      `${npos} <- sum(${d} > 0)`,
+      `${nneg} <- sum(${d} < 0)`,
+      `${n} <- ${npos} + ${nneg}`,
+      `.do2r_r <- list(N = length(${d}), N_pos = ${npos}, N_neg = ${nneg}, N_tie = sum(${d} == 0), p = if (${n} > 0L) min(1, 2 * stats::pbinom(min(${npos}, ${nneg}), ${n}, 0.5)) else NA_real_)`,
+      `.do2r_r`,
+      `rm(${d}, ${npos}, ${nneg}, ${n})`
+    ];
+    return result(lines, 'heuristic', [diag(rec.line, 'info', 'signtest is mapped to the exact two-sided binomial sign test after dropping zero differences from the binomial denominator, matching the core Stata test definition.', rec.text)]);
+  }
+  if (cmd === 'kwallis') {
+    const by = optionValue(options, 'by');
+    if (!by || by === true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'kwallis requires by(groupvar).', rec.text)]);
+    const q = extractQualifiers(rest);
+    const filter = rowFilter(q.ifExpr, q.inExpr, ctx, Boolean(byPrefix));
+    const data = filter ? `${dt}[${filter}]` : dt;
+    const value = cleanIdentifier(q.core.trim(), q.core.trim());
+    const group = cleanIdentifier(by, by);
+    if (byPrefix) {
+      const byR = byClause(byPrefix, ctx);
+      return result(`${data}[, .(test = list(stats::kruskal.test(${value} ~ factor(${group})))), ${byR}]`, 'heuristic', [diag(rec.line, 'warning', 'by: kwallis is mapped to grouped kruskal.test() objects. R reports the tie-adjusted Kruskal-Wallis statistic rather than Stata\'s separate unadjusted and adjusted lines.', rec.text)]);
+    }
+    return result(`stats::kruskal.test(${value} ~ factor(${group}), data = ${data})`, 'heuristic', [diag(rec.line, 'warning', 'kwallis is mapped to stats::kruskal.test(), which reports the tie-adjusted Kruskal-Wallis statistic. Stata additionally displays the unadjusted statistic.', rec.text)]);
   }
   if (cmd === 'oneway') {
     const w = splitWords(rest); if (w.length >= 2) return result(`summary(stats::aov(${cleanIdentifier(w[0], w[0])} ~ factor(${cleanIdentifier(w[1], w[1])}), data = ${dt}))`, 'heuristic');
@@ -4789,6 +5294,317 @@ function parseGettokenEnnames(lhs) {
   return out.filter(Boolean);
 }
 
+function translateStataMatrixExpression(expr, ctx) {
+  let x = String(expr || '').trim();
+  // Stata matrix subscripts use 2... for "from 2 through the last row/column".
+  x = x.replace(/\b([A-Za-z_]\w*)\[\s*([^,\]]+)\s*,\s*([^\]]+)\s*\]/g, (_, A, rr, cc) => {
+    const one = (z, axis) => {
+      const q = z.trim();
+      if (q === '.' || q === '...') return '';
+      let m = q.match(/^(.+?)\.\.\.$/); if (m) return `seq.int(${m[1].trim()}, ${axis === 'r' ? `nrow(${A})` : `ncol(${A})`})`;
+      m = q.match(/^(.+?)\.\.(.+)$/); if (m) return `seq.int(${m[1].trim()}, ${m[2].trim()})`;
+      return q;
+    };
+    return `${A}[${one(rr, 'r')}, ${one(cc, 'c')}, drop = FALSE]`;
+  });
+  x = x.replace(/\be\(([A-Za-z_]\w*)\)/gi, '.do2r_e[["$1"]]')
+       .replace(/\br\(([A-Za-z_]\w*)\)/gi, '.do2r_r[["$1"]]')
+       .replace(/\bs\(([A-Za-z_]\w*)\)/gi, '.do2r_s[["$1"]]');
+  if (x.startsWith('(') && x.endsWith(')') && mataHasTopLevelJoin(x.slice(1, -1))) return translateMataMatrixLiteral(x, ctx);
+
+  let depth = 0, quote = false;
+  for (const op of ['\\', ',']) {
+    depth = 0; quote = false;
+    for (let i = 0; i < x.length; i += 1) {
+      const c = x[i];
+      if (c === '"') quote = !quote;
+      if (quote) continue;
+      if (c === '(' || c === '[' || c === '{') depth += 1;
+      else if (c === ')' || c === ']' || c === '}') depth -= 1;
+      else if (depth === 0 && c === op) {
+        const left = translateStataMatrixExpression(x.slice(0, i), ctx);
+        const right = translateStataMatrixExpression(x.slice(i + 1), ctx);
+        return op === ',' ? `cbind(${left}, ${right})` : `rbind(${left}, ${right})`;
+      }
+    }
+  }
+
+  // Stata's # is the Kronecker product. Split only at top level so function arguments remain intact.
+  depth = 0; quote = false;
+  for (let i = 0; i < x.length; i += 1) {
+    const c = x[i];
+    if (c === '"') quote = !quote;
+    if (quote) continue;
+    if (c === '(' || c === '[' || c === '{') depth += 1;
+    else if (c === ')' || c === ']' || c === '}') depth -= 1;
+    else if (depth === 0 && c === '#') return `kronecker(${translateStataMatrixExpression(x.slice(0, i), ctx)}, ${translateStataMatrixExpression(x.slice(i + 1), ctx)})`;
+  }
+
+  x = x.replace(/\bnullmat\s*\(\s*([A-Za-z_]\w*)\s*\)/gi, (_, A) => `get0("${A}", inherits = TRUE, ifnotfound = NULL)`)
+       .replace(/\bcorr\s*\(/gi, 'stats::cov2cor(')
+       .replace(/\bsyminv\s*\(/gi, 'solve(')
+       .replace(/\binv\s*\(/gi, 'solve(')
+       .replace(/\browsof\s*\(/gi, 'nrow(')
+       .replace(/\bcolsof\s*\(/gi, 'ncol(')
+       .replace(/\btrace\s*\(([^()]+)\)/gi, 'sum(diag($1))')
+       .replace(/\bvecdiag\s*\(([^()]+)\)/gi, 'matrix(diag($1), nrow = 1L)')
+       .replace(/\bdet\s*\(/gi, 'det(');
+  x = translateMataExpression(x, ctx);
+  // Matrix names defined through Stata's matrix command share the Mata type tracker so * becomes %*%.
+  x = x.replace(/\b([A-Za-z_]\w*)\s*\*\s*([A-Za-z_]\w*)\b/g, (all, a, b) => {
+    const ta = mataVarType(ctx, a), tb = mataVarType(ctx, b);
+    if (ta === 'matrix' && tb === 'matrix') return `${a} %*% ${b}`;
+    return all;
+  });
+  return x;
+}
+
+
+function translatePutGetMata(cmd, rest, options, ctx, rec) {
+  const dt = ctx.currentData;
+  ctx.features.add('putgetmata'); ctx.features.add('results');
+
+  if (cmd === 'putmata') {
+    const q = extractQualifiers(rest);
+    const specs = splitWords(q.core);
+    if (!specs.length) return null;
+    const subset = rowFilter(q.ifExpr, q.inExpr, ctx) || `rep(TRUE, nrow(${dt}))`;
+    const allVars = [];
+    const objectLines = [];
+    const staticNames = [];
+    const constant = tok => /^[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?$/.test(tok) || tok === '.';
+    const constExpr = tok => tok === '.' ? 'NA_real_' : translateExpression(tok, ctx);
+
+    for (const spec of specs) {
+      const eq = spec.indexOf('=');
+      if (eq < 0) {
+        const vars = varListExpr(spec, ctx); allVars.push(vars);
+        objectLines.push(`.__do2r_put_objects <- c(.__do2r_put_objects, stata_putmata_vectors(${dt}, ${vars}, .__do2r_put_rows))`);
+        if (/^[A-Za-z_]\w*$/.test(spec)) staticNames.push(cleanIdentifier(spec, spec));
+        continue;
+      }
+      const lhsRaw = spec.slice(0, eq).trim(); const rhsRaw = spec.slice(eq + 1).trim();
+      if (!/^[A-Za-z_]\w*$/.test(lhsRaw)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'putmata destination names must be ordinary Mata names in the currently supported forms.', rec.text)]);
+      const lhs = cleanIdentifier(lhsRaw, lhsRaw); staticNames.push(lhs);
+      if (rhsRaw.startsWith('(') && rhsRaw.endsWith(')')) {
+        const inside = rhsRaw.slice(1, -1).trim();
+        if (!inside || /(^|\s)#(\s|$)/.test(inside)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'putmata matname=(varlist # varlist ...) interaction-expansion syntax remains for review; ordinary matrices with variables and numeric constants are supported.', rec.text)]);
+        const pieces = splitWords(inside);
+        const pieceR = [];
+        for (const piece of pieces) {
+          if (constant(piece)) pieceR.push(`list(const = ${constExpr(piece)})`);
+          else {
+            const vars = varListExpr(piece, ctx); allVars.push(vars); pieceR.push(`list(vars = ${vars})`);
+          }
+        }
+        objectLines.push(`.__do2r_put_objects[["${escapeRString(lhs)}"]] <- stata_putmata_matrix(${dt}, list(${pieceR.join(', ')}), .__do2r_put_rows)`);
+      } else {
+        if (!rhsRaw) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'putmata vecname=varname requires a source variable.', rec.text)]);
+        const vars = varListExpr(rhsRaw, ctx); allVars.push(vars);
+        objectLines.push(`.__do2r_put_objects[["${escapeRString(lhs)}"]] <- stata_putmata_matrix(${dt}, list(list(vars = ${vars})), .__do2r_put_rows, require_one = TRUE)`);
+      }
+    }
+
+    staticNames.forEach(n => ctx.mataTypes.set(n, 'matrix'));
+    const all = allVars.length ? `unique(c(${allVars.join(', ')}))` : 'character()';
+    const lines = [
+      `.__do2r_put_vars <- ${all}`,
+      `.__do2r_put_rows <- stata_putmata_rows(${dt}, subset = ${subset}, vars = .__do2r_put_vars, omitmissing = ${hasOption(options, 'omitmissing') ? 'TRUE' : 'FALSE'})`,
+      `.__do2r_put_objects <- list()`,
+      ...objectLines,
+      `.__do2r_put_n <- stata_putmata_assign(.__do2r_put_objects, replace = ${hasOption(options, 'replace') ? 'TRUE' : 'FALSE'}, env = environment())`,
+      `.do2r_r <- list(N = length(.__do2r_put_rows), K_views = ${hasOption(options, 'view') ? '.__do2r_put_n' : '0L'}, K_copies = ${hasOption(options, 'view') ? '0L' : '.__do2r_put_n'})`,
+      `rm(.__do2r_put_vars, .__do2r_put_rows, .__do2r_put_objects, .__do2r_put_n)`
+    ];
+    const ds = [diag(rec.line, 'info', 'putmata is mapped to R matrix objects with shared if/in and omitmissing row selection; r(N), r(K_views), and r(K_copies) are populated.', rec.text)];
+    if (hasOption(options, 'view')) ds.push(diag(rec.line, 'warning', 'putmata, view creates live Mata views in Stata. R has no equivalent dataset-backed matrix view here, so do2R creates copies while preserving the requested K_views stored-result count for downstream translated code.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
+
+  if (cmd === 'getmata') {
+    if (/\s(?:if|in)\s/i.test(` ${rest} `)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'getmata does not use Stata if/in qualifiers; inspect this source line for syntax that do2R should not reinterpret.', rec.text)]);
+    const specs = splitWords(rest);
+    if (!specs.length) return null;
+    if (hasOption(options, 'replace') && hasOption(options, 'update')) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'getmata replace and update are mutually exclusive semantics; use one option.', rec.text)]);
+    const items = [];
+    for (const spec of specs) {
+      let m = spec.match(/^\(([^)]+)\)=([A-Za-z_]\w*)$/);
+      if (m) {
+        const lhs = m[1].trim(); const source = cleanIdentifier(m[2], m[2]);
+        if (/^[A-Za-z_]\w*\*$/.test(lhs)) {
+          const stub = lhs.slice(0, -1);
+          items.push(`list(stub = "${escapeRString(stub)}", value = ${source})`);
+        } else {
+          const targets = splitWords(lhs);
+          if (!targets.length || targets.some(x => !/^[A-Za-z_]\w*$/.test(x))) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'getmata matrix destinations currently require ordinary variable names or the (stub*)=matrix form.', rec.text)]);
+          items.push(`list(targets = c(${targets.map(x => `"${escapeRString(x)}"`).join(', ')}), value = ${source})`);
+        }
+        continue;
+      }
+      m = spec.match(/^([A-Za-z_]\w*)=([A-Za-z_]\w*)$/);
+      if (m) { items.push(`list(targets = "${escapeRString(m[1])}", value = ${cleanIdentifier(m[2], m[2])})`); continue; }
+      if (/^[A-Za-z_]\w*$/.test(spec)) { const nm = cleanIdentifier(spec, spec); items.push(`list(targets = "${escapeRString(spec)}", value = ${nm})`); continue; }
+      return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'getmata getlist syntax was not recognized safely.', rec.text)]);
+    }
+
+    const idRaw = optionValue(options, 'id');
+    let idVar = 'NULL', idValue = 'NULL';
+    if (idRaw && idRaw !== true) {
+      const z = String(idRaw).trim(); const eq = z.indexOf('=');
+      if (eq >= 0) {
+        const v = z.slice(0, eq).trim(), mat = z.slice(eq + 1).trim();
+        if (!/^[A-Za-z_]\w*$/.test(v) || !/^[A-Za-z_]\w*$/.test(mat)) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'getmata id(varname=vecname) currently requires ordinary names.', rec.text)]);
+        idVar = `"${escapeRString(v)}"`; idValue = cleanIdentifier(mat, mat);
+      } else if (/^[A-Za-z_]\w*$/.test(z)) {
+        idVar = `"${escapeRString(z)}"`; idValue = cleanIdentifier(z, z);
+      } else return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'getmata id() syntax was not recognized safely.', rec.text)]);
+    } else if (idRaw === true) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'getmata id() requires an identifier name.', rec.text)]);
+
+    const tmp = `.__do2r_getmata_${rec.line}`;
+    const lines = [
+      `${tmp} <- stata_getmata(${dt}, specs = list(${items.join(', ')}), replace = ${hasOption(options, 'replace') ? 'TRUE' : 'FALSE'}, update = ${hasOption(options, 'update') ? 'TRUE' : 'FALSE'}, id_var = ${idVar}, id_values = ${idValue}, force = ${hasOption(options, 'force') ? 'TRUE' : 'FALSE'})`,
+      `${dt} <- ${tmp}$data`,
+      `.do2r_r <- list(K_new = ${tmp}$K_new, K_existing = ${tmp}$K_existing)`,
+      `rm(${tmp})`
+    ];
+    const ds = [diag(rec.line, 'info', 'getmata is mapped to data.table columns and supports vector/matrix getlists, (stub*) naming, replace/update, id() matching, force, and r(K_new)/r(K_existing).', rec.text)];
+    if (hasOption(options, 'double')) ds.push(diag(rec.line, 'info', 'R numeric vectors are already double precision by default, so getmata, double needs no separate storage-type action.', rec.text));
+    return result(lines, 'heuristic', ds);
+  }
+  return null;
+}
+
+function translateMatrixProgramming(cmd, rest, options, ctx, rec) {
+  const dt = ctx.currentData;
+  if (cmd === 'matrix') {
+    let m = rest.match(/^dir\s*$/i);
+    if (m) return result('Filter(function(x) is.matrix(get(x, inherits = TRUE)), ls())', 'heuristic', [diag(rec.line, 'info', 'matrix dir is approximated by listing matrix-valued R objects visible in the current environment.', rec.text)]);
+    m = rest.match(/^list\s+([^\s,]+)(?:\s.*)?$/i);
+    if (m) return result(`print(${cleanIdentifier(m[1], m[1])})`, 'heuristic', [diag(rec.line, 'info', 'matrix list formatting options are display-only and are not reproduced.', rec.text)]);
+    m = rest.match(/^drop\s+(.+)$/i);
+    if (m) {
+      const raw = splitWords(m[1]);
+      if (raw.length === 1 && /^_?all$/i.test(raw[0])) return result('# matrix drop _all: remove translated matrix objects explicitly if needed', 'review', [diag(rec.line, 'review', 'matrix drop _all cannot safely distinguish translated matrices from unrelated R matrices in the current environment.', rec.text)]);
+      const names = raw.map(x => cleanIdentifier(x, x));
+      names.forEach(n => ctx.mataTypes.delete(n));
+      return result(`rm(list = c(${names.map(n => `"${escapeRString(n)}"`).join(', ')}))`, 'heuristic');
+    }
+    m = rest.match(/^rename\s+([^\s]+)\s+([^\s]+)$/i);
+    if (m) {
+      const oldn = cleanIdentifier(m[1], m[1]), newn = cleanIdentifier(m[2], m[2]);
+      ctx.mataTypes.delete(oldn); ctx.mataTypes.set(newn, 'matrix');
+      return result([`${newn} <- ${oldn}`, `rm(${oldn})`], 'exact');
+    }
+    m = rest.match(/^(accum|vecaccum)\s+([^=\s]+)\s*=\s*(.+)$/i);
+    if (m) {
+      const kind = m[1].toLowerCase(); const name = cleanIdentifier(m[2], m[2]);
+      const weighted = parseWeights(m[3], ctx); const q = extractQualifiers(weighted.text);
+      const rawVars = splitWords(q.core);
+      if (kind === 'vecaccum' && rawVars.length < 2) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'matrix vecaccum requires a first variable and at least one remaining variable.', rec.text)]);
+      if (rawVars.some(v => /[#.]|^[LFDSlfds]+\d*\./.test(v))) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `matrix ${kind} with factor-variable or time-series operators needs an explicit Stata-compatible design-matrix expansion; plain-variable and wildcard varlists are supported.`, rec.text)]);
+      if (optionValue(options, 'absorb') || kind !== 'accum' && hasOption(options, 'deviations')) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `matrix ${kind} option combination requires within-group/deviation semantics not approximated silently.`, rec.text)]);
+      const vars = varListExpr(q.core, ctx); const subset = rowFilter(q.ifExpr, q.inExpr, ctx) || `rep(TRUE, nrow(${dt}))`;
+      const weightArg = weighted.weight ? `${dt}[["${escapeRString(weighted.weight)}"]]` : 'NULL';
+      const wt = weighted.type ? `"${escapeRString(weighted.type)}"` : '""';
+      const meansRaw = optionValue(options, 'means');
+      ctx.features.add('matrix_io'); ctx.features.add('results'); ctx.mataTypes.set(name, 'matrix');
+      const tmp = `.__do2r_accum_${rec.line}`;
+      const lines = [
+        `${tmp} <- stata_matrix_accum(${dt}, vars = ${vars}, subset = ${subset}, weight = ${weightArg}, weight_type = ${wt}, noconstant = ${hasOption(options, 'noconstant') || hasOption(options, 'nocons') ? 'TRUE' : 'FALSE'}, deviations = ${hasOption(options, 'deviations') || hasOption(options, 'dev') ? 'TRUE' : 'FALSE'}, vec = ${kind === 'vecaccum' ? 'TRUE' : 'FALSE'})`,
+        `${name} <- ${tmp}$matrix`,
+        `.do2r_r <- list(N = ${tmp}$N, sum_w = ${tmp}$sum_w)`
+      ];
+      if (meansRaw && meansRaw !== true) { const mn = cleanIdentifier(String(meansRaw), String(meansRaw)); ctx.mataTypes.set(mn, 'matrix'); lines.push(`${mn} <- ${tmp}$means`); }
+      lines.push(`rm(${tmp})`);
+      const ds = [diag(rec.line, 'warning', `matrix ${kind} is mapped to weighted cross-products with listwise deletion and Stata’s default trailing _cons. aweights are normalized to sum to N; f/i/p weights use their supplied values.`, rec.text)];
+      if (kind === 'vecaccum' && meansRaw) ds.push(diag(rec.line, 'info', 'means() is an option of matrix accum, not matrix vecaccum; inspect the source syntax.', rec.text));
+      return result(lines, 'heuristic', ds);
+    }
+    m = rest.match(/^(row|col)names\s+([^\s=]+)\s*=\s*(.+)$/i);
+    if (m) {
+      const side = m[1].toLowerCase() === 'row' ? 'rownames' : 'colnames';
+      const A = cleanIdentifier(m[2], m[2]);
+      const names = splitWords(m[3]).map(x => x.replace(/^"|"$/g, ''));
+      return result(`${side}(${A}) <- c(${names.map(x => `"${escapeRString(x)}"`).join(', ')})`, 'heuristic', [diag(rec.line, 'info', `matrix ${m[1].toLowerCase()}names was mapped to R dimnames; Stata equation-name prefixes are stored separately when roweq/coleq is used.`, rec.text)]);
+    }
+    m = rest.match(/^(row|col)eq\s+([^\s=]+)\s*=\s*(.+)$/i);
+    if (m) {
+      const side = m[1].toLowerCase() === 'row' ? 'row' : 'col';
+      const A = cleanIdentifier(m[2], m[2]);
+      const names = splitWords(m[3]).map(x => x.replace(/^"|"$/g, ''));
+      return result(`attr(${A}, "stata_${side}_eq") <- c(${names.map(x => `"${escapeRString(x)}"`).join(', ')})`, 'heuristic', [diag(rec.line, 'info', `Stata ${side} equation names have no base-R dimname equivalent, so do2R preserves them in a stata_${side}_eq attribute.`, rec.text)]);
+    }
+    m = rest.match(/^score\s+(?:(byte|int|long|float|double)\s+)?([A-Za-z_]\w*)\s*=\s*(.+)$/i);
+    if (m) {
+      const q = extractQualifiers(m[3]);
+      const B = translateStataMatrixExpression(q.core, ctx);
+      const subset = rowFilter(q.ifExpr, q.inExpr, ctx) || `rep(TRUE, nrow(${dt}))`;
+      const equation = optionValue(options, 'equation') || optionValue(options, 'eq');
+      const miss = optionValue(options, 'missval');
+      const target = cleanIdentifier(m[2], m[2]);
+      ctx.features.add('matrix_io');
+      const score = `stata_matrix_score(${dt}, ${B}${equation && equation !== true ? `, equation = "${escapeRString(String(equation))}"` : ''}${miss && miss !== true ? `, missval = ${translateExpression(String(miss), ctx)}` : ''}, forcezero = ${hasOption(options, 'forcezero') ? 'TRUE' : 'FALSE'})`;
+      const lines = [`.__do2r_score <- ${score}`];
+      if (hasOption(options, 'replace')) lines.push(`${dt}[${subset}, ${target} := .__do2r_score[${subset}]]`);
+      else { lines.push(`${dt}[, ${target} := NA_real_]`); lines.push(`${dt}[${subset}, ${target} := .__do2r_score[${subset}]]`); }
+      lines.push('rm(.__do2r_score)');
+      return result(lines, 'heuristic', [diag(rec.line, 'warning', 'matrix score uses coefficient dimnames to identify predictors and supports _cons, equation(), missval(), replace, and forcezero. Factor-variable/TS operator names embedded in coefficient labels may still need an explicit design-matrix reconstruction.', rec.text)]);
+    }
+    m = rest.match(/^(?:input\s+)?([^=\s]+)\s*=\s*(.+)$/i);
+    if (m) {
+      const name = cleanIdentifier(m[1], m[1]);
+      const rhs = translateStataMatrixExpression(m[2], ctx);
+      ctx.mataTypes.set(name, 'matrix');
+      return result(`${name} <- ${rhs}`, 'heuristic', [diag(rec.line, 'info', 'Stata matrix expressions are mapped to base-R matrices; row/column equation metadata is preserved only when explicitly set through translated matrix roweq/coleq.', rec.text)]);
+    }
+    return null;
+  }
+
+  if (cmd === 'matlist') {
+    const A = splitWords(rest)[0];
+    if (!A) return null;
+    return result(`print(${cleanIdentifier(A, A)})`, 'heuristic', [diag(rec.line, 'info', 'matlist display formatting, borders, titles, and numeric format options are not reproduced.', rec.text)]);
+  }
+
+  if (cmd === 'mkmat') {
+    const q = extractQualifiers(rest);
+    if (!q.core) return null;
+    const vars = varListExpr(q.core, ctx);
+    const subset = rowFilter(q.ifExpr, q.inExpr, ctx) || `rep(TRUE, nrow(${dt}))`;
+    const matRaw = optionValue(options, 'matrix');
+    const rowname = optionValue(options, 'rownames');
+    const roweq = optionValue(options, 'roweq');
+    const prefix = optionValue(options, 'rowprefix');
+    const nchar = optionValue(options, 'nchar');
+    ctx.features.add('matrix_io');
+    const call = `stata_mkmat(${dt}, vars = ${vars}, subset = ${subset}, nomissing = ${hasOption(options, 'nomissing') ? 'TRUE' : 'FALSE'}${rowname && rowname !== true ? `, rownames_var = "${escapeRString(String(rowname))}"` : ''}${roweq && roweq !== true ? `, roweq_var = "${escapeRString(String(roweq))}"` : ''}, obs = ${hasOption(options, 'obs') ? 'TRUE' : 'FALSE'}${prefix && prefix !== true ? `, rowprefix = "${escapeRString(String(prefix))}"` : ''}${nchar && nchar !== true ? `, nchar = ${translateExpression(String(nchar), ctx)}` : ''})`;
+    if (matRaw && matRaw !== true) {
+      const A = cleanIdentifier(String(matRaw), String(matRaw)); ctx.mataTypes.set(A, 'matrix');
+      return result(`${A} <- ${call}`, 'heuristic', [diag(rec.line, 'info', 'mkmat is mapped to an R numeric matrix with Stata-like column names and optional row/equation metadata.', rec.text)]);
+    }
+    return result([`.__do2r_mkmat <- ${call}`, `invisible(lapply(seq_len(ncol(.__do2r_mkmat)), function(j) assign(colnames(.__do2r_mkmat)[j], .__do2r_mkmat[, j, drop = FALSE], envir = environment())))`, 'rm(.__do2r_mkmat)'], 'heuristic', [diag(rec.line, 'warning', 'mkmat without matrix() creates one translated R column-matrix object per source variable, matching Stata’s default object layout. Dynamic names are assigned in the current environment.', rec.text)]);
+  }
+
+  if (cmd === 'svmat') {
+    const m = rest.match(/^(?:(byte|int|long|float|double)\s+)?([^\s]+)$/i);
+    if (!m) return null;
+    const storage = m[1] || ''; const Araw = m[2]; const A = cleanIdentifier(Araw, Araw);
+    const namesRaw = optionValue(options, 'names');
+    let mode = 'default', stub = Araw;
+    if (namesRaw && namesRaw !== true) {
+      const z = String(namesRaw).trim();
+      if (/^(col|eqcol|matcol)$/i.test(z)) mode = z.toLowerCase();
+      else { mode = 'stub'; stub = z; }
+    }
+    ctx.features.add('matrix_io');
+    const line = `${dt} <- stata_svmat(${dt}, ${A}, matrix_name = "${escapeRString(Araw)}", names_mode = "${escapeRString(mode)}", stub = "${escapeRString(stub)}")`;
+    const ds = [diag(rec.line, 'warning', 'svmat appends/replaces R data.table columns from matrix columns and extends observations when needed. Stata storage-type coercion, exact name sanitization, and equation-name display conventions can differ.', rec.text)];
+    if (storage) ds.push(diag(rec.line, 'info', `svmat storage type ${storage} is not forced; R stores the matrix column using its native vector type.`, rec.text));
+    return result(line, 'heuristic', ds);
+  }
+  return null;
+}
+
 function translateProgramming(cmd, rest, options, ctx, rec) {
   if (cmd === 'tokenize') {
     ctx.features.add('macros');
@@ -4988,10 +5804,7 @@ function translateProgramming(cmd, rest, options, ctx, rec) {
     return result(names.flatMap(n => [`${n} <- paste0(".__${n}_", sample.int(1e9, 1L))`, `stata_local_set(.do2r_local, "${escapeRString(n)}", ${n})`]), 'heuristic');
   }
   if (cmd === 'scalar') {
-    const m = rest.match(/^([^=\s]+)\s*=\s*(.+)$/); if (m) return result(`${cleanIdentifier(m[1])} <- ${translateExpression(m[2], ctx)}`, 'exact');
-  }
-  if (cmd === 'matrix') {
-    const m = rest.match(/^([^=\s]+)\s*=\s*(.+)$/); if (m) return result(`${cleanIdentifier(m[1])} <- ${translateExpression(m[2], ctx)}`, 'heuristic');
+    const m = rest.match(/^([^=\s]+)\s*=\s*(.+)$/); if (m) { const name = cleanIdentifier(m[1]); ctx.mataTypes.set(name, 'scalar'); return result(`${name} <- ${translateExpression(m[2], ctx)}`, 'exact'); }
   }
 
   if (cmd === 'program') {
@@ -5131,6 +5944,19 @@ function translateControl(text, ctx, rec) {
   return null;
 }
 
+function mataHasTopLevelJoin(inner) {
+  let depth = 0, quote = false;
+  for (let i = 0; i < inner.length; i += 1) {
+    const c = inner[i];
+    if (c === '"') quote = !quote;
+    if (quote) continue;
+    if (c === '(' || c === '[' || c === '{') depth += 1;
+    else if (c === ')' || c === ']' || c === '}') depth -= 1;
+    else if (depth === 0 && (c === ',' || c === '\\')) return true;
+  }
+  return false;
+}
+
 function translateMataMatrixLiteral(rhs, ctx) {
   const s = String(rhs || '').trim();
   if (!(s.startsWith('(') && s.endsWith(')'))) return translateMataExpression(s, ctx);
@@ -5139,49 +5965,218 @@ function translateMataMatrixLiteral(rhs, ctx) {
   for (let i = 0; i < inner.length; i += 1) {
     const c = inner[i];
     if (c === '"') quote = !quote;
-    if (!quote && c === '(') depth += 1;
-    else if (!quote && c === ')') depth -= 1;
+    if (!quote && (c === '(' || c === '[' || c === '{')) depth += 1;
+    else if (!quote && (c === ')' || c === ']' || c === '}')) depth -= 1;
     if (!quote && depth === 0 && c === '\\') { rows.push(''); row += 1; }
     else rows[row] += c;
   }
-  const parsed = rows.map(r => splitArgs(r).map(x => translateMataExpression(x, ctx)));
-  if (parsed.length > 1) return `rbind(${parsed.map(r => `c(${r.join(', ')})`).join(', ')})`;
-  if (parsed[0].length > 1) return `c(${parsed[0].join(', ')})`;
-  return `(${parsed[0][0] || ''})`;
+  const rawRows = rows.map(r => splitArgs(r));
+  const rowExprs = rawRows.map(parts => {
+    const vals = parts.map(x => translateMataExpression(x, ctx));
+    if (vals.length <= 1) return vals[0] || '';
+    const allScalar = parts.every(x => inferMataType(x, ctx) === 'scalar');
+    return allScalar ? `c(${vals.join(', ')})` : `cbind(${vals.join(', ')})`;
+  });
+  if (rowExprs.length > 1) return `rbind(${rowExprs.join(', ')})`;
+  if (rawRows[0].length > 1 && rawRows[0].every(x => inferMataType(x, ctx) === 'scalar')) return `matrix(${rowExprs[0]}, nrow = 1L)`;
+  return `(${rowExprs[0] || ''})`;
 }
 
 function mataVarType(ctx, name) { return ctx.mataTypes.get(name) || 'unknown'; }
 
 function inferMataType(rhs, ctx) {
-  const x = rhs.trim();
-  if (/^[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?i?$/.test(x) || /^"/.test(x)) return 'scalar';
-  if (/\b(rows|cols|length|det|trace|sum|mean|max|min)\s*\(/.test(x)) return 'scalar';
-  if (/\b(I|J|diag|diagonal|invsym|inv|solve|cross|crossprod|st_data|st_view|svd|qr|cholesky)\s*\(/i.test(x)) return 'matrix';
+  const x = String(rhs || '').trim();
+  if (/^[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?i?$/.test(x) || /^"/.test(x) || /^(?:NA|TRUE|FALSE)$/.test(x)) return 'scalar';
+  if (/^[A-Za-z_]\w*$/.test(x) && ctx.mataTypes.has(x)) return mataVarType(ctx, x);
+  if (/\b(rows|cols|length|det|trace|sum|mean|max|min|diag0cnt|hasmissing|strlen|ustrlen|st_nobs|st_nvar)\s*\(/i.test(x)) return 'scalar';
+  if (/\b(I|J|diag|diagonal|invsym|inv|solve|cross|quadcross|crossprod|st_data|st_sdata|st_view|st_matrix|svd|qr|cholesky|cholinv|luinv|pinv|select|sort|uniqrows|range|vec|vech|rowshape|colshape|blockdiag)\s*\(/i.test(x)) return 'matrix';
   if (/^\(.*[\\,].*\)$/.test(x)) return 'matrix';
   if (/%\*%/.test(x)) return 'matrix';
   return 'unknown';
 }
 
+function mataMatchingParen(text, open) {
+  let depth = 0;
+  for (let i = open; i < text.length; i += 1) {
+    if (text[i] === '(') depth += 1;
+    else if (text[i] === ')') {
+      depth -= 1;
+      if (depth === 0) return i;
+    }
+  }
+  return -1;
+}
+
+function mataConditionalParts(text) {
+  let depth = 0, q = -1, nested = 0;
+  for (let i = 0; i < text.length; i += 1) {
+    const c = text[i];
+    if (c === '(' || c === '[' || c === '{') depth += 1;
+    else if (c === ')' || c === ']' || c === '}') depth -= 1;
+    else if (depth === 0 && c === '?') { if (q < 0) q = i; else nested += 1; }
+    else if (depth === 0 && c === ':' && q >= 0) {
+      const next = text[i + 1] || '';
+      if (/[+\-*\/^<>=!&|]/.test(next)) continue;
+      if (nested > 0) { nested -= 1; continue; }
+      return [text.slice(0, q), text.slice(q + 1, i), text.slice(i + 1)];
+    }
+  }
+  return null;
+}
+
+const MATA_SPECIAL_CALLS = new Set([
+  'st_data','st_sdata','st_store','st_sstore','st_addvar','st_dropvar','st_nobs','st_nvar','st_varindex','st_varname','st_vartype','st_isnumvar','st_isstrvar','st_isname','st_varrename','st_matrix','st_numscalar','st_tempname','st_local','st_global','st_macroexpand','st_rclear',
+  'j','i','diag','diagonal','select','selectindex','sort','order','uniqrows','range','vec','vech','rowshape','colshape','blockdiag','lowertriangle','uppertriangle','makesymmetric',
+  'invsym','inv','pinv','cholesky','cholinv','cholsolve','luinv','lusolve','svsolve','cross','quadcross','crossdev','diag0cnt','quadsum','quadrowsum','quadcolsum','runningsum',
+  'tokens','invtokens','strlen','ustrlen','strlower','strupper','strtrim','strpos','substr','subinstr','strofreal','strtoreal','runiform','rnormal','rseed','mean',
+  'missing','nonmissing','rowmissing','colmissing','rownonmissing','colnonmissing','hasmissing','rowmin','colmin','min','rowmax','colmax','max','rowminmax','colminmax','minmax','rowmaxabs','colmaxabs','editmissing'
+]);
+
+function rewriteMataSpecialCalls(text, ctx) {
+  let out = '';
+  for (let i = 0; i < text.length;) {
+    const m = text.slice(i).match(/^([A-Za-z_]\w*)\s*\(/);
+    if (!m || !MATA_SPECIAL_CALLS.has(m[1].toLowerCase())) { out += text[i++]; continue; }
+    const name = m[1].toLowerCase();
+    const open = i + m[0].lastIndexOf('(');
+    const close = mataMatchingParen(text, open);
+    if (close < 0) { out += text[i++]; continue; }
+    const rawArgs = splitArgs(text.slice(open + 1, close)).filter((x, j, a) => x.length || a.length > 1);
+    const args = rawArgs.map(a => translateMataExpression(a, ctx));
+    let repl = null;
+
+    if (name === 'st_data' || name === 'st_sdata') {
+      ctx.features.add('mata_bridge');
+      repl = `mata_st_data(${ctx.currentData}, ${args[0] || 'NA'}, ${args[1] || 'NA'}, select = ${args[2] || 'NULL'}, strings = ${name === 'st_sdata' ? 'TRUE' : 'FALSE'})`;
+    } else if (name === 'st_store' || name === 'st_sstore') {
+      ctx.features.add('mata_bridge');
+      const stringStore = name === 'st_sstore' ? 'TRUE' : 'FALSE';
+      if (args.length >= 4) repl = `mata_st_store(${ctx.currentData}, ${args[0] || 'NA'}, ${args[1] || 'NA'}, ${args[3] || 'NA'}, select = ${args[2]}, strings = ${stringStore})`;
+      else repl = `mata_st_store(${ctx.currentData}, ${args[0] || 'NA'}, ${args[1] || 'NA'}, ${args[2] || 'NA'}, strings = ${stringStore})`;
+    } else if (name === 'st_addvar') {
+      ctx.features.add('mata_bridge');
+      repl = `mata_st_addvar(${ctx.currentData}, ${args[0] || '"double"'}, ${args[1] || 'character()'}${args[2] ? `, nofill = ${args[2]}` : ''})`;
+    } else if (name === 'st_dropvar') {
+      ctx.features.add('mata_bridge'); repl = `mata_st_dropvar(${ctx.currentData}, ${args[0] || 'character()'})`;
+    } else if (name === 'st_nobs') repl = `nrow(${ctx.currentData})`;
+    else if (name === 'st_nvar') repl = `ncol(${ctx.currentData})`;
+    else if (name === 'st_varindex') { ctx.features.add('mata_bridge'); repl = `mata_st_varindex(${ctx.currentData}, ${args[0] || 'character()'})`; }
+    else if (name === 'st_varname') { ctx.features.add('mata_bridge'); repl = `mata_st_varname(${ctx.currentData}, ${args[0] || 'integer()'})`; }
+    else if (name === 'st_vartype') { ctx.features.add('mata_bridge'); repl = `mata_st_vartype(${ctx.currentData}, ${args[0] || 'character()'})`; }
+    else if (name === 'st_isnumvar') { ctx.features.add('mata_bridge'); repl = `as.numeric(mata_st_isnumvar(${ctx.currentData}, ${args[0] || 'character()'}))`; }
+    else if (name === 'st_isstrvar') { ctx.features.add('mata_bridge'); repl = `as.numeric(mata_st_isstrvar(${ctx.currentData}, ${args[0] || 'character()'}))`; }
+    else if (name === 'st_isname') { ctx.features.add('mata_bridge'); repl = `as.numeric(mata_st_isname(${args[0] || '""'}))`; }
+    else if (name === 'st_varrename') { ctx.features.add('mata_bridge'); repl = `mata_st_varrename(${ctx.currentData}, ${args[0] || 'character()'}, ${args[1] || 'character()'})`; }
+    else if (name === 'st_matrix') {
+      ctx.features.add('mata_bridge'); ctx.features.add('results');
+      repl = args.length >= 2 ? `mata_st_matrix(${args[0]}, ${args[1]})` : `mata_st_matrix(${args[0] || '""'})`;
+    } else if (name === 'st_numscalar') {
+      ctx.features.add('mata_bridge'); ctx.features.add('results');
+      repl = args.length >= 2 ? `mata_st_numscalar(${args[0]}, ${args[1]})` : `mata_st_numscalar(${args[0] || '""'})`;
+    } else if (name === 'st_tempname') { ctx.features.add('mata_bridge'); repl = `mata_st_tempname(${args[0] || '1L'})`; }
+    else if (name === 'st_macroexpand') { ctx.features.add('macros'); repl = `stata_macro_expand(as.character(${args[0] || '""'}), .do2r_local, data = ${ctx.currentData})`; }
+    else if (name === 'st_rclear') {
+      ctx.features.add('mata_bridge'); ctx.features.add('results');
+      repl = `mata_st_rclear(${args[0] || '"r"'})`;
+    }
+    else if (name === 'st_local') {
+      ctx.features.add('macros');
+      repl = args.length >= 2 ? `stata_local_set(.do2r_local, ${args[0]}, ${args[1]})` : `stata_local_get(.do2r_local, ${args[0] || '""'})`;
+    } else if (name === 'st_global') {
+      ctx.features.add('macros');
+      repl = args.length >= 2 ? `stata_global_set(${args[0]}, ${args[1]})` : `stata_global_get(${args[0] || '""'})`;
+    } else if (name === 'j') { ctx.features.add('mata_utils'); repl = `mata_J(${args.join(', ')})`; }
+    else if (name === 'i') repl = `diag(${args[0] || '0'})`;
+    else if (name === 'diag') { ctx.features.add('mata_utils'); repl = `mata_diag(${args[0] || 'numeric()'})`; }
+    else if (name === 'diagonal') repl = `diag(${args[0] || 'numeric()'})`;
+    else if (name === 'select') { ctx.features.add('mata_utils'); repl = `mata_select(${args[0] || 'NULL'}, ${args[1] || 'logical()'})`; }
+    else if (name === 'selectindex') repl = `which(as.logical(as.vector(${args[0] || 'logical()'})))`;
+    else if (name === 'sort') { ctx.features.add('mata_utils'); repl = `mata_sort(${args[0] || 'NULL'}, ${args[1] || '1L'})`; }
+    else if (name === 'order') { ctx.features.add('mata_utils'); repl = `mata_order(${args[0] || 'NULL'}, ${args[1] || '1L'})`; }
+    else if (name === 'uniqrows') { ctx.features.add('mata_utils'); repl = `mata_uniqrows(${args[0] || 'NULL'})`; }
+    else if (name === 'range') { ctx.features.add('mata_utils'); repl = `mata_range(${args.join(', ')})`; }
+    else if (name === 'vec') repl = `as.vector(${args[0] || 'numeric()'})`;
+    else if (name === 'vech') { ctx.features.add('mata_utils'); repl = `mata_vech(${args[0] || 'NULL'})`; }
+    else if (name === 'rowshape') { ctx.features.add('mata_utils'); repl = `mata_rowshape(${args.join(', ')})`; }
+    else if (name === 'colshape') { ctx.features.add('mata_utils'); repl = `mata_colshape(${args.join(', ')})`; }
+    else if (name === 'blockdiag') { ctx.features.add('mata_utils'); repl = `mata_blockdiag(${args.join(', ')})`; }
+    else if (name === 'lowertriangle') { ctx.features.add('mata_utils'); repl = `mata_triangle(${args[0] || 'NULL'}, lower = TRUE${args[1] ? `, k = ${args[1]}` : ''})`; }
+    else if (name === 'uppertriangle') { ctx.features.add('mata_utils'); repl = `mata_triangle(${args[0] || 'NULL'}, lower = FALSE${args[1] ? `, k = ${args[1]}` : ''})`; }
+    else if (name === 'makesymmetric') { ctx.features.add('mata_utils'); repl = `mata_makesymmetric(${args[0] || 'NULL'})`; }
+    else if (name === 'invsym' || name === 'inv' || name === 'luinv') repl = `solve(${args[0] || 'NULL'})`;
+    else if (name === 'pinv') { ctx.features.add('mata_utils'); repl = `mata_pinv(${args[0] || 'NULL'})`; }
+    else if (name === 'cholesky') { ctx.features.add('mata_utils'); repl = `mata_cholesky(${args[0] || 'NULL'})`; }
+    else if (name === 'cholinv') repl = `chol2inv(chol(${args[0] || 'NULL'}))`;
+    else if (name === 'cholsolve' || name === 'lusolve') repl = `solve(${args[0] || 'NULL'}, ${args[1] || 'NULL'})`;
+    else if (name === 'svsolve') { ctx.features.add('mata_utils'); repl = `mata_pinv(${args[0] || 'NULL'}) %*% ${args[1] || 'NULL'}`; }
+    else if (name === 'cross' || name === 'quadcross') repl = `crossprod(${args[0] || 'NULL'}, ${args[1] || args[0] || 'NULL'})`;
+    else if (name === 'crossdev') { ctx.features.add('mata_utils'); repl = `mata_crossdev(${args[0] || 'NULL'}, ${args[1] || args[0] || 'NULL'})`; }
+    else if (name === 'diag0cnt') repl = `sum(diag(${args[0] || 'NULL'}) == 0, na.rm = TRUE)`;
+    else if (name === 'quadsum') repl = `sum(${args[0] || 'numeric()'}, na.rm = TRUE)`;
+    else if (name === 'quadrowsum') repl = `rowSums(${args[0] || 'NULL'}, na.rm = TRUE)`;
+    else if (name === 'quadcolsum') repl = `colSums(${args[0] || 'NULL'}, na.rm = TRUE)`;
+    else if (name === 'runningsum') repl = `cumsum(${args[0] || 'numeric()'})`;
+    else if (name === 'tokens') { ctx.features.add('mata_utils'); repl = `mata_tokens(${args[0] || '""'}${args[1] ? `, ${args[1]}` : ''})`; }
+    else if (name === 'invtokens') repl = `paste(as.vector(${args[0] || 'character()'}), collapse = ${args[1] || '" "'})`;
+    else if (name === 'strlen') repl = `nchar(as.character(${args[0] || '""'}), type = "bytes")`;
+    else if (name === 'ustrlen') repl = `nchar(as.character(${args[0] || '""'}), type = "chars")`;
+    else if (name === 'strlower') repl = `tolower(${args[0] || '""'})`;
+    else if (name === 'strupper') repl = `toupper(${args[0] || '""'})`;
+    else if (name === 'strtrim') repl = `trimws(${args[0] || '""'})`;
+    else if (name === 'strpos') { ctx.features.add('strpos'); repl = `stata_strpos(${args.join(', ')})`; }
+    else if (name === 'substr') { ctx.features.add('substr'); repl = `stata_substr(${args.join(', ')})`; }
+    else if (name === 'subinstr') { ctx.features.add('subinstr'); repl = `stata_subinstr(${args.join(', ')})`; }
+    else if (name === 'strofreal') repl = `as.character(${args[0] || 'NA_real_'})`;
+    else if (name === 'strtoreal') repl = `suppressWarnings(as.numeric(${args[0] || '""'}))`;
+    else if (name === 'runiform') { ctx.features.add('mata_utils'); repl = `mata_runiform(${args.join(', ')})`; }
+    else if (name === 'rnormal') { ctx.features.add('mata_utils'); repl = `mata_rnormal(${args.join(', ')})`; }
+    else if (name === 'rseed') { ctx.features.add('mata_utils'); repl = `mata_rseed(${args[0] || '1L'})`; }
+    else if (name === 'mean') { ctx.features.add('mata_mean'); repl = `mata_mean(${args[0] || 'numeric()'})`; }
+    else if (name === 'missing') repl = `sum(is.na(${args[0] || 'numeric()'}))`;
+    else if (name === 'nonmissing') repl = `sum(!is.na(${args[0] || 'numeric()'}))`;
+    else if (name === 'rowmissing') repl = `matrix(rowSums(is.na(as.matrix(${args[0] || 'NULL'}))), ncol = 1L)`;
+    else if (name === 'colmissing') repl = `matrix(colSums(is.na(as.matrix(${args[0] || 'NULL'}))), nrow = 1L)`;
+    else if (name === 'rownonmissing') repl = `matrix(rowSums(!is.na(as.matrix(${args[0] || 'NULL'}))), ncol = 1L)`;
+    else if (name === 'colnonmissing') repl = `matrix(colSums(!is.na(as.matrix(${args[0] || 'NULL'}))), nrow = 1L)`;
+    else if (name === 'hasmissing') repl = `as.numeric(anyNA(${args[0] || 'NULL'}))`;
+    else if (['rowmin','colmin','min','rowmax','colmax','max','rowminmax','colminmax','minmax','rowmaxabs','colmaxabs'].includes(name)) {
+      ctx.features.add('mata_utils'); repl = `mata_${name}(${args.join(', ')})`;
+    } else if (name === 'editmissing') { ctx.features.add('mata_utils'); repl = `mata_editmissing(${args[0] || 'NULL'}, ${args[1] || '0'})`; }
+
+    if (repl === null) { out += text.slice(i, close + 1); i = close + 1; continue; }
+    out += repl;
+    i = close + 1;
+  }
+  return out;
+}
+
 function translateMataExpression(expr, ctx) {
   let x = String(expr || '').trim().replace(/;\s*$/, '');
   const ps = protectStrings(x, ctx); x = ps.text;
+
+  const conditional = mataConditionalParts(x);
+  if (conditional) {
+    const [test, yes, no] = conditional;
+    return ps.restore(`({ if (${translateMataExpression(test, ctx)}) ${translateMataExpression(yes, ctx)} else ${translateMataExpression(no, ctx)} })`);
+  }
+
+  if (x.startsWith('(') && x.endsWith(')') && mataHasTopLevelJoin(x.slice(1, -1))) {
+    return ps.restore(translateMataMatrixLiteral(x, ctx));
+  }
+
   x = x.replace(/(?<!\w)\.(?!\w)/g, 'NA');
   x = x.replace(/\b(\d+)::(\d+)\b/g, 'seq.int($1, $2)');
   x = x.replace(/\b(\d+)\.\.(\d+)\b/g, 'seq.int($1, $2)');
-  x = x.replace(/:([+\-*\/^])/g, '$1');
+  x = x.replace(/:(==|!=|<=|>=|<|>|&|\||[+\-*\/^])/g, '$1');
 
   // Common implicit transpose-products such as X'X and X'y.
   x = x.replace(/\b([A-Za-z_]\w*)'\s*([A-Za-z_]\w*)\b/g, (_, a, b) => `crossprod(${a}, ${b})`);
   x = x.replace(/\b([A-Za-z_]\w*)'(?=\s|$|[\)\],+\-*\/])/g, 't($1)');
   x = x.replace(/\b([A-Za-z_]\w*)\[\|\s*([^,]+),\s*([^\\]+)\\\s*([^,]+),\s*([^|]+)\|\]/g, (_, a, r1, c1, r2, c2) => `${a}[seq.int(${r1.trim()}, ${r2.trim()}), seq.int(${c1.trim()}, ${c2.trim()})]`);
 
-  if (/\bmean\s*\(/.test(x)) ctx.features.add('mata_mean');
-  x = x.replace(/\bmean\s*\(/g, 'mata_mean(')
-       .replace(/\bvariance\s*\(/g, 'stats::cov(')
+  x = rewriteMataSpecialCalls(x, ctx);
+  x = x.replace(/\bvariance\s*\(/g, 'stats::cov(')
        .replace(/\bcorrelation\s*\(/g, 'stats::cor(')
-       .replace(/\binvsym\s*\(/g, 'solve(')
-       .replace(/\binv\s*\(/g, 'solve(')
-       .replace(/\bdiagonal\s*\(/g, 'diag(')
        .replace(/\btrace\s*\(([^()]+)\)/g, 'sum(diag($1))')
        .replace(/\brows\s*\(/g, 'nrow(')
        .replace(/\bcols\s*\(/g, 'ncol(')
@@ -5189,8 +6184,9 @@ function translateMataExpression(expr, ctx) {
        .replace(/\bcolsum\s*\(/g, 'colSums(')
        .replace(/\browmean\s*\(/g, 'rowMeans(')
        .replace(/\bcolmean\s*\(/g, 'colMeans(')
-       .replace(/\bI\s*\(([^()]*)\)/g, 'diag($1)')
-       .replace(/\bJ\s*\(([^,]+),\s*([^,]+),\s*([^\)]+)\)/g, 'matrix($3, nrow = $1, ncol = $2)');
+       .replace(/\bnormalden\s*\(/g, 'stats::dnorm(')
+       .replace(/\binvnormal\s*\(/g, 'stats::qnorm(')
+       .replace(/\bnormal\s*\(/g, 'stats::pnorm(');
 
   // Replace explicit multiplications when operand types are known to be nonscalar.
   x = x.replace(/\b([A-Za-z_]\w*)\s*\*\s*([A-Za-z_]\w*)\b/g, (all, a, b) => {
@@ -5200,24 +6196,63 @@ function translateMataExpression(expr, ctx) {
     return all;
   });
   // Matrix-valued function calls are unambiguous operands.
-  x = x.replace(/(solve\([^()]+\)|crossprod\([^()]+\)|t\([^()]+\))\s*\*\s*(solve\([^()]+\)|crossprod\([^()]+\)|t\([^()]+\))/g, '$1 %*% $2');
-  x = x.replace(/\b([A-Za-z_]\w*)\s*\*\s*(solve\([^()]+\)|crossprod\([^()]+\)|t\([^()]+\))/g, (all, a, b) => mataVarType(ctx, a) === 'scalar' ? all : `${a} %*% ${b}`);
-  x = x.replace(/(solve\([^()]+\)|crossprod\([^()]+\)|t\([^()]+\))\s*\*\s*\b([A-Za-z_]\w*)/g, (all, a, b) => mataVarType(ctx, b) === 'scalar' ? all : `${a} %*% ${b}`);
+  x = x.replace(/(solve\([^()]+\)|crossprod\([^()]+\)|t\([^()]+\)|mata_pinv\([^()]+\)|mata_cholesky\([^()]+\))\s*\*\s*(solve\([^()]+\)|crossprod\([^()]+\)|t\([^()]+\)|mata_pinv\([^()]+\)|mata_cholesky\([^()]+\))/g, '$1 %*% $2');
+  x = x.replace(/\b([A-Za-z_]\w*)\s*\*\s*(solve\([^()]+\)|crossprod\([^()]+\)|t\([^()]+\)|mata_pinv\([^()]+\))/g, (all, a, b) => mataVarType(ctx, a) === 'scalar' ? all : `${a} %*% ${b}`);
+  x = x.replace(/(solve\([^()]+\)|crossprod\([^()]+\)|t\([^()]+\)|mata_pinv\([^()]+\))\s*\*\s*\b([A-Za-z_]\w*)/g, (all, a, b) => mataVarType(ctx, b) === 'scalar' ? all : `${a} %*% ${b}`);
   x = x.replace(/\[\s*NA\s*,/g, '[,').replace(/,\s*NA\s*\]/g, ', ]');
   x = ps.restore(x);
   return x;
+}
+
+function mataFunctionArgs(raw) {
+  return splitArgs(raw).filter(Boolean).map(a => {
+    let z = a.trim();
+    z = z.replace(/^(?:(?:real|string|complex|transmorphic|numeric)\s+)?(?:scalar|vector|rowvector|colvector|matrix)\s+/i, '');
+    z = z.replace(/^(?:real|string|complex|transmorphic|numeric)\s+/i, '');
+    return cleanIdentifier(z.trim());
+  });
 }
 
 function translateMataLine(text, ctx, rec) {
   const t = text.trim().replace(/;\s*$/, '');
   if (!t) return result('', 'exact', [], { statement: false });
   if (/^\/\//.test(t) || /^\*/.test(t)) return result(`# ${t.replace(/^\/\/|^\*/, '').trim()}`, 'exact', [], { statement: false });
+  if (ctx.mataAwaitingBrace && /^\{$/.test(t)) { ctx.mataAwaitingBrace = false; return result('', 'exact', [], { statement: false, map: false }); }
   if (/^end\s*$/i.test(t)) {
-    ctx.mata = false;
+    ctx.mata = false; ctx.mataAwaitingBrace = false;
     return result('# ---- end Mata translation ----', 'exact', [], { statement: false, mataEnd: true });
+  }
+  let mm = t.match(/^mata\s+drop\s+(.+)$/i);
+  if (mm) {
+    const names = splitWords(mm[1]).filter(x => /^[A-Za-z_]\w*$/.test(x)).map(x => cleanIdentifier(x, x));
+    names.forEach(n => ctx.mataTypes.delete(n));
+    return names.length ? result(`rm(list = intersect(c(${names.map(n => `"${escapeRString(n)}"`).join(', ')}), ls()))`, 'heuristic') : result(`# TODO [Mata line ${rec.line}]: ${t}`, 'review', [diag(rec.line, 'review', 'mata drop namelist was not recognized safely.', rec.text)]);
+  }
+  mm = t.match(/^mata\s+rename\s+([A-Za-z_]\w*)\s+([A-Za-z_]\w*)$/i);
+  if (mm) {
+    const oldn = cleanIdentifier(mm[1], mm[1]), newn = cleanIdentifier(mm[2], mm[2]); const typ = ctx.mataTypes.get(oldn) || 'unknown';
+    ctx.mataTypes.delete(oldn); ctx.mataTypes.set(newn, typ);
+    return result([`${newn} <- ${oldn}`, `rm(${oldn})`], 'heuristic');
   }
   if (/^(class|struct)\b/i.test(t) || /->|&[A-Za-z_]\w*/.test(t)) {
     return result(`# TODO [Mata line ${rec.line}]: ${t}`, 'review', [diag(rec.line, 'review', 'Mata classes, structs, or pointer semantics need a manual R design.', rec.text)]);
+  }
+  if (/^stata\s*\(/i.test(t)) {
+    return result(`# TODO [Mata line ${rec.line}]: ${t}`, 'review', [diag(rec.line, 'review', 'Mata stata() executes dynamically constructed Stata code; translating the embedded runtime command safely needs a fuller interpreter.', rec.text)]);
+  }
+
+  // Mata permits a scalar if() followed by a single statement on the same line.
+  if (/^if\s*\(/i.test(t) && !/\{\s*$/.test(t)) {
+    const open = t.indexOf('('); const close = mataMatchingParen(t, open);
+    if (close > open && t.slice(close + 1).trim()) {
+      const cond = translateMataExpression(t.slice(open + 1, close), ctx);
+      const bodyText = t.slice(close + 1).trim();
+      const body = translateMataLine(bodyText, ctx, { ...rec, text: bodyText });
+      if (!body.opened && !body.closing && !body.mataEnd) {
+        const inner = body.lines.filter(Boolean).map(line => `  ${line}`);
+        return result([`if (${cond}) {`, ...inner, '}'], body.confidence, body.diagnostics);
+      }
+    }
   }
 
   const control = translateMataControl(t, ctx, rec);
@@ -5225,55 +6260,109 @@ function translateMataLine(text, ctx, rec) {
 
   let m = t.match(/^function\s+([A-Za-z_]\w*)\s*\(([^)]*)\)\s+return\s*\((.*)\)$/i);
   if (m) {
-    const args = splitArgs(m[2]).map(a => cleanIdentifier(a.replace(/^(?:real|string|complex|transmorphic)\s+(?:scalar|vector|rowvector|colvector|matrix)\s+/i, '').trim()));
+    const args = mataFunctionArgs(m[2]);
     return result(`${cleanIdentifier(m[1])} <- function(${args.join(', ')}) ${translateMataExpression(m[3], ctx)}`, 'heuristic');
   }
 
-  m = t.match(/^(?:(real|string|complex|transmorphic|void)\s+)?(?:(scalar|vector|rowvector|colvector|matrix)\s+)?([A-Za-z_]\w*)\s*\((.*)\)\s*\{$/i);
+  m = t.match(/^(?:(real|string|complex|transmorphic|numeric|void)\s+)?(?:(scalar|vector|rowvector|colvector|matrix)\s+)?([A-Za-z_]\w*)\s*\((.*)\)\s*\{$/i);
   if (m && (m[1] || m[2])) {
     const name = cleanIdentifier(m[3]);
-    const args = splitArgs(m[4]).filter(Boolean).map(a => cleanIdentifier(a.replace(/^(?:real|string|complex|transmorphic)\s+(?:scalar|vector|rowvector|colvector|matrix)\s+/i, '').trim()));
+    const args = mataFunctionArgs(m[4]);
     ctx.stack.push({ type: 'mata-fn', close: '}' }); ctx.indent += 1;
     return result(`${name} <- function(${args.join(', ')}) {`, 'heuristic', [diag(rec.line, 'info', 'Mata argument/return storage types are not enforced in R.', rec.text)], { opened: true });
   }
 
-  // st_view(out=., ., ("x","y"))
-  m = t.match(/^st_view\s*\(\s*([A-Za-z_]\w*)\s*=\s*\.\s*,\s*\.\s*,\s*(.+)\)$/i);
-  if (m) {
-    const name = cleanIdentifier(m[1]);
-    const colsRaw = m[2].trim();
-    let cols;
-    if (/^\(.*\)$/.test(colsRaw)) cols = translateMataMatrixLiteral(colsRaw, ctx);
-    else cols = translateMataExpression(colsRaw, ctx);
-    ctx.mataTypes.set(name, 'matrix');
-    return result(`${name} <- as.matrix(${ctx.currentData}[, .SD, .SDcols = ${cols}])`, 'heuristic', [diag(rec.line, 'warning', 'Mata st_view() is a live view into Stata data; this R matrix is a copy, so later matrix assignment will not mutate the data.table automatically.', rec.text)]);
+  // Mata commonly puts the opening brace on the next physical line.
+  m = t.match(/^(?:(real|string|complex|transmorphic|numeric|void)\s+)?(?:(scalar|vector|rowvector|colvector|matrix)\s+)?([A-Za-z_]\w*)\s*\((.*)\)\s*$/i);
+  if (m && (m[1] || m[2])) {
+    const name = cleanIdentifier(m[3]);
+    const args = mataFunctionArgs(m[4]);
+    ctx.stack.push({ type: 'mata-fn', close: '}' }); ctx.indent += 1; ctx.mataAwaitingBrace = true;
+    return result(`${name} <- function(${args.join(', ')}) {`, 'heuristic', [diag(rec.line, 'info', 'Mata function declaration was joined with its following brace; argument/return storage types are not enforced in R.', rec.text)], { opened: true });
   }
-  m = t.match(/^st_data\s*\(\s*\.\s*,\s*(.+)\)$/i);
-  if (m) return result(`as.matrix(${ctx.currentData}[, .SD, .SDcols = ${translateMataMatrixLiteral(m[1], ctx)}])`, 'heuristic');
-  m = t.match(/^st_store\s*\(\s*\.\s*,\s*("[^"]+"|`".*"')\s*,\s*(.+)\)$/i);
-  if (m) return result(`${ctx.currentData}[, ${rTargetName(unquoteStata(m[1]), ctx)} := as.vector(${translateMataExpression(m[2], ctx)})]`, 'heuristic');
 
+  // st_view()/st_sview() become copies in R; translated stores can explicitly write back.
+  if (/^st_(?:s)?view\s*\(/i.test(t)) {
+    const open = t.indexOf('('); const close = mataMatchingParen(t, open);
+    if (close === t.length - 1) {
+      const args = splitArgs(t.slice(open + 1, close));
+      const lhs = (args[0] || '').match(/^\s*([A-Za-z_]\w*)\s*=\s*\.\s*$/);
+      if (lhs && args.length >= 3) {
+        const name = cleanIdentifier(lhs[1]);
+        const obs = translateMataExpression(args[1], ctx); const vars = translateMataExpression(args[2], ctx); const sel = args[3] ? translateMataExpression(args[3], ctx) : 'NULL';
+        const stringView = /^st_sview\s*\(/i.test(t);
+        ctx.features.add('mata_bridge'); ctx.mataTypes.set(name, 'matrix');
+        return result(`${name} <- mata_st_data(${ctx.currentData}, ${obs}, ${vars}, select = ${sel}, strings = ${stringView ? 'TRUE' : 'FALSE'})`, 'heuristic', [diag(rec.line, 'warning', `Mata ${stringView ? 'st_sview' : 'st_view'}() is a live view into Stata data; the translated R object is a matrix copy. Use translated ${stringView ? 'st_sstore' : 'st_store'}() to write changes back explicitly.`, rec.text)]);
+      }
+    }
+  }
+
+  // st_addobs() changes dataset row count, so the active data.table must be rebound.
+  m = t.match(/^st_addobs\s*\((.*)\)$/i);
+  if (m) {
+    ctx.features.add('mata_bridge');
+    return result(`${ctx.currentData} <- mata_st_addobs(${ctx.currentData}, ${translateMataExpression(m[1], ctx)})`, 'heuristic', [diag(rec.line, 'info', 'Mata st_addobs() was mapped by rebinding the active data.table with appended missing observations.', rec.text)]);
+  }
+
+  if (/^return\s*$/i.test(t)) return result('return(invisible(NULL))', 'exact');
   m = t.match(/^return\s*\((.*)\)$/i);
   if (m) return result(`return(${translateMataExpression(m[1], ctx)})`, 'exact');
 
-  m = t.match(/^(?:(real|string|complex|transmorphic)\s+(scalar|vector|rowvector|colvector|matrix)\s+)?([A-Za-z_]\w*)\s*=\s*(.+)$/i);
+  // Typed declarations may contain several comma-separated names, as in real scalar i, j, n.
+  m = t.match(/^(real|string|complex|transmorphic|numeric)\s+(scalar|vector|rowvector|colvector|matrix)\s+(.+)$/i);
   if (m) {
-    const declared = m[2] ? (m[2].toLowerCase() === 'scalar' ? 'scalar' : 'matrix') : '';
-    const name = cleanIdentifier(m[3]);
-    const rhsRaw = m[4].trim();
+    const declared = m[2].toLowerCase() === 'scalar' ? 'scalar' : 'matrix';
+    const parts = splitArgs(m[3]);
+    const lines = [];
+    for (const part of parts) {
+      const dm = part.match(/^([A-Za-z_]\w*)(?:\s*=\s*(.+))?$/);
+      if (!dm) return result(`# TODO [Mata line ${rec.line}]: ${t}`, 'review', [diag(rec.line, 'review', 'This Mata declaration form needs a fuller declaration parser.', rec.text)]);
+      const name = cleanIdentifier(dm[1]); ctx.mataTypes.set(name, declared);
+      lines.push(dm[2] ? `${name} <- ${translateMataExpression(dm[2], ctx)}` : `${name} <- NULL`);
+    }
+    return result(lines, 'heuristic', [diag(rec.line, 'info', 'Mata storage/declaration types are tracked for operator translation but are not enforced as R storage types.', rec.text)]);
+  }
+
+  // Assignment into matrix elements or slices.
+  m = t.match(/^([A-Za-z_]\w*)\s*\[(.+)\]\s*=\s*(.+)$/);
+  if (m) {
+    const lhs = translateMataExpression(`${m[1]}[${m[2]}]`, ctx);
+    return result(`${lhs} <- ${translateMataExpression(m[3], ctx)}`, 'heuristic');
+  }
+
+  // Increment/decrement and compound assignment are common in Mata loops.
+  m = t.match(/^([A-Za-z_]\w*)\s*(\+\+|--)$/);
+  if (m) return result(`${m[1]} <- ${m[1]} ${m[2] === '++' ? '+' : '-'} 1`, 'exact');
+  m = t.match(/^(\+\+|--)([A-Za-z_]\w*)$/);
+  if (m) return result(`${m[2]} <- ${m[2]} ${m[1] === '++' ? '+' : '-'} 1`, 'exact');
+  m = t.match(/^(.+?)\s*(\+=|-=|\*=|\/=)\s*(.+)$/);
+  if (m) {
+    const op = m[2][0];
+    const lhs = translateMataExpression(m[1], ctx); const rhs = translateMataExpression(m[3], ctx);
+    return result(`${lhs} <- ${lhs} ${op} ${rhs}`, 'heuristic');
+  }
+
+  m = t.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/i);
+  if (m) {
+    const name = cleanIdentifier(m[1]);
+    const rhsRaw = m[2].trim();
     let rhs;
-    if (/^\(.*\)$/.test(rhsRaw) && /[\\,]/.test(rhsRaw)) rhs = translateMataMatrixLiteral(rhsRaw, ctx);
+    if (/^\(.*\)$/.test(rhsRaw) && mataHasTopLevelJoin(rhsRaw.slice(1, -1))) rhs = translateMataMatrixLiteral(rhsRaw, ctx);
     else {
       const joinedCols = splitTopLevel(rhsRaw, ',');
       if (joinedCols[1]) rhs = `cbind(${translateMataExpression(joinedCols[0], ctx)}, ${translateMataExpression(joinedCols[1], ctx)})`;
       else {
         let depth = 0, quote = false, slash = -1;
-        for (let i = 0; i < rhsRaw.length; i += 1) { const c = rhsRaw[i]; if (c === '"') quote = !quote; if (!quote && (c === '(' || c === '[')) depth += 1; else if (!quote && (c === ')' || c === ']')) depth -= 1; else if (!quote && depth === 0 && c === '\\') { slash = i; break; } }
+        for (let i = 0; i < rhsRaw.length; i += 1) {
+          const c = rhsRaw[i]; if (c === '"') quote = !quote;
+          if (!quote && (c === '(' || c === '[' || c === '{')) depth += 1;
+          else if (!quote && (c === ')' || c === ']' || c === '}')) depth -= 1;
+          else if (!quote && depth === 0 && c === '\\') { slash = i; break; }
+        }
         rhs = slash >= 0 ? `rbind(${translateMataExpression(rhsRaw.slice(0, slash), ctx)}, ${translateMataExpression(rhsRaw.slice(slash + 1), ctx)})` : translateMataExpression(rhsRaw, ctx);
       }
     }
-    ctx.mataTypes.set(name, declared || inferMataType(rhsRaw, ctx));
-    let confidence = 'heuristic';
+    ctx.mataTypes.set(name, inferMataType(rhsRaw, ctx));
     const ds = [];
     if (/\*/.test(rhsRaw) && !/:\*/.test(rhsRaw) && /\b[A-Za-z_]\w*\s*\*\s*[A-Za-z_]\w*/.test(rhsRaw)) {
       const pair = rhsRaw.match(/\b([A-Za-z_]\w*)\s*\*\s*([A-Za-z_]\w*)/);
@@ -5283,15 +6372,14 @@ function translateMataLine(text, ctx, rec) {
         ds.push(d);
       }
     }
-    return result(`${name} <- ${rhs}`, confidence, ds);
+    if (/\b[A-Za-z_]\w*\s*\^\s*[^=]/.test(rhsRaw) && !/:\^/.test(rhsRaw) && mataVarType(ctx, rhsRaw.match(/\b([A-Za-z_]\w*)\s*\^/)?.[1] || '') === 'matrix') {
+      ds.push(diag(rec.line, 'warning', 'Bare Mata ^ on a matrix is matrix power, whereas R ^ is elementwise. This expression needs validation unless the operand is scalar; use Mata :^ for elementwise powers.', rec.text));
+    }
+    return result(`${name} <- ${rhs}`, 'heuristic', ds);
   }
 
-  // Bare typed declaration.
-  m = t.match(/^(real|string|complex|transmorphic)\s+(scalar|vector|rowvector|colvector|matrix)\s+([A-Za-z_]\w*)$/i);
-  if (m) { const name = cleanIdentifier(m[3]); ctx.mataTypes.set(name, m[2].toLowerCase() === 'scalar' ? 'scalar' : 'matrix'); return result(`${name} <- NULL`, 'heuristic'); }
-
   // Common expression statement: preserve as translated R expression.
-  if (/^[A-Za-z_]\w*\s*\(.*\)$/.test(t) || /^[A-Za-z_]\w*$/.test(t)) return result(translateMataExpression(t, ctx), 'heuristic');
+  if (/^[A-Za-z_]\w*\s*\(.*\)$/.test(t) || /^[A-Za-z_]\w*$/.test(t) || /^\(.*\)$/.test(t)) return result(translateMataExpression(t, ctx), 'heuristic');
   return result(`# TODO [Mata line ${rec.line}]: ${t}`, 'review', [diag(rec.line, 'review', 'Mata statement was not recognized safely.', rec.text)]);
 }
 
@@ -5301,12 +6389,25 @@ function translateMataControl(t, ctx, rec) {
     return result(frame?.close || '}', frame ? 'exact' : 'review', frame ? [] : [diag(rec.line, 'review', 'Unmatched Mata closing brace.', rec.text)], { closing: true });
   }
   if (/^}\s*else\s*{$/.test(t)) { ctx.indent = Math.max(0, ctx.indent - 1); ctx.indent += 1; return result('} else {', 'exact', [], { rawIndent: true }); }
+  if (/^continue\s*$/i.test(t)) return result('next', 'exact');
+  if (/^break\s*$/i.test(t)) return result('break', 'exact');
   let m = t.match(/^if\s*\((.*)\)\s*\{$/i);
   if (m) { ctx.stack.push({ type: 'mata-if', close: '}' }); ctx.indent += 1; return result(`if (${translateMataExpression(m[1], ctx)}) {`, 'exact', [], { opened: true }); }
   m = t.match(/^while\s*\((.*)\)\s*\{$/i);
   if (m) { ctx.stack.push({ type: 'mata-while', close: '}' }); ctx.indent += 1; return result(`while (${translateMataExpression(m[1], ctx)}) {`, 'exact', [], { opened: true }); }
-  m = t.match(/^for\s*\(\s*([A-Za-z_]\w*)\s*=\s*([^;]+);\s*\1\s*<=\s*([^;]+);\s*\1\+\+\s*\)\s*\{$/i);
-  if (m) { ctx.stack.push({ type: 'mata-for', close: '}' }); ctx.indent += 1; return result(`for (${cleanIdentifier(m[1])} in seq.int(${translateMataExpression(m[2], ctx)}, ${translateMataExpression(m[3], ctx)})) {`, 'heuristic', [], { opened: true }); }
+
+  // Common C-style numeric for loops, including descending and exclusive bounds.
+  m = t.match(/^for\s*\(\s*([A-Za-z_]\w*)\s*=\s*([^;]+);\s*\1\s*(<=|<|>=|>)\s*([^;]+);\s*(?:\1\+\+|\+\+\1|\1--|--\1|\1\s*\+=\s*([^\)]+)|\1\s*-=\s*([^\)]+))\s*\)\s*\{$/i);
+  if (m) {
+    const v = cleanIdentifier(m[1]); const start = translateMataExpression(m[2], ctx); const op = m[3]; const bound = translateMataExpression(m[4], ctx);
+    const descending = op === '>=' || op === '>';
+    let by = descending ? '-1' : '1';
+    if (m[5]) by = translateMataExpression(m[5], ctx);
+    if (m[6]) by = `-(${translateMataExpression(m[6], ctx)})`;
+    const end = op === '<' ? `(${bound}) - 1` : op === '>' ? `(${bound}) + 1` : bound;
+    ctx.mataTypes.set(v, 'scalar'); ctx.stack.push({ type: 'mata-for', close: '}' }); ctx.indent += 1;
+    return result(`for (${v} in seq(from = ${start}, to = ${end}, by = ${by})) {`, 'heuristic', [], { opened: true });
+  }
   return null;
 }
 
@@ -5365,8 +6466,39 @@ function translateStataLine(text, ctx, rec) {
   const control = translateControl(t, ctx, rec);
   if (control) return control;
 
-  if (/^mata\s*:?[\s,]*(clear)?\s*$/i.test(t)) {
-    ctx.mata = true; ctx.mataTypes.clear();
+  if (/^(?:mata\s+clear|clear\s+mata)\s*$/i.test(t)) {
+    ctx.mataTypes.clear(); ctx.mataAwaitingBrace = false;
+    return result('# mata clear: translated Mata type state reset', 'heuristic', [diag(rec.line, 'info', 'mata clear/clear mata removes Mata objects and functions in Stata. do2R resets translator-side Mata type state; because R has no separate Mata namespace, translated R objects are not bulk-removed automatically.', rec.text)]);
+  }
+  let mataManage = t.match(/^mata\s+drop\s+(.+)$/i);
+  if (mataManage) {
+    const names = splitWords(mataManage[1]).filter(x => /^[A-Za-z_]\w*$/.test(x)).map(x => cleanIdentifier(x, x));
+    if (!names.length) return result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', 'mata drop namelist was not recognized safely.', rec.text)]);
+    names.forEach(n => ctx.mataTypes.delete(n));
+    return result(`rm(list = intersect(c(${names.map(n => `"${escapeRString(n)}"`).join(', ')}), ls()))`, 'heuristic', [diag(rec.line, 'info', 'mata drop is mapped to removing same-named R objects from the current environment.', rec.text)]);
+  }
+  mataManage = t.match(/^mata\s+rename\s+([A-Za-z_]\w*)\s+([A-Za-z_]\w*)$/i);
+  if (mataManage) {
+    const oldn = cleanIdentifier(mataManage[1], mataManage[1]), newn = cleanIdentifier(mataManage[2], mataManage[2]);
+    const typ = ctx.mataTypes.get(oldn) || 'unknown'; ctx.mataTypes.delete(oldn); ctx.mataTypes.set(newn, typ);
+    return result([`${newn} <- ${oldn}`, `rm(${oldn})`], 'heuristic');
+  }
+  mataManage = t.match(/^mata\s+describe(?:\s+(.+))?$/i);
+  if (mataManage) {
+    const names = mataManage[1] ? splitWords(mataManage[1]).filter(x => /^[A-Za-z_]\w*$/.test(x)) : [];
+    const expr = names.length ? `mget(intersect(c(${names.map(n => `"${escapeRString(n)}"`).join(', ')}), ls()), inherits = TRUE)` : `Filter(function(.x) is.matrix(.x) || is.function(.x), mget(ls(), inherits = TRUE))`;
+    return result(expr, 'heuristic', [diag(rec.line, 'info', 'mata describe is approximated by returning same-named translated R matrices/functions; Mata storage classes and compiled-code metadata are not reproduced.', rec.text)]);
+  }
+  let mataInline = t.match(/^mata\s*:\s*(.+)$/i);
+  if (mataInline) {
+    const saved = ctx.mata;
+    ctx.mata = true;
+    const out = translateMataLine(mataInline[1], ctx, rec);
+    ctx.mata = saved;
+    return out;
+  }
+  if (/^mata\s*:?\s*$/i.test(t)) {
+    ctx.mata = true; ctx.mataTypes.clear(); ctx.mataAwaitingBrace = false;
     return result('# ---- Mata block translated to R ----', 'exact', [], { statement: false, mataStart: true });
   }
   if (/^end\s*$/i.test(t)) {
@@ -5476,26 +6608,29 @@ function translateStataLine(text, ctx, rec) {
   else if (['stset','stcox','streg','sts','stsum','stcurve'].includes(cmd)) r = translateSurvival(cmd, rest, options, ctx, rec);
   else if (['mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg'].includes(cmd)) r = translateMixedModel(cmd, rest, options, ctx, rec);
   else if (['tsfill','tsappend','tssmooth','tsfilter'].includes(cmd)) r = translateTimeSeriesUtility(cmd, rest, options, ctx, rec);
-  else if (['arima','dfuller','corrgram','var','varsoc','vargranger','varlmar','varnorm','varstable','vec','vecrank','irf'].includes(cmd)) r = translateTimeSeriesModel(cmd, rest, options, ctx, rec);
+  else if (['arima','dfuller','dfgls','pperron','wntestq','corrgram','var','varsoc','vargranger','varlmar','varnorm','varstable','vec','vecrank','irf'].includes(cmd)) r = translateTimeSeriesModel(cmd, rest, options, ctx, rec);
   else if (['cross','joinby','fillin','split','separate','stack','xpose','range','insobs','ipolate','pctile','_pctile','xtile','mvencode','mvdecode','assertnested','ds','lookfor','compare','recast','compress','copy','rmdir','type','sysuse','webuse'].includes(cmd)) r = translateExtraData(cmd, rest, options, ctx, rec, by);
-  else if (['xtlogit','xtprobit','xtpoisson','xtologit','xtoprobit','xtgee'].includes(cmd)) r = translatePanelModel(cmd, rest, options, ctx, rec);
+  else if (['xtlogit','xtprobit','xtcloglog','xtpoisson','xtologit','xtoprobit','xtgee'].includes(cmd)) r = translatePanelModel(cmd, rest, options, ctx, rec);
   else if (['xtabond','xtdpdsys'].includes(cmd)) r = translateDynamicPanel(cmd, rest, options, ctx, rec);
   else if (['reghdfe','ivreghdfe','ppmlhdfe'].includes(cmd)) r = translateHdfeModel(cmd, rest, options, ctx, rec);
   else if (['heckman','intreg','fracreg','zip','zinb'].includes(cmd)) r = translateAdvancedModel(cmd, rest, options, ctx, rec);
   else if (['regress','areg','xtreg','logit','logistic','probit','cloglog','binreg','poisson','nbreg','qreg','rreg','newey','tobit','ologit','oprobit','mlogit','clogit'].includes(cmd)) r = translateModel(cmd, rest, options, ctx, rec);
   else if (cmd === 'ivregress') r = translateIv(rest, options, ctx, rec);
   else if (cmd === 'mi') r = translateMiCommand(rest, options, ctx, rec);
+  else if (cmd === 'misstable') r = translateMisstable(rest, options, ctx, rec);
   else if (cmd === 'glm') {
     const core = parseModelCore(rest, ctx); const model = nextModel(ctx); const family = optionValue(options, 'family') || 'gaussian'; const link = optionValue(options, 'link') || 'identity';
     r = result(`${model} <- stats::glm(${core.dep} ~ ${formulaTerms(core.rhs, ctx)}, data = ${modelDataExpr(ctx, core.subset)}, family = stats::${cleanIdentifier(family, family)}(link = "${escapeRString(link)}")${core.weight ? `, weights = ${core.weight}` : ''})`, 'heuristic', [diag(rec.line, 'warning', 'glm family/link were mapped to R glm(); verify Stata-specific family parameters, dispersion, scale, and VCE.', rec.text)]);
   }
-  else if (['summarize','tabulate','tabstat','correlate','pwcorr'].includes(cmd)) r = translateSummaries(cmd, rest, options, ctx, rec);
-  else if (['ttest','ranksum','oneway','anova'].includes(cmd)) r = translateTests(cmd, rest, options, ctx, rec);
+  else if (['summarize','tabulate','tab1','tab2','tabstat','correlate','pwcorr','spearman','alpha'].includes(cmd)) r = translateSummaries(cmd, rest, options, ctx, rec, by);
+  else if (['ttest','ranksum','signrank','signtest','kwallis','oneway','anova'].includes(cmd)) r = translateTests(cmd, rest, options, ctx, rec, by);
   else if (['predict','margins','marginsplot','lincom','nlcom','test','testnl','estat','estimates','linktest'].includes(cmd)) r = translatePostestimation(cmd, rest, options, ctx, rec);
   else if (['histogram','kdensity','scatter','line','twoway','graph'].includes(cmd)) r = translateGraph(cmd, rest, options, ctx, rec);
   else if (['clear','rename','sort','gsort','order','clonevar','count','assert','isid','duplicates','expand','contract','sample','describe','codebook','inspect','list','recode','encode','decode','destring','tostring','label','format'].includes(cmd)) r = translateDataUtility(cmd, rest, options, ctx, rec, by);
   else if (['frame','frget','frlink','fralias'].includes(cmd)) r = translateFrames(cmd, rest, options, ctx, rec);
-  else if (['local','global','macro','tokenize','gettoken','tempfile','tempvar','tempname','scalar','matrix','program','syntax','args','return','ereturn','sreturn','creturn','display','version','which','help','about','do','run','include','levelsof','unab','numlist','confirm'].includes(cmd)) r = translateProgramming(cmd, rest, options, ctx, rec);
+  else if (['putmata','getmata'].includes(cmd)) r = translatePutGetMata(cmd, rest, options, ctx, rec);
+  else if (['matrix','mkmat','svmat','matlist'].includes(cmd)) r = translateMatrixProgramming(cmd, rest, options, ctx, rec);
+  else if (['local','global','macro','tokenize','gettoken','tempfile','tempvar','tempname','scalar','program','syntax','args','return','ereturn','sreturn','creturn','display','version','which','help','about','do','run','include','levelsof','unab','numlist','confirm'].includes(cmd)) r = translateProgramming(cmd, rest, options, ctx, rec);
   else if (cmd === 'preserve') {
     ctx.preserveCounter += 1; const name = `.__preserved_${ctx.preserveCounter}`; ctx.preserveStack.push(name); r = result(`${name} <- data.table::copy(${ctx.currentData})`, 'exact');
   }
@@ -5534,7 +6669,7 @@ function translateStataLine(text, ctx, rec) {
     r = result(`# TODO [Stata line ${rec.line}]: ${rec.text.trim()}`, 'review', [diag(rec.line, 'review', `Command “${rawCmd}” is not translated safely. It may be community-contributed or require command-specific semantics.`, rec.text)]);
   }
 
-  const eClassCommands = new Set(['regress','areg','xtreg','xtlogit','xtprobit','xtpoisson','xtgee','xtabond','xtdpdsys','reghdfe','ivreghdfe','ppmlhdfe','heckman','intreg','fracreg','zip','zinb','logit','logistic','probit','cloglog','binreg','poisson','nbreg','qreg','rreg','newey','tobit','ologit','oprobit','mlogit','clogit','ivregress','glm','mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg','arima','stcox','streg']);
+  const eClassCommands = new Set(['regress','areg','xtreg','xtlogit','xtprobit','xtcloglog','xtpoisson','xtgee','xtabond','xtdpdsys','reghdfe','ivreghdfe','ppmlhdfe','heckman','intreg','fracreg','zip','zinb','logit','logistic','probit','cloglog','binreg','poisson','nbreg','qreg','rreg','newey','tobit','ologit','oprobit','mlogit','clogit','ivregress','glm','mixed','meglm','melogit','meprobit','mecloglog','meologit','meoprobit','mepoisson','menbreg','arima','stcox','streg']);
   if (eClassCommands.has(cmd) && ctx.lastModel && r.confidence !== 'review') {
     ctx.features.add('results');
     r.lines = [...r.lines, `.do2r_e <- stata_e_from_model(${ctx.lastModel}, cmd = "${escapeRString(cmd)}")`];
@@ -6529,6 +7664,82 @@ stata_missing_compare <- function(x, op, tag = "") {
     bit
   }), use.names = FALSE))
 }`);
+  if (features.has('egen')) blocks.push(`stata_egen_missing <- function(x) {
+  if (is.character(x)) is.na(x) | x == "" else is.na(x)
+}
+stata_egen_group <- function(DT, missing = FALSE) {
+  DT <- data.table::as.data.table(DT)
+  if (!ncol(DT)) return(rep(NA_integer_, nrow(DT)))
+  miss <- Reduce(`|`, lapply(DT, stata_egen_missing))
+  out <- rep(NA_integer_, nrow(DT))
+  keep <- if (missing) rep(TRUE, nrow(DT)) else !miss
+  if (any(keep)) out[keep] <- data.table::frankv(DT[keep], ties.method = "dense", na.last = if (missing) TRUE else "keep")
+  out
+}
+stata_egen_tag <- function(DT, missing = FALSE) {
+  DT <- data.table::as.data.table(DT)
+  if (!ncol(DT)) return(integer(nrow(DT)))
+  miss <- Reduce(`|`, lapply(DT, stata_egen_missing))
+  code <- stata_egen_group(DT, missing = TRUE)
+  keep <- if (missing) rep(TRUE, nrow(DT)) else !miss
+  out <- integer(nrow(DT))
+  out[keep & !duplicated(code)] <- 1L
+  out
+}
+stata_egen_mode <- function(x, missing = FALSE, ties = c("missing", "min", "max"), nummode = NULL) {
+  ties <- match.arg(ties)
+  miss <- stata_egen_missing(x)
+  z <- if (missing) x else x[!miss]
+  missing_value <- if (is.character(x)) NA_character_ else NA_real_
+  if (!length(z)) return(missing_value)
+  u <- unique(z)
+  counts <- tabulate(match(z, u), nbins = length(u))
+  modes <- u[counts == max(counts)]
+  if (length(modes) == 1L) return(modes[[1L]])
+  modes <- sort(modes, na.last = TRUE)
+  if (!is.null(nummode)) {
+    k <- as.integer(nummode)[1L]
+    return(if (!is.na(k) && k >= 1L && k <= length(modes)) modes[[k]] else missing_value)
+  }
+  if (ties == "min") return(modes[[1L]])
+  if (ties == "max") return(modes[[length(modes)]])
+  missing_value
+}
+stata_egen_skew <- function(x) {
+  z <- x[!is.na(x)]
+  if (!length(z)) return(NA_real_)
+  m <- mean(z); m2 <- mean((z - m)^2)
+  if (!is.finite(m2) || m2 == 0) return(NA_real_)
+  mean((z - m)^3) / (m2^(3 / 2))
+}
+stata_egen_kurt <- function(x) {
+  z <- x[!is.na(x)]
+  if (!length(z)) return(NA_real_)
+  m <- mean(z); m2 <- mean((z - m)^2)
+  if (!is.finite(m2) || m2 == 0) return(NA_real_)
+  mean((z - m)^4) / (m2^2)
+}
+stata_egen_cut <- function(x, at = NULL, groups = NULL, icodes = FALSE) {
+  stopifnot(xor(is.null(at), is.null(groups)))
+  if (!is.null(at)) {
+    at <- as.numeric(at)
+    stopifnot(length(at) >= 2L, all(diff(at) > 0))
+    idx <- findInterval(x, at, rightmost.closed = FALSE)
+    ok <- !is.na(x) & idx >= 1L & idx < length(at)
+    out <- rep(NA_real_, length(x))
+    out[ok] <- if (icodes) idx[ok] - 1L else at[idx[ok]]
+    return(out)
+  }
+  groups <- as.integer(groups)[1L]
+  stopifnot(!is.na(groups), groups >= 1L)
+  r <- data.table::frank(x, ties.method = "average", na.last = "keep")
+  n <- sum(!is.na(r))
+  if (!n) return(rep(NA_integer_, length(x)))
+  out <- rep(NA_integer_, length(x))
+  ok <- !is.na(r)
+  out[ok] <- pmin(groups - 1L, floor((r[ok] - 1) * groups / n))
+  out
+}`);
   if (features.has('numlist')) blocks.push(`stata_numlist <- function(spec) {
   bits <- strsplit(trimws(as.character(spec)), "\\\\s+")[[1L]]
   unlist(lapply(bits, function(bit) {
@@ -7136,6 +8347,496 @@ stata_ts_diff <- function(x, n = 1L, panel = NULL, time = NULL, delta = 1) {
 stata_ts_seasonal_diff <- function(x, n = 1L, panel = NULL, time = NULL, delta = 1) {
   x - stata_ts_shift(x, as.integer(n), "lag", panel, time, delta)
 }`);
+  if (features.has('matrix_io')) blocks.push(`stata_matrix_safe_name <- function(x) {
+  x <- gsub("[ .]", "_", as.character(x))
+  x <- gsub("[^A-Za-z0-9_]", "_", x)
+  x <- ifelse(grepl("^[A-Za-z_]", x), x, paste0("_", x))
+  make.unique(x, sep = "_")
+}
+stata_mkmat <- function(DT, vars, subset = rep(TRUE, nrow(DT)), nomissing = FALSE, rownames_var = NULL, roweq_var = NULL, obs = FALSE, rowprefix = NULL, nchar = 32L) {
+  vars <- as.character(vars); stopifnot(length(vars) > 0L, all(vars %in% names(DT)))
+  keep <- rep_len(as.logical(subset), nrow(DT)); keep[is.na(keep)] <- FALSE
+  if (isTRUE(nomissing)) keep <- keep & stats::complete.cases(DT[, .SD, .SDcols = vars])
+  M <- as.matrix(DT[keep, .SD, .SDcols = vars])
+  if (!is.numeric(M)) suppressWarnings(storage.mode(M) <- "double")
+  colnames(M) <- vars
+  nchar <- max(1L, min(32L, as.integer(nchar)[1L]))
+  clean <- function(z) substr(gsub("[ .]", "_", as.character(z)), 1L, nchar)
+  if (isTRUE(obs)) rn <- as.character(which(keep))
+  else if (!is.null(rownames_var)) {
+    if (!rownames_var %in% names(DT)) stop("mkmat rownames() variable not found")
+    rn <- clean(DT[[rownames_var]][keep])
+  } else rn <- paste0(if (is.null(rowprefix)) "r" else clean(rowprefix), seq_len(nrow(M)))
+  if (!is.null(rowprefix) && !isTRUE(obs) && !is.null(rownames_var)) rn <- paste0(clean(rowprefix), rn)
+  rownames(M) <- rn
+  if (!is.null(roweq_var)) {
+    if (!roweq_var %in% names(DT)) stop("mkmat roweq() variable not found")
+    attr(M, "stata_row_eq") <- clean(DT[[roweq_var]][keep])
+  }
+  M
+}
+stata_svmat <- function(DT, A, matrix_name = "A", names_mode = c("default", "col", "eqcol", "matcol", "stub"), stub = matrix_name) {
+  names_mode <- match.arg(names_mode); M <- as.matrix(A); k <- ncol(M); n <- nrow(M)
+  if (nrow(DT) < n) {
+    add <- n - nrow(DT)
+    extra <- data.table::as.data.table(lapply(DT, function(x) {
+      if (is.character(x)) rep(NA_character_, add) else if (is.integer(x)) rep(NA_integer_, add) else rep(NA_real_, add)
+    }))
+    DT <- data.table::rbindlist(list(DT, extra), use.names = TRUE, fill = TRUE)
+  }
+  cn <- colnames(M); if (is.null(cn)) cn <- rep("", k)
+  ceq <- attr(A, "stata_col_eq"); if (is.null(ceq)) ceq <- rep("", k) else ceq <- rep_len(as.character(ceq), k)
+  out_names <- switch(names_mode,
+    col = ifelse(nzchar(cn), cn, paste0(matrix_name, seq_len(k))),
+    eqcol = ifelse(nzchar(cn), paste0(ifelse(nzchar(ceq), paste0(ceq, "_"), ""), cn), paste0(matrix_name, seq_len(k))),
+    matcol = ifelse(nzchar(cn), paste0(matrix_name, cn), paste0(matrix_name, seq_len(k))),
+    stub = paste0(stub, seq_len(k)),
+    paste0(matrix_name, seq_len(k)))
+  out_names <- stata_matrix_safe_name(out_names)
+  for (j in seq_len(k)) {
+    value <- rep(NA_real_, nrow(DT)); value[seq_len(n)] <- as.numeric(M[, j])
+    data.table::set(DT, j = out_names[j], value = value)
+  }
+  DT
+}
+stata_matrix_accum <- function(DT, vars, subset = rep(TRUE, nrow(DT)), weight = NULL, weight_type = "", noconstant = FALSE, deviations = FALSE, vec = FALSE) {
+  vars <- as.character(vars); stopifnot(length(vars) > 0L, all(vars %in% names(DT)))
+  keep <- rep_len(as.logical(subset), nrow(DT)); keep[is.na(keep)] <- FALSE
+  keep <- keep & stats::complete.cases(DT[, .SD, .SDcols = vars])
+  w <- if (is.null(weight)) rep(1, nrow(DT)) else as.numeric(weight)
+  keep <- keep & !is.na(w)
+  X0 <- as.matrix(DT[keep, .SD, .SDcols = vars]); storage.mode(X0) <- "double"; w <- w[keep]
+  N <- nrow(X0); wt <- tolower(as.character(weight_type)[1L])
+  if (wt %in% c("aw", "aweight") && length(w) && sum(w) != 0) w <- w * N / sum(w)
+  means <- if (N) colSums(X0 * w) / sum(w) else rep(NA_real_, length(vars))
+  means_mat <- matrix(means, nrow = 1L, dimnames = list("_cons", vars))
+  if (isTRUE(vec)) {
+    y <- X0[, 1L]; Z <- X0[, -1L, drop = FALSE]
+    zn <- vars[-1L]
+    if (!isTRUE(noconstant)) { Z <- cbind(Z, 1); colnames(Z)[ncol(Z)] <- "_cons"; zn <- c(zn, "_cons") }
+    ans <- matrix(as.numeric(crossprod(y, Z * w)), nrow = 1L, dimnames = list(vars[1L], zn))
+  } else if (isTRUE(deviations)) {
+    centered <- sweep(X0, 2L, means, "-")
+    core <- crossprod(centered, centered * w)
+    dimnames(core) <- list(vars, vars)
+    if (isTRUE(noconstant)) ans <- core
+    else {
+      sums <- colSums(X0 * w)
+      ans <- rbind(cbind(core, sums), c(sums, sum(w)))
+      dimnames(ans) <- list(c(vars, "_cons"), c(vars, "_cons"))
+    }
+  } else {
+    Z <- X0; zn <- vars
+    if (!isTRUE(noconstant)) { Z <- cbind(Z, 1); colnames(Z)[ncol(Z)] <- "_cons"; zn <- c(zn, "_cons") }
+    ans <- crossprod(Z, Z * w); dimnames(ans) <- list(zn, zn)
+  }
+  list(matrix = ans, means = means_mat, N = N, sum_w = sum(w))
+}
+stata_matrix_score <- function(DT, b, equation = NULL, missval = NA_real_, forcezero = FALSE) {
+  B <- as.matrix(b)
+  if (nrow(B) == 1L) { coef <- as.numeric(B[1L, ]); nm <- colnames(B); eq <- attr(b, "stata_col_eq") }
+  else if (ncol(B) == 1L) { coef <- as.numeric(B[, 1L]); nm <- rownames(B); eq <- attr(b, "stata_row_eq") }
+  else stop("matrix score requires a row or column coefficient vector")
+  if (is.null(nm) || length(nm) != length(coef)) stop("matrix score needs coefficient row/column names")
+  eq <- if (is.null(eq)) rep("", length(coef)) else rep_len(as.character(eq), length(coef))
+  # Also recognize R/Stata full names of the form equation:coefficient.
+  has_colon <- grepl(":", nm, fixed = TRUE)
+  eq[has_colon & !nzchar(eq)] <- sub(":.*$", "", nm[has_colon & !nzchar(eq)])
+  nm[has_colon] <- sub("^[^:]*:", "", nm[has_colon])
+  if (!is.null(equation)) {
+    spec <- as.character(equation)[1L]
+    if (grepl("^#[0-9]+$", spec)) {
+      lev <- unique(eq[nzchar(eq)]); idx <- as.integer(sub("^#", "", spec)); wanted <- if (idx >= 1L && idx <= length(lev)) lev[idx] else NA_character_
+    } else wanted <- spec
+    take <- eq == wanted
+    if (!any(take)) stop("matrix score equation() was not found in coefficient names")
+    coef <- coef[take]; nm <- nm[take]
+  } else if (any(nzchar(eq))) {
+    first <- eq[which(nzchar(eq))[1L]]; take <- eq == first; coef <- coef[take]; nm <- nm[take]
+  }
+  out <- rep(0, nrow(DT)); bad <- rep(FALSE, nrow(DT))
+  for (j in seq_along(coef)) {
+    name <- nm[j]
+    if (name %in% c("_cons", "(Intercept)")) { out <- out + coef[j]; next }
+    if (!name %in% names(DT)) {
+      if (isTRUE(forcezero)) next
+      stop(sprintf("matrix score predictor %s is not in the dataset", name))
+    }
+    x <- as.numeric(DT[[name]]); bad <- bad | is.na(x); out <- out + coef[j] * data.table::fcoalesce(x, 0)
+  }
+  out[bad] <- as.numeric(missval)[1L]
+  out
+}`);
+  if (features.has('putgetmata')) blocks.push(`stata_putmata_rows <- function(DT, subset = rep(TRUE, nrow(DT)), vars = character(), omitmissing = FALSE) {
+  keep <- rep_len(as.logical(subset), nrow(DT)); keep[is.na(keep)] <- FALSE
+  vars <- unique(as.character(vars)); vars <- vars[vars %in% names(DT)]
+  if (isTRUE(omitmissing) && length(vars)) {
+    numeric_vars <- vars[vapply(DT[, .SD, .SDcols = vars], function(x) is.numeric(x) || is.integer(x) || is.logical(x), logical(1L))]
+    if (length(numeric_vars)) keep <- keep & stats::complete.cases(DT[, .SD, .SDcols = numeric_vars])
+  }
+  which(keep)
+}
+stata_putmata_matrix <- function(DT, pieces, rows, require_one = FALSE) {
+  cols <- list(); kinds <- character()
+  for (piece in pieces) {
+    if (!is.null(piece$vars)) {
+      vars <- as.character(piece$vars)
+      if (!length(vars) || any(!vars %in% names(DT))) stop("putmata source variable not found")
+      for (nm in vars) {
+        x <- DT[[nm]][rows]
+        if (is.character(x) || is.factor(x)) { x <- as.character(x); kinds <- c(kinds, "string") }
+        else if (is.numeric(x) || is.integer(x) || is.logical(x)) { x <- as.numeric(x); kinds <- c(kinds, "numeric") }
+        else stop("putmata supports numeric and string variables")
+        cols[[length(cols) + 1L]] <- x
+        names(cols)[length(cols)] <- nm
+      }
+    } else if (!is.null(piece$const)) {
+      cols[[length(cols) + 1L]] <- rep(as.numeric(piece$const)[1L], length(rows)); kinds <- c(kinds, "numeric")
+      names(cols)[length(cols)] <- ""
+    }
+  }
+  if (isTRUE(require_one) && length(cols) != 1L) stop("putmata vecname=varname requires exactly one source variable")
+  if (!length(cols)) return(matrix(numeric(), nrow = length(rows), ncol = 0L))
+  if (length(unique(kinds)) > 1L) stop("Mata matrices cannot mix numeric and string columns")
+  M <- do.call(cbind, cols)
+  if (is.null(dim(M))) M <- matrix(M, ncol = 1L)
+  colnames(M) <- names(cols)
+  if (identical(kinds[1L], "string")) storage.mode(M) <- "character" else storage.mode(M) <- "double"
+  M
+}
+stata_putmata_vectors <- function(DT, vars, rows) {
+  vars <- as.character(vars)
+  if (any(!vars %in% names(DT))) stop("putmata source variable not found")
+  stats::setNames(lapply(vars, function(nm) stata_putmata_matrix(DT, list(list(vars = nm)), rows, require_one = TRUE)), vars)
+}
+stata_putmata_assign <- function(objects, replace = FALSE, env = parent.frame()) {
+  nms <- names(objects)
+  if (is.null(nms) || any(!nzchar(nms))) stop("putmata generated an unnamed Mata object")
+  if (anyDuplicated(nms)) stop("putmata destination names must be unique")
+  if (!isTRUE(replace)) {
+    conflict <- nms[vapply(nms, exists, logical(1L), envir = env, inherits = FALSE)]
+    if (length(conflict)) stop(sprintf("putmata Mata object already exists: %s", paste(conflict, collapse = ", ")))
+  }
+  for (i in seq_along(objects)) assign(nms[i], objects[[i]], envir = env)
+  length(objects)
+}
+stata_getmata <- function(DT, specs, replace = FALSE, update = FALSE, id_var = NULL, id_values = NULL, force = FALSE) {
+  if (isTRUE(replace) && isTRUE(update)) stop("getmata replace and update cannot both be specified")
+  entries <- list()
+  for (spec in specs) {
+    M <- if (is.null(dim(spec$value))) matrix(spec$value, ncol = 1L) else as.matrix(spec$value)
+    if (!is.null(spec$stub)) targets <- paste0(as.character(spec$stub)[1L], seq_len(ncol(M)))
+    else targets <- as.character(spec$targets)
+    if (length(targets) != ncol(M)) stop("getmata destination count does not match source matrix columns")
+    for (j in seq_len(ncol(M))) entries[[length(entries) + 1L]] <- list(target = targets[j], value = M[, j], n = nrow(M))
+  }
+  if (!length(entries)) return(list(data = DT, K_new = 0L, K_existing = 0L))
+  targets <- vapply(entries, function(z) z$target, character(1L))
+  if (anyDuplicated(targets)) stop("getmata destination variable names must be unique")
+  existed <- targets %in% names(DT)
+  if (any(existed) && !isTRUE(replace) && !isTRUE(update)) stop("getmata destination variable already exists; specify replace or update")
+
+  id_mode <- !is.null(id_var)
+  if (id_mode) {
+    id_var <- as.character(id_var)[1L]
+    if (!id_var %in% names(DT)) stop("getmata id() variable not found in data")
+    ids <- as.vector(id_values)
+    if (!length(ids)) stop("getmata id() Mata vector is empty")
+    if (anyDuplicated(DT[[id_var]]) || anyDuplicated(ids)) stop("getmata id() requires unique identifiers in both Stata data and Mata vector")
+    if (any(vapply(entries, function(z) z$n != length(ids), logical(1L)))) stop("getmata source rows must conform to the id() Mata vector")
+    map <- match(DT[[id_var]], ids)
+  } else {
+    ns <- vapply(entries, function(z) z$n, integer(1L))
+    if (!isTRUE(force) && any(ns != nrow(DT))) stop("getmata source rows do not match observations; use id() or force")
+    maxn <- max(ns, 0L)
+    if (isTRUE(force) && maxn > nrow(DT)) {
+      add <- maxn - nrow(DT)
+      extra <- data.table::as.data.table(lapply(DT, function(x) {
+        if (is.character(x) || is.factor(x)) rep(NA_character_, add)
+        else if (is.integer(x)) rep(NA_integer_, add)
+        else if (is.logical(x)) rep(NA, add)
+        else rep(NA_real_, add)
+      }))
+      DT <- data.table::rbindlist(list(DT, extra), use.names = TRUE, fill = TRUE)
+    }
+  }
+
+  for (i in seq_along(entries)) {
+    z <- entries[[i]]; target <- z$target; src <- as.vector(z$value); is_string <- is.character(src)
+    old_exists <- target %in% names(DT)
+    if (old_exists && isTRUE(update)) base <- DT[[target]]
+    else base <- if (is_string) rep(NA_character_, nrow(DT)) else rep(NA_real_, nrow(DT))
+    if (old_exists) {
+      old_string <- is.character(DT[[target]]) || is.factor(DT[[target]])
+      if (old_string != is_string) stop(sprintf("getmata type mismatch for existing variable %s", target))
+    }
+    if (id_mode) {
+      hit <- which(!is.na(map))
+      if (length(hit)) base[hit] <- src[map[hit]]
+    } else {
+      hit <- seq_len(min(length(src), nrow(DT)))
+      if (length(hit)) base[hit] <- src[hit]
+    }
+    data.table::set(DT, j = target, value = base)
+  }
+  list(data = DT, K_new = sum(!existed), K_existing = sum(existed))
+}`);
+  if (features.has('mata_bridge')) blocks.push(`mata_obs_index <- function(DT, obs = NA) {
+  n <- nrow(DT)
+  if (length(obs) == 1L && is.na(obs)) return(seq_len(n))
+  x <- as.vector(obs)
+  if (length(x) == 2L && is.numeric(x) && all(is.finite(x))) x <- seq.int(as.integer(x[1L]), as.integer(x[2L]))
+  x <- as.integer(x)
+  x[!is.na(x) & x >= 1L & x <= n]
+}
+mata_var_names <- function(DT, vars = NA) {
+  if (length(vars) == 1L && is.na(vars)) return(names(DT))
+  x <- as.vector(vars)
+  if (is.character(x)) {
+    if (length(x) == 1L && grepl("\\\\s", x)) x <- strsplit(trimws(x), "[[:space:]]+")[[1L]]
+    return(as.character(x))
+  }
+  idx <- as.integer(x)
+  if (anyNA(idx) || any(idx < 1L | idx > ncol(DT))) stop("Mata variable index is out of range")
+  names(DT)[idx]
+}
+mata_select_rows <- function(DT, select) {
+  if (is.null(select) || !length(select) || (length(select) == 1L && is.na(select))) return(seq_len(nrow(DT)))
+  x <- as.vector(select)
+  if ((is.character(x) || is.numeric(x)) && length(x) == 1L) {
+    nm <- if (is.numeric(x)) mata_var_names(DT, x) else as.character(x)
+    if (length(nm) == 1L && nm %in% names(DT)) return(which(!is.na(DT[[nm]]) & DT[[nm]] != 0))
+  }
+  if (length(x) != nrow(DT)) stop("Mata select vector must have one value per observation")
+  which(!is.na(x) & as.logical(x))
+}
+mata_st_data <- function(DT, obs = NA, vars = NA, select = NULL, strings = FALSE) {
+  rows <- mata_obs_index(DT, obs)
+  if (!is.null(select)) rows <- intersect(rows, mata_select_rows(DT, select))
+  cols <- mata_var_names(DT, vars)
+  if (!length(cols)) return(matrix(if (strings) character() else numeric(), nrow = length(rows), ncol = 0L))
+  vals <- lapply(cols, function(nm) {
+    x <- DT[[nm]][rows]
+    if (strings) {
+      if (is.character(x) || is.factor(x)) as.character(x) else rep("", length(x))
+    } else {
+      if (is.numeric(x) || is.integer(x) || is.logical(x)) as.numeric(x) else rep(NA_real_, length(x))
+    }
+  })
+  out <- do.call(cbind, vals)
+  if (is.null(dim(out))) out <- matrix(out, ncol = length(cols))
+  colnames(out) <- cols
+  out
+}
+mata_st_store <- function(DT, obs = NA, vars = NA, value, select = NULL, strings = FALSE) {
+  rows <- mata_obs_index(DT, obs)
+  if (!is.null(select)) rows <- intersect(rows, mata_select_rows(DT, select))
+  cols <- mata_var_names(DT, vars)
+  if (!length(rows) || !length(cols)) return(invisible(value))
+  M <- if (is.null(dim(value))) matrix(value, ncol = length(cols)) else as.matrix(value)
+  if (nrow(M) == 1L && length(rows) > 1L) M <- M[rep(1L, length(rows)), , drop = FALSE]
+  if (ncol(M) == 1L && length(cols) > 1L) M <- M[, rep(1L, length(cols)), drop = FALSE]
+  if (nrow(M) != length(rows) || ncol(M) != length(cols)) stop("Mata st_store()/st_sstore() value dimensions do not match target observations/variables")
+  if (isTRUE(strings)) storage.mode(M) <- "character" else storage.mode(M) <- "double"
+  for (j in seq_along(cols)) data.table::set(DT, i = rows, j = cols[j], value = M[, j])
+  invisible(value)
+}
+mata_st_addvar <- function(DT, type = "double", name = character(), nofill = 0) {
+  nms <- as.character(as.vector(name)); typ <- rep(as.character(as.vector(type)), length.out = length(nms))
+  if (any(nms %in% names(DT))) stop("Mata st_addvar() cannot add an existing variable")
+  for (j in seq_along(nms)) {
+    is_string <- grepl("^str", typ[j], ignore.case = TRUE)
+    data.table::set(DT, j = nms[j], value = if (is_string) rep(NA_character_, nrow(DT)) else rep(NA_real_, nrow(DT)))
+  }
+  invisible(match(nms, names(DT)))
+}
+mata_st_addobs <- function(DT, n) {
+  k <- as.integer(n)[1L]
+  if (is.na(k) || k < 0L) stop("Mata st_addobs() requires a nonnegative observation count")
+  if (k == 0L) return(DT)
+  extra <- data.table::as.data.table(lapply(DT, function(x) {
+    if (is.character(x)) rep(NA_character_, k)
+    else if (is.integer(x)) rep(NA_integer_, k)
+    else if (is.logical(x)) rep(NA, k)
+    else rep(NA_real_, k)
+  }))
+  data.table::rbindlist(list(DT, extra), use.names = TRUE, fill = TRUE)
+}
+mata_st_dropvar <- function(DT, vars) {
+  nms <- mata_var_names(DT, vars)
+  if (length(nms)) DT[, (nms) := NULL]
+  invisible(NULL)
+}
+mata_st_varindex <- function(DT, vars) {
+  x <- as.character(as.vector(vars)); ans <- match(x, names(DT))
+  ans[is.na(ans)] <- 0L
+  if (length(ans) == 1L) ans[[1L]] else ans
+}
+mata_st_varname <- function(DT, idx) {
+  i <- as.integer(as.vector(idx)); ans <- rep("", length(i)); ok <- !is.na(i) & i >= 1L & i <= ncol(DT); ans[ok] <- names(DT)[i[ok]]
+  if (length(ans) == 1L) ans[[1L]] else ans
+}
+mata_st_vartype <- function(DT, vars) {
+  nms <- mata_var_names(DT, vars)
+  ans <- vapply(nms, function(nm) {
+    x <- DT[[nm]]
+    if (is.character(x)) {
+      w <- suppressWarnings(max(nchar(x), na.rm = TRUE)); if (!is.finite(w)) w <- 1L
+      paste0("str", max(1L, as.integer(w)))
+    } else if (is.integer(x)) "long"
+    else "double"
+  }, character(1L))
+  if (length(ans) == 1L) ans[[1L]] else ans
+}
+mata_st_isnumvar <- function(DT, var) {
+  nm <- mata_var_names(DT, var); if (length(nm) != 1L) stop("Mata st_isnumvar() requires one variable")
+  is.numeric(DT[[nm]]) || is.integer(DT[[nm]]) || is.logical(DT[[nm]])
+}
+mata_st_isstrvar <- function(DT, var) {
+  nm <- mata_var_names(DT, var); if (length(nm) != 1L) stop("Mata st_isstrvar() requires one variable")
+  is.character(DT[[nm]]) || is.factor(DT[[nm]])
+}
+mata_st_isname <- function(x) {
+  z <- as.character(x)[1L]
+  nzchar(z) && nchar(z, type = "chars") <= 32L && grepl("^[\\\\p{L}_][\\\\p{L}\\\\p{N}_]*$", z, perl = TRUE)
+}
+mata_st_varrename <- function(DT, old, new) {
+  oldn <- mata_var_names(DT, old); newn <- as.character(as.vector(new))
+  if (length(oldn) != length(newn)) stop("Mata st_varrename() needs the same number of old and new names")
+  data.table::setnames(DT, oldn, newn)
+  invisible(match(newn, names(DT)))
+}
+mata_result_ref <- function(name) {
+  m <- regexec("^([res])\\\\(([^)]+)\\\\)$", as.character(name), ignore.case = TRUE)
+  hit <- regmatches(as.character(name), m)[[1L]]
+  if (!length(hit)) return(NULL)
+  list(obj = paste0(".do2r_", tolower(hit[2L])), key = hit[3L])
+}
+mata_st_matrix <- function(name, value, env = parent.frame()) {
+  nm <- as.character(name)[1L]; ref <- mata_result_ref(nm)
+  if (missing(value)) {
+    if (!is.null(ref)) {
+      holder <- get0(ref$obj, envir = env, inherits = TRUE, ifnotfound = list())
+      return(holder[[ref$key]])
+    }
+    return(get(nm, envir = env, inherits = TRUE))
+  }
+  value <- as.matrix(value)
+  if (!is.null(ref)) {
+    holder <- get0(ref$obj, envir = env, inherits = TRUE, ifnotfound = list()); holder[[ref$key]] <- value; assign(ref$obj, holder, envir = env)
+  } else assign(nm, value, envir = env)
+  invisible(value)
+}
+mata_st_numscalar <- function(name, value, env = parent.frame()) {
+  nm <- as.character(name)[1L]; ref <- mata_result_ref(nm)
+  if (missing(value)) {
+    if (!is.null(ref)) {
+      holder <- get0(ref$obj, envir = env, inherits = TRUE, ifnotfound = list())
+      return(holder[[ref$key]])
+    }
+    return(get(nm, envir = env, inherits = TRUE))
+  }
+  value <- as.numeric(value)[1L]
+  if (!is.null(ref)) {
+    holder <- get0(ref$obj, envir = env, inherits = TRUE, ifnotfound = list()); holder[[ref$key]] <- value; assign(ref$obj, holder, envir = env)
+  } else assign(nm, value, envir = env)
+  invisible(value)
+}
+mata_st_tempname <- function(n = 1L) sprintf(".__mata_%08x", sample.int(.Machine$integer.max, as.integer(n)))
+mata_st_rclear <- function(which = "r", env = parent.frame()) {
+  for (w in tolower(as.character(as.vector(which)))) {
+    if (w %in% c("r", "e", "s")) assign(paste0(".do2r_", w), list(), envir = env)
+  }
+  invisible(NULL)
+}`);
+  if (features.has('mata_utils')) blocks.push(`mata_J <- function(r, c, value) {
+  r <- as.integer(r)[1L]; c <- as.integer(c)[1L]
+  if (length(value) == 1L) matrix(value, nrow = r, ncol = c) else kronecker(matrix(1, r, c), as.matrix(value))
+}
+mata_diag <- function(x) diag(as.vector(x), nrow = length(as.vector(x)))
+mata_select <- function(x, sel) {
+  X <- as.matrix(x); keep <- as.logical(as.vector(sel))
+  if (nrow(X) == 1L && length(keep) == ncol(X)) return(X[, keep, drop = FALSE])
+  if (length(keep) == nrow(X)) return(X[keep, , drop = FALSE])
+  stop("Mata select() selector length does not match rows or columns")
+}
+mata_order <- function(x, cols = 1L) {
+  X <- as.matrix(x); spec <- as.integer(as.vector(cols)); if (!length(spec)) spec <- 1L
+  keys <- lapply(spec, function(j) {
+    k <- abs(j); if (k < 1L || k > ncol(X)) stop("Mata order() column index is out of range")
+    z <- xtfrm(X[, k]); if (j < 0L) -z else z
+  })
+  do.call(order, c(keys, list(na.last = TRUE)))
+}
+mata_sort <- function(x, cols = 1L) { X <- as.matrix(x); X[mata_order(X, cols), , drop = FALSE] }
+mata_uniqrows <- function(x) { X <- as.matrix(x); X[!duplicated(as.data.frame(X, stringsAsFactors = FALSE)), , drop = FALSE] }
+mata_range <- function(from, to, delta = 1) matrix(seq(from = as.numeric(from)[1L], to = as.numeric(to)[1L], by = as.numeric(delta)[1L]), ncol = 1L)
+mata_vech <- function(x) { X <- as.matrix(x); X[lower.tri(X, diag = TRUE)] }
+mata_rowshape <- function(x, cols) matrix(as.vector(t(as.matrix(x))), ncol = as.integer(cols)[1L], byrow = TRUE)
+mata_colshape <- function(x, rows) matrix(as.vector(as.matrix(x)), nrow = as.integer(rows)[1L])
+mata_blockdiag <- function(...) {
+  xs <- lapply(list(...), as.matrix); nr <- sum(vapply(xs, nrow, integer(1L))); nc <- sum(vapply(xs, ncol, integer(1L)))
+  out <- matrix(0, nr, nc); r <- c <- 1L
+  for (x in xs) { out[r:(r + nrow(x) - 1L), c:(c + ncol(x) - 1L)] <- x; r <- r + nrow(x); c <- c + ncol(x) }
+  out
+}
+mata_triangle <- function(x, lower = TRUE, k = 0) {
+  X <- as.matrix(x); k <- as.integer(k)[1L]
+  keep <- if (lower) row(X) >= col(X) - k else row(X) <= col(X) - k
+  X[!keep] <- 0; X
+}
+mata_makesymmetric <- function(x) { X <- as.matrix(x); X[upper.tri(X)] <- t(X)[upper.tri(X)]; X }
+mata_pinv <- function(x, tol = sqrt(.Machine$double.eps)) {
+  X <- as.matrix(x); s <- svd(X); keep <- s$d > max(s$d, 0) * tol
+  if (!any(keep)) return(matrix(0, ncol(X), nrow(X)))
+  s$v[, keep, drop = FALSE] %*% (t(s$u[, keep, drop = FALSE]) / s$d[keep])
+}
+mata_cholesky <- function(x) t(chol(as.matrix(x)))
+mata_crossdev <- function(x, y = x) {
+  X <- as.matrix(x); Y <- as.matrix(y)
+  crossprod(sweep(X, 2L, colMeans(X), "-"), sweep(Y, 2L, colMeans(Y), "-"))
+}
+mata_tokens <- function(x) {
+  z <- trimws(as.character(x)[1L]); if (!nzchar(z)) return(matrix(character(), nrow = 1L))
+  m <- gregexpr('"[^"]*"|[^[:space:]]+', z, perl = TRUE)[[1L]]
+  tok <- regmatches(z, list(m))[[1L]]; tok <- gsub('^"|"$', '', tok)
+  matrix(tok, nrow = 1L)
+}
+mata_invtokens <- function(x, delimiter = " ") paste(as.vector(x), collapse = as.character(delimiter)[1L])
+mata_subinstr <- function(s, old, new, n = .Machine$integer.max) {
+  s <- as.character(s); old <- as.character(old)[1L]; new <- as.character(new)[1L]; n <- as.integer(n)[1L]
+  if (n >= .Machine$integer.max) return(gsub(old, new, s, fixed = TRUE))
+  vapply(s, function(one) { for (i in seq_len(max(0L, n))) { p <- regexpr(old, one, fixed = TRUE); if (p[1L] < 0L) break; one <- paste0(substr(one, 1L, p[1L]-1L), new, substr(one, p[1L]+attr(p, "match.length"), nchar(one))) }; one }, character(1L))
+}
+mata_runiform <- function(r, c) matrix(stats::runif(as.integer(r)[1L] * as.integer(c)[1L]), as.integer(r)[1L], as.integer(c)[1L])
+mata_rnormal <- function(r, c, mean = 0, sd = 1) matrix(stats::rnorm(as.integer(r)[1L] * as.integer(c)[1L], mean, sd), as.integer(r)[1L], as.integer(c)[1L])
+mata_rseed <- function(seed) { set.seed(as.integer(seed)[1L]); invisible(seed) }
+mata_apply_ignore_missing <- function(X, margin, fun) {
+  X <- as.matrix(X)
+  out <- apply(X, margin, function(z) { z <- z[!is.na(z)]; if (!length(z)) NA_real_ else fun(z) })
+  if (margin == 1L) matrix(out, ncol = 1L) else matrix(out, nrow = 1L)
+}
+mata_rowmin <- function(X) mata_apply_ignore_missing(X, 1L, min)
+mata_colmin <- function(X) mata_apply_ignore_missing(X, 2L, min)
+mata_rowmax <- function(X) mata_apply_ignore_missing(X, 1L, max)
+mata_colmax <- function(X) mata_apply_ignore_missing(X, 2L, max)
+mata_min <- function(X) { z <- as.vector(X); z <- z[!is.na(z)]; if (!length(z)) NA_real_ else min(z) }
+mata_max <- function(X) { z <- as.vector(X); z <- z[!is.na(z)]; if (!length(z)) NA_real_ else max(z) }
+mata_rowminmax <- function(X, usemiss = 0) {
+  if (!identical(as.numeric(usemiss)[1L], 0)) warning("Mata rowminmax(..., usemiss!=0): R cannot reproduce Stata's ordered extended missing values; ordinary NA values are ignored", call. = FALSE)
+  cbind(mata_rowmin(X), mata_rowmax(X))
+}
+mata_colminmax <- function(X, usemiss = 0) {
+  if (!identical(as.numeric(usemiss)[1L], 0)) warning("Mata colminmax(..., usemiss!=0): R cannot reproduce Stata's ordered extended missing values; ordinary NA values are ignored", call. = FALSE)
+  rbind(mata_colmin(X), mata_colmax(X))
+}
+mata_minmax <- function(X, usemiss = 0) {
+  if (!identical(as.numeric(usemiss)[1L], 0)) warning("Mata minmax(..., usemiss!=0): R cannot reproduce Stata's ordered extended missing values; ordinary NA values are ignored", call. = FALSE)
+  matrix(c(mata_min(X), mata_max(X)), nrow = 1L)
+}
+mata_rowmaxabs <- function(X) mata_rowmax(abs(as.matrix(X)))
+mata_colmaxabs <- function(X) mata_colmax(abs(as.matrix(X)))
+mata_editmissing <- function(X, value) { out <- X; out[is.na(out)] <- value; out }`);
   if (features.has('mata_mean')) blocks.push(`mata_mean <- function(x) if (is.null(dim(x))) mean(x) else colMeans(x)`);
   if (features.has('pctile')) blocks.push(`stata_quantile <- function(x, probs, altdef = FALSE) {
   x <- x[!is.na(x)]
@@ -7146,6 +8847,230 @@ stata_xtile <- function(x, cutpoints) {
   out <- findInterval(x, cutpoints, left.open = TRUE) + 1L
   out[is.na(x)] <- NA_integer_
   as.integer(out)
+}`);
+  if (features.has('pperron')) blocks.push(`stata_pperron_zero <- function(x, model = c("constant", "trend")) {
+  model <- match.arg(model)
+  x <- as.numeric(stats::na.omit(x))
+  if (length(x) < 3L) stop("Phillips-Perron test needs at least three nonmissing observations")
+  y <- x[-1L]
+  y_lag <- x[-length(x)]
+  n <- length(y)
+  if (model == "trend") {
+    trend <- seq_len(n) - n / 2
+    fit <- stats::lm(y ~ y_lag + trend)
+  } else fit <- stats::lm(y ~ y_lag)
+  sm <- summary(fit)$coefficients
+  alpha <- stats::coef(fit)[["y_lag"]]
+  se <- sm["y_lag", "Std. Error"]
+  list(Z_rho = unname(n * (alpha - 1)), Z_t = unname((alpha - 1) / se), lags = 0L, regression = fit)
+}`);
+  if (features.has('spearman')) blocks.push(`stata_spearman <- function(DT, vars, pairwise = FALSE, exact = FALSE, adjust = c("none", "bonferroni", "sidak")) {
+  adjust <- match.arg(adjust)
+  vars <- intersect(as.character(vars), names(DT))
+  stopifnot(length(vars) >= 2L)
+  X <- as.data.frame(DT[, .SD, .SDcols = vars])
+  k <- ncol(X)
+  rho <- matrix(NA_real_, k, k, dimnames = list(vars, vars))
+  obs <- matrix(0L, k, k, dimnames = list(vars, vars))
+  pval <- matrix(NA_real_, k, k, dimnames = list(vars, vars))
+  base_ok <- stats::complete.cases(X)
+  for (i in seq_len(k)) {
+    for (j in i:k) {
+      ok <- if (pairwise) stats::complete.cases(X[, c(i, j), drop = FALSE]) else base_ok
+      xi <- X[[i]][ok]; xj <- X[[j]][ok]
+      n <- length(xi)
+      obs[i, j] <- obs[j, i] <- n
+      if (i == j) {
+        rho[i, j] <- 1
+        pval[i, j] <- 0
+      } else if (n >= 2L) {
+        rho[i, j] <- rho[j, i] <- suppressWarnings(stats::cor(xi, xj, method = "spearman"))
+        tst <- tryCatch(suppressWarnings(stats::cor.test(xi, xj, method = "spearman", exact = isTRUE(exact) && k == 2L)), error = function(e) NULL)
+        if (!is.null(tst)) pval[i, j] <- pval[j, i] <- tst$p.value
+      }
+    }
+  }
+  m <- k * (k - 1L) / 2L
+  if (m > 0L && adjust != "none") {
+    idx <- upper.tri(pval) & !is.na(pval)
+    z <- pval[idx]
+    z <- if (adjust == "bonferroni") pmin(1, z * m) else 1 - (1 - z)^m
+    pval[idx] <- z
+    pval[lower.tri(pval)] <- t(pval)[lower.tri(pval)]
+  }
+  list(rho = rho, obs = obs, p = pval)
+}`);
+  if (features.has('misstable')) blocks.push(`stata_misstable_parts <- function(x, exok = FALSE) {
+  if (is.character(x)) {
+    sys <- is.na(x) | x == ""
+    return(list(system = sys, extended = rep(FALSE, length(x)), missing = sys))
+  }
+  tagged <- rep(FALSE, length(x))
+  if (is.numeric(x) && requireNamespace("haven", quietly = TRUE)) tagged <- haven::is_tagged_na(x)
+  sys <- is.na(x) & !tagged
+  ext <- tagged
+  list(system = sys, extended = ext, missing = sys | (!exok & ext))
+}
+stata_misstable_summary <- function(DT, vars = names(DT), all = FALSE) {
+  vars <- intersect(as.character(vars), names(DT))
+  one <- lapply(vars, function(v) {
+    x <- DT[[v]]
+    z <- stata_misstable_parts(x)
+    non <- !z$system & !z$extended
+    u <- unique(x[non])
+    data.table::data.table(
+      variable = v,
+      vartype = if (is.numeric(x)) "numeric" else if (is.character(x)) "string" else class(x)[1L],
+      N_system_missing = sum(z$system),
+      N_extended_missing = sum(z$extended),
+      N_nonmissing = sum(non),
+      N_unique = if (length(u) > 500L) NA_integer_ else length(u),
+      min = if (is.numeric(x) && any(non)) min(x[non]) else NA_real_,
+      max = if (is.numeric(x) && any(non)) max(x[non]) else NA_real_
+    )
+  })
+  out <- data.table::rbindlist(one, use.names = TRUE, fill = TRUE)
+  if (!isTRUE(all) && nrow(out)) out <- out[vartype == "numeric" & (N_system_missing + N_extended_missing) > 0L]
+  out[]
+}
+stata_misstable_generate <- function(DT, vars = names(DT), stub, exok = FALSE, all = FALSE, subset = rep(TRUE, nrow(DT))) {
+  vars <- intersect(as.character(vars), names(DT))
+  vars <- vars[vapply(DT[, .SD, .SDcols = vars], is.numeric, logical(1L))]
+  subset <- rep_len(as.logical(subset), nrow(DT)); subset[is.na(subset)] <- FALSE
+  made <- character()
+  for (v in vars) {
+    z <- stata_misstable_parts(DT[[v]], exok = exok)$missing
+    if (!isTRUE(all) && !any(z[subset])) next
+    nm <- paste0(stub, v)
+    val <- rep(NA_integer_, nrow(DT))
+    val[subset] <- as.integer(z[subset])
+    data.table::set(DT, j = nm, value = val)
+    made <- c(made, nm)
+  }
+  made
+}
+stata_misstable_patterns <- function(DT, vars = names(DT), exok = FALSE, bypatterns = FALSE) {
+  vars <- intersect(as.character(vars), names(DT))
+  vars <- vars[vapply(DT[, .SD, .SDcols = vars], is.numeric, logical(1L))]
+  if (!length(vars)) {
+    out <- data.table::data.table(pattern = character(), missing = integer(), frequency = integer(), percent = numeric())
+    attr(out, "N_complete") <- nrow(DT); attr(out, "N_incomplete") <- 0L; attr(out, "vars") <- vars
+    return(out)
+  }
+  miss <- vapply(DT[, .SD, .SDcols = vars], function(x) stata_misstable_parts(x, exok = exok)$missing, logical(nrow(DT)))
+  if (!is.matrix(miss)) miss <- matrix(miss, ncol = length(vars))
+  pattern <- apply(miss, 1L, function(z) paste0(ifelse(z, "+", "-"), collapse = ""))
+  nmiss <- rowSums(miss)
+  out <- data.table::data.table(pattern = pattern, missing = nmiss)[, .(frequency = .N), by = .(pattern, missing)]
+  out[, percent := if (nrow(DT)) 100 * frequency / nrow(DT) else NA_real_]
+  if (isTRUE(bypatterns)) data.table::setorder(out, missing, -frequency, pattern) else data.table::setorder(out, -frequency, missing, pattern)
+  attr(out, "N_complete") <- sum(nmiss == 0L)
+  attr(out, "N_incomplete") <- sum(nmiss > 0L)
+  attr(out, "vars") <- vars
+  out[]
+}`);
+  if (features.has('tabulate')) blocks.push(`stata_tab_missing <- function(x) {
+  if (is.character(x)) is.na(x) | x == "" else is.na(x)
+}
+stata_tab_levels <- function(x, missing = FALSE) {
+  miss <- stata_tab_missing(x)
+  vals <- unique(x[!miss])
+  vals <- tryCatch(sort(vals, na.last = TRUE), error = function(e) vals)
+  labs <- as.character(vals)
+  if (isTRUE(missing) && any(miss)) labs <- c(labs, "<missing>")
+  unique(labs)
+}
+stata_tab_labels <- function(x) {
+  miss <- stata_tab_missing(x)
+  z <- as.character(x)
+  z[miss] <- "<missing>"
+  z
+}
+stata_tabulate_oneway <- function(DT, var, weight = NULL, missing = FALSE, sort = FALSE) {
+  x <- DT[[var]]
+  miss <- stata_tab_missing(x)
+  w <- if (is.null(weight)) rep(1, length(x)) else as.numeric(weight)
+  keep <- !is.na(w) & (isTRUE(missing) | !miss)
+  if (!any(keep)) return(data.table::data.table(value = character(), frequency = numeric(), percent = numeric(), cumulative = numeric()))
+  vals <- stata_tab_labels(x[keep])
+  z <- data.table::data.table(value = vals, .w = w[keep])
+  out <- z[, .(frequency = sum(.w, na.rm = TRUE)), by = value]
+  lev <- stata_tab_levels(x[keep], missing = missing)
+  out[, .ord := match(value, lev)]
+  if (isTRUE(sort)) data.table::setorder(out, -frequency, .ord) else data.table::setorder(out, .ord)
+  out[, percent := if (sum(frequency) > 0) 100 * frequency / sum(frequency) else NA_real_]
+  out[, cumulative := cumsum(percent)]
+  out[, .ord := NULL]
+  out[]
+}
+stata_tabulate_generate <- function(DT, var, stub, subset = rep(TRUE, nrow(DT)), missing = FALSE) {
+  x <- DT[[var]]
+  miss <- stata_tab_missing(x)
+  subset <- rep_len(as.logical(subset), nrow(DT)); subset[is.na(subset)] <- FALSE
+  labels <- stata_tab_labels(x)
+  levels <- stata_tab_levels(x[subset], missing = missing)
+  for (i in seq_along(levels)) {
+    nm <- paste0(stub, i)
+    val <- rep(NA_integer_, nrow(DT))
+    eligible <- subset & (isTRUE(missing) | !miss)
+    val[eligible] <- as.integer(labels[eligible] == levels[i])
+    data.table::set(DT, j = nm, value = val)
+  }
+  invisible(paste0(stub, seq_along(levels)))
+}
+stata_tab_ordinal_assoc <- function(tab) {
+  nr <- nrow(tab); nc <- ncol(tab)
+  if (nr < 2L || nc < 2L) return(list(gamma = NA_real_, tau_b = NA_real_))
+  C <- 0; D <- 0
+  for (i in seq_len(nr)) for (j in seq_len(nc)) {
+    nij <- tab[i, j]
+    if (!is.finite(nij) || nij == 0) next
+    if (i < nr && j < nc) C <- C + nij * sum(tab[(i + 1L):nr, (j + 1L):nc, drop = FALSE])
+    if (i < nr && j > 1L) D <- D + nij * sum(tab[(i + 1L):nr, seq_len(j - 1L), drop = FALSE])
+  }
+  cell_pairs <- sum(tab * pmax(tab - 1, 0) / 2)
+  row_pairs <- sum(rowSums(tab) * pmax(rowSums(tab) - 1, 0) / 2) - cell_pairs
+  col_pairs <- sum(colSums(tab) * pmax(colSums(tab) - 1, 0) / 2) - cell_pairs
+  denom_g <- C + D
+  denom_t <- sqrt((C + D + row_pairs) * (C + D + col_pairs))
+  list(gamma = if (denom_g > 0) (C - D) / denom_g else NA_real_, tau_b = if (denom_t > 0) (C - D) / denom_t else NA_real_)
+}
+stata_tabulate_twoway <- function(DT, row, col, weight = NULL, missing = FALSE, rowsort = FALSE, colsort = FALSE, exact = FALSE) {
+  xr <- DT[[row]]; xc <- DT[[col]]
+  mr <- stata_tab_missing(xr); mc <- stata_tab_missing(xc)
+  w <- if (is.null(weight)) rep(1, nrow(DT)) else as.numeric(weight)
+  keep <- !is.na(w) & (isTRUE(missing) | (!mr & !mc))
+  if (!any(keep)) {
+    empty <- data.table::data.table(row = character(), col = character(), frequency = numeric(), row_percent = numeric(), col_percent = numeric(), cell_percent = numeric(), expected = numeric(), pearson_cell = numeric(), lr_cell = numeric())
+    return(list(table = empty, matrix = matrix(numeric(), 0L, 0L), row_values = character(), col_values = character(), tests = list(N = 0, chi2 = NA_real_, chi2_df = NA_integer_, chi2_p = NA_real_, lrchi2 = NA_real_, lrchi2_df = NA_integer_, lrchi2_p = NA_real_, cramer_v = NA_real_, gamma = NA_real_, tau_b = NA_real_, fisher_p = NA_real_)))
+  }
+  rr <- stata_tab_labels(xr[keep]); cc <- stata_tab_labels(xc[keep])
+  rlev <- stata_tab_levels(xr[keep], missing = missing); clev <- stata_tab_levels(xc[keep], missing = missing)
+  z <- data.frame(.row = factor(rr, levels = rlev), .col = factor(cc, levels = clev), .w = w[keep])
+  tab <- stats::xtabs(.w ~ .row + .col, data = z, drop.unused.levels = FALSE)
+  if (isTRUE(rowsort) && nrow(tab)) tab <- tab[order(rowSums(tab), decreasing = TRUE), , drop = FALSE]
+  if (isTRUE(colsort) && ncol(tab)) tab <- tab[, order(colSums(tab), decreasing = TRUE), drop = FALSE]
+  chi <- tryCatch(suppressWarnings(stats::chisq.test(tab, correct = FALSE)), error = function(e) NULL)
+  expected <- if (is.null(chi)) outer(rowSums(tab), colSums(tab)) / sum(tab) else chi$expected
+  long <- data.table::as.data.table(as.table(tab))
+  data.table::setnames(long, c("row", "col", "frequency"))
+  exp_long <- data.table::as.data.table(as.table(expected))
+  data.table::setnames(exp_long, c("row", "col", "expected"))
+  long <- exp_long[long, on = .(row, col)]
+  long[, row_percent := if (sum(frequency) > 0) 100 * frequency / sum(frequency) else NA_real_, by = row]
+  long[, col_percent := if (sum(frequency) > 0) 100 * frequency / sum(frequency) else NA_real_, by = col]
+  long[, cell_percent := if (sum(frequency) > 0) 100 * frequency / sum(frequency) else NA_real_]
+  long[, pearson_cell := ifelse(expected > 0, (frequency - expected)^2 / expected, NA_real_)]
+  long[, lr_cell := ifelse(frequency > 0 & expected > 0, 2 * frequency * log(frequency / expected), 0)]
+  lr <- sum(long$lr_cell, na.rm = TRUE)
+  df <- max(0L, (nrow(tab) - 1L) * (ncol(tab) - 1L))
+  assoc <- stata_tab_ordinal_assoc(tab)
+  chi_stat <- if (is.null(chi)) NA_real_ else unname(chi$statistic)
+  n <- sum(tab)
+  v <- if (is.finite(chi_stat) && n > 0 && min(nrow(tab) - 1L, ncol(tab) - 1L) > 0) sqrt(chi_stat / (n * min(nrow(tab) - 1L, ncol(tab) - 1L))) else NA_real_
+  fp <- if (isTRUE(exact) && nrow(tab) > 1L && ncol(tab) > 1L) tryCatch(stats::fisher.test(tab)$p.value, error = function(e) NA_real_) else NA_real_
+  tests <- list(N = n, chi2 = chi_stat, chi2_df = df, chi2_p = if (is.null(chi)) NA_real_ else chi$p.value, lrchi2 = lr, lrchi2_df = df, lrchi2_p = if (df > 0L) stats::pchisq(lr, df = df, lower.tail = FALSE) else NA_real_, cramer_v = v, gamma = assoc$gamma, tau_b = assoc$tau_b, fisher_p = fp)
+  list(table = long[], matrix = unclass(tab), row_values = rownames(tab), col_values = colnames(tab), tests = tests)
 }`);
   if (features.has('summarize')) blocks.push(`stata_summarize <- function(x, detail = FALSE) {
   z <- list(N = sum(!is.na(x)), mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE), min = min(x, na.rm = TRUE), max = max(x, na.rm = TRUE))
@@ -7276,7 +9201,7 @@ function buildHeader(ctx) {
   const packages = new Set(['data.table']);
   const featurePackages = {
     haven: 'haven', glue: 'glue', fixest: 'fixest', plm: 'plm', MASS: 'MASS', quantreg: 'quantreg', AER: 'AER',
-    nnet: 'nnet', survival: 'survival', flexsurv: 'flexsurv', marginaleffects: 'marginaleffects', car: 'car', modelsummary: 'modelsummary', ggplot2: 'ggplot2', readxl: 'readxl', openxlsx: 'openxlsx', arrow: 'arrow', survey: 'survey', lme4: 'lme4', ordinal: 'ordinal', urca: 'urca', vars: 'vars', reticulate: 'reticulate', collapse: 'collapse', geepack: 'geepack', mFilter: 'mFilter', mice: 'mice', pscl: 'pscl', sampleSelection: 'sampleSelection', sandwich: 'sandwich'
+    nnet: 'nnet', survival: 'survival', flexsurv: 'flexsurv', marginaleffects: 'marginaleffects', car: 'car', modelsummary: 'modelsummary', ggplot2: 'ggplot2', readxl: 'readxl', openxlsx: 'openxlsx', arrow: 'arrow', survey: 'survey', lme4: 'lme4', ordinal: 'ordinal', urca: 'urca', vars: 'vars', reticulate: 'reticulate', collapse: 'collapse', geepack: 'geepack', mFilter: 'mFilter', mice: 'mice', pscl: 'pscl', sampleSelection: 'sampleSelection', sandwich: 'sandwich', psych: 'psych'
   };
   for (const [f, p] of Object.entries(featurePackages)) if (ctx.features.has(f)) packages.add(p);
   const lines = [
@@ -7313,6 +9238,7 @@ export function translateStata(source, options = {}) {
     macros: new Map(),
     factorBases: new Map(),
     mataTypes: new Map(),
+    mataAwaitingBrace: false,
     mata: false, inputMode: null, pythonMode: false, pythonBuffer: [], pythonStartLine: null,
     indent: 0,
     stack: [],
